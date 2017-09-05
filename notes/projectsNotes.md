@@ -48,5 +48,5 @@ START JS MUST KNOW IF THE USER IS LOGGED IN OR NOT because it has to figure out 
 Yes: logged in: render Logo
 No: send error
 
-Once you know if they are logged in: 
+Once you know if they are logged in:
 location.replace('/')

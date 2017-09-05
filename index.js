@@ -16,6 +16,13 @@ app.get('/', function(req, res){
     res.sendFile(__dirname + '/index.html');
 });
 
+app.post('/register', function(req,res) {
+    console.log('made it!');
+    res.json({
+        success: true
+    });
+});
+
 app.listen(8080, function() {
     console.log("I'm listening.")
 });

@@ -19,10 +19,16 @@ class Welcome extends React.Component {
 class Register extends React.Component {
     submit(e) {
 
-        console.log(this.state.firstName);
-        // axios.post('/register', {
-        //     firstName: ''
-        // });
+        const {firstName, lastName, email, password } = this.state
+        // console.log(this.state.firstName);
+        // console.log(this.state.lastName);
+        // console.log(this.state.email);
+        // console.log(this.state.password);
+        axios.post('/register', { firstName, lastName, email, password }).then(res => {
+            console.log(res);
+        }).catch(e => {
+            console.log(e.stack);
+        });
     }
     handleChange(e) {
         console.log('setting state');
