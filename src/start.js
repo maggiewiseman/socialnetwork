@@ -57,8 +57,13 @@ class Logo extends React.Component {
     }
 }
 
+var pageToShow = <Logo />;
+if(location.pathname == '/Welcome') {
+    pageToShow = <Welcome />;
+}
+
 ReactDOM.render(
-    <Welcome />,
+    pageToShow,
     document.querySelector('main')
 );
 

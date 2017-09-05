@@ -55,8 +55,6 @@ function updateProfile(profileData) {
     return db.query(queryStr, profileData);
 }
 
-
-
 module.exports.addUser = addUser;
 module.exports.getUserInfo = getUserInfo;
 module.exports.addProfile = addProfile;

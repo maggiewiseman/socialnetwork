@@ -23,8 +23,24 @@ app.use(cookieSession({
 app.use(express.static('./public'));
 
 app.get('/', function(req, res){
+    if(req.session.user) {
+        console.log('there is a session');
+        //they are logged in.
+        return res.sendFile(__dirname + '/index.html');
+    }
+    //they are not loggin in, send to login page
+    console.log('redirecting to welcome');
+    res.redirect('/Welcome');
+});
 
-    res.sendFile(__dirname + '/index.html');
+app.get('/Welcome', function(req, res){
+    if(req.session.user) {
+        //user is logged in, redirect to requested page
+        console.log('Welcome; req.session exists');
+        return res.redirect('/');
+    }
+    //they are not logged in
+    return res.sendFile(__dirname + '/index.html');
 });
 
 app.post('/register', function(req,res) {

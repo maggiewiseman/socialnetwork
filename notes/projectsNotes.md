@@ -16,7 +16,7 @@ submit() {
         last: this.lastName
     }).then(resp => {
         const data = resp.data;
-
+        location.
         if(!data.success){
             this.setState(error.true)
         }

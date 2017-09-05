@@ -1,8 +1,18 @@
-```javascript
+# components
 
+Conceptually, components are like JavaScript functions. They accept arbitrary inputs (called "props") and return React elements describing what should appear on the screen
 
+componentDidMount() {
+  this.timerID = setInterval(
+    () => this.tick(),
+    1000
+  );
+}
+Note how we save the timer ID right on this.
 
-```
+While this.props is set up by React itself and this.state has a special meaning, you are free to add additional fields to the class manually if you need to store something that is not used for the visual output.
+
+If you don't use something in render(), it shouldn't be in the state.
 
 # state
 * Every component can have its own state
@@ -21,5 +31,5 @@
     this.functioName = this.functionName.bind(this)
 
     ```
-* Lifting State 
+* Lifting State
     * when you have a couple of components that are using the same data, you want to have a common parent component that can send data to both of them
