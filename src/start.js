@@ -19,12 +19,8 @@ class Welcome extends React.Component {
 class Register extends React.Component {
     submit(e) {
 
-        const {firstName, lastName, email, password } = this.state
-        // console.log(this.state.firstName);
-        // console.log(this.state.lastName);
-        // console.log(this.state.email);
-        // console.log(this.state.password);
-        axios.post('/register', { firstName, lastName, email, password }).then(res => {
+        const {first_name, last_name, email, password } = this.state
+        axios.post('/register', { first_name, last_name, email, password }).then(res => {
             console.log(res);
         }).catch(e => {
             console.log(e.stack);
@@ -39,8 +35,8 @@ class Register extends React.Component {
     }
     render() {
         return (<div className='register-div'>
-            <input type="text" name="firstName" placeholder="First Name"  onChange={e => this.handleChange(e)}/>
-            <input type="text" name="lastName" placeholder="Last Name" onChange={e => this.handleChange(e)}/>
+            <input type="text" name="first_name" placeholder="First Name"  onChange={e => this.handleChange(e)}/>
+            <input type="text" name="last_name" placeholder="Last Name" onChange={e => this.handleChange(e)}/>
             <input type="E-mail" name="email" placeholder="E-mail" onChange={e => this.handleChange(e)}/>
             <input type="password" name="password" placeholder="Password" onChange={e => this.handleChange(e)}/>
             <button type="submit" name="registerBtn" onClick={e => this.submit(e)}>Submit</button>

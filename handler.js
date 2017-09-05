@@ -1,0 +1,51 @@
+const dbQuery = require('./dbQuery');
+const help = require('./helpers');
+
+function handle(query, req, res) {
+    if(query == 'registerUser') {
+        return new Promise((resolve, reject) => {
+            if(!(req.body.first_name && req.body.last_name && req.body.email && req.body.password)){
+                reject('All fields are required when registering');
+            } else {
+                resolve();
+            }
+        }).then(() => {
+            var validUserInfo = setUserData(req);
+            //need to hash the signature
+            return help.hashPassword(validUserInfo[3]).then((hash) =>{
+                validUserInfo[3] = hash;
+                //then we need to query the database to add signature with an array that has first_name, last_name, email, hashed password
+                return dbQuery.addUser(validUserInfo);
+            });
+        }).then((id) =>{
+            //when that comes back successfully with an id, we need to set session.user with first name, last name and user_id
+            console.log('HANDLER: add user id', id);
+            req.session.user = {
+                id: id[0].id,
+                first_name: req.body.first_name,
+                last_name: req.body.last_name
+            };
+
+            console.log("HANDLER: registerUser session info", req.session.user);
+            //then route to main page
+            res.redirect('/');
+        }).catch(e => {
+            console.error(e);
+            res.redirect('/Welcome');
+        });
+    }
+}
+
+function setUserData(req) {
+
+    var userInfo = [req.body['first_name'], req.body['last_name'], req.body['email'], req.body['password']];
+
+    return userInfo = help.validate(userInfo);
+}
+
+function validate(userInput) {
+    //this makes sure that any blank strings get converted to null so that the database rejects any null but required fields
+    return userInput.map(item => item == '' ? null : item);
+}
+
+module.exports.handle = handle;
