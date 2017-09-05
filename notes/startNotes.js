@@ -106,5 +106,6 @@ class Hello extends React.Component {
 function NameChanger() {
     return (
         <input id="name-changer" onChange={e=> props.changeName(e)} />
+
     )
 }
