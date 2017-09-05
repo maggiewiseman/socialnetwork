@@ -8,7 +8,11 @@ if (process.env.NODE_ENV != 'production') {
     app.use(require('./build'));
 }
 
+//use all the rest of the middleware here
+app.use(express.static('./public'));
+
 app.get('/', function(req, res){
+
     res.sendFile(__dirname + '/index.html');
 });
 
