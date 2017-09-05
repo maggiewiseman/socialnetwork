@@ -21,6 +21,7 @@ class Register extends React.Component {
 
         const {first_name, last_name, email, password } = this.state
         axios.post('/register', { first_name, last_name, email, password }).then(res => {
+            location.replace('/');
             console.log(res);
         }).catch(e => {
             console.log(e.stack);
