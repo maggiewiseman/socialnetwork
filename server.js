@@ -14,7 +14,6 @@ if (process.env.NODE_ENV != 'production') {
 }
 
 //use all the rest of the middleware here
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(cookieSession({
