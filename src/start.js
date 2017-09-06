@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, Link, IndexRoute, hashHistory } from 'react-router';
-import Welcome from './welcome2';
+import Welcome from './welcome';
 import { Registration, Login} from './auth-form';
 import Logo from './logo';
 
