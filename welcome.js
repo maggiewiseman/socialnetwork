@@ -2,14 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
-function Header() {
+export function Header() {
     return (
         <nav>
             <Logo />
             <ul>
                 <li><a href="/#home">Home</a></li>
                 <li><a href="/#login">Login</a></li>
-                <li><a href="/#logout">Logout</a></li>
+                <li><a href="/">Logout</a></li>
             </ul>
         </nav>
     );
@@ -60,8 +60,8 @@ export class Register extends React.Component {
 export class Login extends React.Component {
     submit(e) {
         const {first_name, last_name, email, password } = this.state
-        axios.post('/register', { first_name, last_name, email, password }).then(res => {
-            location.replace('/');
+        axios.post('/login', { email, password }).then(res => {
+            location.replace('/home');
             console.log(res);
         }).catch(e => {
             console.log(e.stack);
