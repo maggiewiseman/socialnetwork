@@ -17,7 +17,7 @@ router.route('/')
             return res.sendFile( path.join( __dirname, '../index.html' ) );
         }
         //they are not loggin in, send to login page
-        console.log('redirecting to welcome');
+        console.log('ROUTER /: redirecting to welcome');
         return res.redirect('/welcome/');
     });
 
@@ -54,17 +54,6 @@ router.route('/login')
         handler('login', req, res);
     });
 
-// router.route('/home')
-//     .get(function(req, res){
-//         if(req.session.user) {
-//             console.log('there is a session');
-//             //they are logged in.
-//             res.sendFile( path.join( __dirname, '../index.html' ) );
-//         }
-//         //they are not loggin in, send to login page
-//         console.log('redirecting to welcome');
-//         res.redirect('/welcome/');
-//     });
 
 router.get('/logout', (req, res) => {
     req.session.destroy((err) => {

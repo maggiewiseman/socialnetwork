@@ -67,7 +67,9 @@ function handle(query, req, res) {
                     last_name: userInfo.last_name
                 };
                 console.log('HANDLER: set req.session.user info');
-                res.redirect('/');
+                res.json({
+                    success: true
+                });
             }
         }).catch(e => console.error(e.stack));
 

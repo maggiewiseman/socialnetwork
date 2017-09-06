@@ -57,11 +57,21 @@ export class Register extends React.Component {
 }
 
 export class Login extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
     submit(e) {
         const {first_name, last_name, email, password } = this.state
         axios.post('/login', { email, password }).then(res => {
-            location.replace('/');
-            console.log(res);
+            if(res.data.success) {
+                console.log('LOGIN component login successful');
+                location.replace('/');
+            } else {
+                this.setState({
+                    error: res.data.error
+                });
+            }
         }).catch(e => {
             console.log(e.stack);
         });
@@ -76,6 +86,7 @@ export class Login extends React.Component {
     render() {
         console.log('rendering registration');
         return (<div className='register-div'>
+            {this.state.error && <div className="error">{this.state.error}</div>}
             <input type="E-mail" name="email" placeholder="E-mail" onChange={e => this.handleChange(e)}/>
             <input type="password" name="password" placeholder="Password" onChange={e => this.handleChange(e)}/>
             <button type="submit" name="registerBtn" onClick={e => this.submit(e)}>Submit</button>
