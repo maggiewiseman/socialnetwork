@@ -70,7 +70,7 @@ router.get('/logout', (req, res) => {
 router.use((req,res) => {
     console.error('File Not Found, 404');
     res.status(404);
-    res.render('404');
+    res.json({error: 404});
 });
 
 module.exports = router;
