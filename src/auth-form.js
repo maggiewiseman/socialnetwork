@@ -2,30 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
-export function Header() {
-    return (
-        <nav>
-            <Logo />
-            <ul>
-                <li><a href="/#home">Home</a></li>
-                <li><a href="/#login">Login</a></li>
-                <li><a href="/">Logout</a></li>
-            </ul>
-        </nav>
-    );
-}
-
-export class Welcome extends React.Component {
-    render(props) {
-        return (
-            <div>
-                <Header />
-                {this.props.children}
-            </div>
-        );
-    }
-}
-
 //An alternative to manually writing the two wrapping components above would be to write a function that can be passed a component and returns a new component that wraps the one passed in.
 export const Login = wrapInAuthForm(LoginForm, '/login');
 export const Registration = wrapInAuthForm(RegistrationForm, '/register')
@@ -94,18 +70,4 @@ function LoginForm({ handleInput, submit, error }) {
         <input type="password" name="password" placeholder="Password" onChange={handleInput}/>
         <button type="submit" name="registerBtn" onClick={e => submit(e)}>Submit</button>
     </div>);
-}
-
-
-
-export class Logo extends React.Component {
-    render() {
-        return (
-            <div>
-                <figure class="main logo">
-                    <img id="logo" src="/img/book_with_cloud_logo.png" alt="logo" />
-                </figure>
-            </div>
-        );
-    }
 }

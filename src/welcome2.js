@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import { Header } from './welcome';
+import Header from './header';
 
-export class App extends React.Component {
+
+export default class Welcome extends React.Component {
     render(props) {
         return (
             <div>
                 <Header />
-                <div>Make a friend!</div>
+                {this.props.children}
             </div>
         );
     }

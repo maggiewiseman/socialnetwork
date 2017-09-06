@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, Link, IndexRoute, hashHistory } from 'react-router';
-import { Welcome, Registration, Login, Logo } from '../welcome2';
-import { App } from '../app';
+import Welcome from './welcome2';
+import { Registration, Login} from './auth-form';
+import Logo from './logo';
 
 const authRouter = (
     <Router history={hashHistory}>
