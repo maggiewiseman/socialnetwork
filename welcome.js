@@ -35,6 +35,7 @@ export class Register extends React.Component {
         });
     }
     render() {
+        console.log('rendering registration');
         return (<div className='register-div'>
             <input type="text" name="first_name" placeholder="First Name"  onChange={e => this.handleChange(e)}/>
             <input type="text" name="last_name" placeholder="Last Name" onChange={e => this.handleChange(e)}/>
@@ -64,6 +65,7 @@ export class Login extends React.Component {
         });
     }
     render() {
+        console.log('rendering registration');
         return (<div className='register-div'>
             <input type="E-mail" name="email" placeholder="E-mail" onChange={e => this.handleChange(e)}/>
             <input type="password" name="password" placeholder="Password" onChange={e => this.handleChange(e)}/>

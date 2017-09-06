@@ -30,10 +30,10 @@ app.get('/', function(req, res){
     }
     //they are not loggin in, send to login page
     console.log('redirecting to welcome');
-    res.redirect('/Welcome');
+    res.redirect('/welcome');
 });
 
-app.get('/Welcome', function(req, res){
+app.get('/welcome', function(req, res){
     if(req.session.user) {
         //user is logged in, redirect to requested page
         console.log('Welcome; req.session exists');
