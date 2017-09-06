@@ -53,8 +53,10 @@ function wrapInAuthForm(Component, url) {
                     console.log('LOGIN component login successful');
                     location.replace('/');
                 } else {
+                    console.log('Welcome2: error', res.data.error.detail);
+                    let errorMsg = res.data.error.detail || res.data.error;
                     this.setState({
-                        error: res.data.error
+                        error: errorMsg
                     });
                 }
             }).catch(e => {
@@ -76,7 +78,7 @@ function wrapInAuthForm(Component, url) {
 //the destructured params are the props that are sent in when the this component is instantiated
 function RegistrationForm({ handleInput, submit, error }) {
     return (<div className='register-div'>
-        {error && <div className="error">error</div>}
+        {error && <div className="error">{error}</div>}
         <input type="text" name="first_name" placeholder="First Name"  onChange={handleInput}/>
         <input type="text" name="last_name" placeholder="Last Name" onChange={handleInput}/>
         <input type="E-mail" name="email" placeholder="E-mail" onChange={handleInput}/>

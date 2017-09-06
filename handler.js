@@ -26,12 +26,15 @@ function handle(query, req, res) {
                 last_name: req.body.last_name
             };
 
-            console.log("HANDLER: registerUser session info", req.session.user);
+            console.log('HANDLER: registerUser session info', req.session.user);
             //then route to main page
             res.redirect('/');
         }).catch(e => {
+            console.log('caught an error');
             console.error(e);
-            res.redirect('/Welcome');
+            res.json({
+                error: e
+            });
         });
     }
 
@@ -47,10 +50,6 @@ function handle(query, req, res) {
             }
 
             userInfo = returnedUserInfo.rows[0];
-
-            // console.log('HANDLER: login: userInfo:', userInfo);
-            // console.log('HANDLER: login: password', userInfo.password);
-            //check password
 
             return help.checkPassword(req.body.password, userInfo.password);
         }).then((validPass)=>{
@@ -71,7 +70,12 @@ function handle(query, req, res) {
                     success: true
                 });
             }
-        }).catch(e => console.error(e.stack));
+        }).catch((e) => {
+            res.json({
+                error: 'Something went wrong. Please try again.'
+            });
+            console.error(e.stack);
+        });
 
     }
 }
