@@ -2,14 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
+function Header() {
+    return (
+        <nav>
+            <Logo />
+            <ul>
+                <li><a href="/#home">Home</a></li>
+                <li><a href="/#login">Login</a></li>
+                <li><a href="/#logout">Logout</a></li>
+            </ul>
+        </nav>
+    );
+}
 
 export class Welcome extends React.Component {
     render(props) {
         return (
             <div>
-                <figure class="welcome logo">
-                    <img id="logo" src="/img/book_with_cloud_logo.png" alt="logo" />
-                </figure>
+                <Header />
                 {this.props.children}
             </div>
         );

@@ -1,0 +1,41 @@
+* {
+    box-sizing: border-box;
+}
+
+body, html {
+    margin: 0;
+    font-family: 'Helvetica', sans-serif;
+}
+
+nav {
+    background: lightblue;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+
+}
+
+nav li {
+    display: inline-block;
+    padding-left: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+}
+
+nav figure {
+    height: 100px;
+    width: 100px;
+    margin: 0;
+
+}
+
+nav figure > img {
+    width: 100%;
+    height: 100%;
+
+}
