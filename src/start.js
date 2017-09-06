@@ -4,10 +4,6 @@ import { Router, Route, Link, IndexRoute, hashHistory } from 'react-router';
 import { Welcome, Registration, Login, Logo } from '../welcome2';
 import { App } from '../app';
 
-
-console.log(Login);
-
-
 const authRouter = (
     <Router history={hashHistory}>
         <Route path="/" component={Welcome}>
