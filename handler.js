@@ -48,8 +48,8 @@ function handle(query, req, res) {
 
             userInfo = returnedUserInfo.rows[0];
 
-            console.log('HANDLER: login: userInfo:', userInfo);
-            console.log('HANDLER: login: password', userInfo.password);
+            // console.log('HANDLER: login: userInfo:', userInfo);
+            // console.log('HANDLER: login: password', userInfo.password);
             //check password
 
             return help.checkPassword(req.body.password, userInfo.password);

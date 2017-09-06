@@ -49,8 +49,14 @@ function wrapInAuthForm(Component, url) {
         submit(e) {
             console.log('state:', this.state);
             axios.post(this.state.url, this.state).then(res => {
-                location.replace('/');
-                console.log(res);
+                if(res.data.success) {
+                    console.log('LOGIN component login successful');
+                    location.replace('/');
+                } else {
+                    this.setState({
+                        error: res.data.error
+                    });
+                }
             }).catch(e => {
                 console.log(e.stack);
             });
