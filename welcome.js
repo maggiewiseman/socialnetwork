@@ -27,6 +27,11 @@ export class Welcome extends React.Component {
 }
 
 export class Register extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+        this.handleChange = this.handleChange.bind(this);
+    }
     submit(e) {
         const {first_name, last_name, email, password } = this.state
         axios.post('/register', { first_name, last_name, email, password }).then(res => {
@@ -46,10 +51,10 @@ export class Register extends React.Component {
     render() {
         console.log('rendering registration');
         return (<div className='register-div'>
-            <input type="text" name="first_name" placeholder="First Name"  onChange={e => this.handleChange(e)}/>
-            <input type="text" name="last_name" placeholder="Last Name" onChange={e => this.handleChange(e)}/>
-            <input type="E-mail" name="email" placeholder="E-mail" onChange={e => this.handleChange(e)}/>
-            <input type="password" name="password" placeholder="Password" onChange={e => this.handleChange(e)}/>
+            <input type="text" name="first_name" placeholder="First Name"  onChange={this.handleChange}/>
+            <input type="text" name="last_name" placeholder="Last Name" onChange={this.handleChange}/>
+            <input type="E-mail" name="email" placeholder="E-mail" onChange={this.handleChange}/>
+            <input type="password" name="password" placeholder="Password" onChange={this.handleChange}/>
             <button type="submit" name="registerBtn" onClick={e => this.submit(e)}>Submit</button>
         </div>);
     }
@@ -60,6 +65,7 @@ export class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
+        this.handleChange = this.handleChange.bind(this);
     }
     submit(e) {
         const {first_name, last_name, email, password } = this.state
@@ -87,8 +93,8 @@ export class Login extends React.Component {
         console.log('rendering registration');
         return (<div className='register-div'>
             {this.state.error && <div className="error">{this.state.error}</div>}
-            <input type="E-mail" name="email" placeholder="E-mail" onChange={e => this.handleChange(e)}/>
-            <input type="password" name="password" placeholder="Password" onChange={e => this.handleChange(e)}/>
+            <input type="E-mail" name="email" placeholder="E-mail" onChange={ this.handleChange}/>
+            <input type="password" name="password" placeholder="Password" onChange={this.handleChange}/>
             <button type="submit" name="registerBtn" onClick={e => this.submit(e)}>Submit</button>
         </div>);
     }

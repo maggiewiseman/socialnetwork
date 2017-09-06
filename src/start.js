@@ -16,10 +16,8 @@ const authRouter = (
 );
 
 
-let route;
-if (location.pathname == '/welcome/') {
-    route = authRouter;
-} else {
+let route = authRouter;
+if (location.pathname == '/') {
     route = <Logo />
 }
 
