@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Header from './header';
 
-
 export default class Welcome extends React.Component {
     render(props) {
         return (
