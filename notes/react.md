@@ -31,5 +31,22 @@ If you don't use something in render(), it shouldn't be in the state.
     this.functioName = this.functionName.bind(this)
 
     ```
+
+* Set State to change or use previous State (prevState)
+use a second form of setState() that accepts a function rather than an object. That function will receive the previous state as the first argument, and the props at the time the update is applied as the second argument:
+
+// Correct
+this.setState((prevState, props) => ({
+  counter: prevState.counter + props.increment
+}));
+
+
 * Lifting State
     * when you have a couple of components that are using the same data, you want to have a common parent component that can send data to both of them
+
+* Links: do not use a href, we use the link tag:
+```javascript
+
+<Link to={"/posts/" + post._id}>{post.title}</link>
+
+```
