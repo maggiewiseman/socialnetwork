@@ -61,6 +61,7 @@ location.replace('/')
 ## React Router
 * we are using version 3 / syntax supported by version 3 b/c version 4 is not that stable and the syntax kinda looks like a total rewrite.
 * install react-router if it is not already installed
+
 ```javascript
 import React from 'react';
 import ReactDOM from 'react-dom';

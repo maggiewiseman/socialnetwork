@@ -28,7 +28,6 @@ export class Welcome extends React.Component {
 
 export class Register extends React.Component {
     submit(e) {
-
         const {first_name, last_name, email, password } = this.state
         axios.post('/register', { first_name, last_name, email, password }).then(res => {
             location.replace('/');
@@ -61,7 +60,7 @@ export class Login extends React.Component {
     submit(e) {
         const {first_name, last_name, email, password } = this.state
         axios.post('/login', { email, password }).then(res => {
-            location.replace('/home');
+            location.replace('/');
             console.log(res);
         }).catch(e => {
             console.log(e.stack);

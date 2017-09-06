@@ -34,6 +34,44 @@ function handle(query, req, res) {
             res.redirect('/Welcome');
         });
     }
+
+    var userInfo;
+    if(query == 'login') {
+        return dbQuery.getUserInfo([req.body.email]).then((returnedUserInfo)=>{
+            //show me stuff that came back
+            //console.log('HANDLER login returnedUserINfo ', returnedUserInfo);
+
+            if(returnedUserInfo.rowCount == 0) {
+                console.error('User does not exist');
+                throw new Error ('User does not exist');
+            }
+
+            userInfo = returnedUserInfo.rows[0];
+
+            console.log('HANDLER: login: userInfo:', userInfo);
+            console.log('HANDLER: login: password', userInfo.password);
+            //check password
+
+            return help.checkPassword(req.body.password, userInfo.password);
+        }).then((validPass)=>{
+
+            if(!validPass) {
+                console.log('HANDLER login: invalid password');
+                res.json({
+                    error: 'invalid password'
+                });
+            } else {
+                req.session.user = {
+                    id: userInfo.id,
+                    first_name: userInfo.first_name,
+                    last_name: userInfo.last_name
+                };
+                console.log('HANDLER: set req.session.user info');
+                res.redirect('/');
+            }
+        }).catch(e => console.error(e.stack));
+
+    }
 }
 
 function setUserData(req) {
