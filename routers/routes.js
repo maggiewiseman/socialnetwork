@@ -3,6 +3,8 @@ const mw = require('./middleware');
 const handler = require('../handler').handle;
 const csrf = require('csurf');
 const path = require( 'path' );
+const uploader = require('../fileUploadHandler').uploader;
+
 
 const csrfProtection = csrf({ cookie: true });
 const router = express.Router();
@@ -32,7 +34,6 @@ router.route('/welcome')
         return res.sendFile( path.join( __dirname, '../index.html' ) );
     });
 
-
 router.route('/register')
     //.all(csrfProtection)
 
@@ -54,6 +55,22 @@ router.route('/login')
         handler('login', req, res);
     });
 
+router.route('/profilepic')
+    .post(uploader.single('file'), (req,res) => {
+        console.log('ROUTE /upload');
+        console.log('REQ.FILE', req.body);
+        if(req.file) {
+            console.log('ROUTE: file upload ');
+            res.json({
+                success: true
+            });
+        } else {
+            console.log('ROUTE no file');
+            res.json({
+                error: true
+            });
+        }
+    });
 router.route('/user')
     .get((req, res) => {
         //Return session info

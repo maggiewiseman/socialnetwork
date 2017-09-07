@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 export function ProfilePic(props) {
     return (
-        <figure className='profile-pic' onClick={props.showUpLoader} >
+        <figure className='profile-pic'>
             <img src={props.imgsrc} alt={`${props.first_name} ${props.last_name}`} onClick={props.showUpLoader}/>
         </figure>
     );
@@ -11,11 +11,11 @@ export function ProfilePic(props) {
 
 export function PicUploader(props) {
     return (
-        <div className="upload-wrapper" onClick={props.hideUploader}>
+        <div className="upload-wrapper">
             <div className="upload-div">
-                {props.error && <div className='error'>{error}</div>}
-                <p className="close-btn" >X</p>
-                <input type="file" />
+                {props.error && <div className='error'>{props.error}</div>}
+                <p className="close-btn"  onClick={props.hideUploader}>X</p>
+                <input type="file" onChange={props.getFile}/>
                 <div className="btn-grp">
                     <button id="upload-btn" onClick={props.setImage}>Upload</button>
                     <button id="cancel-btn" onClick={props.hideUploader}>Cancel</button>

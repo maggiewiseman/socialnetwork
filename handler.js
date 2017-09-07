@@ -1,10 +1,9 @@
 const dbQuery = require('./dbQuery');
 const help = require('./helpers');
-const fileUploadHandler = require('./fileUploadHandler');
 
 function handle(query, req, res) {
     if(query == 'uploadFile') {
-        fileUploadHandler();
+
     }
     if(query == 'registerUser') {
         return new Promise((resolve, reject) => {

@@ -15,6 +15,7 @@ export default class App extends React.Component {
         this.showUpLoader = this.showUpLoader.bind(this);
         this.hideUploader = this.hideUploader.bind(this);
         this.setImage = this.setImage.bind(this);
+        this.getFile = this.getFile.bind(this);
     }
     componentDidMount() {
         //runs immediately after the component gets put in the DOM
@@ -51,26 +52,36 @@ export default class App extends React.Component {
     hideUploader(e) {
         this.setState({
             showUploadToggle : false
-        })
+        });
     }
-    setImage() {
-        axios.post('/profilepic', this.state.userInfo).then(res => {
+    setImage(e) {
+        console.log('APP setImage', e.target);
+        var formData = new FormData;
+        formData.append('file', this.state.profilePicToUpload)
+
+        axios.post('/profilepic', formData ).then(res => {
             if(res.data.success) {
                 console.log('Save Profile Pic Successful');
                 this.hideUploader();
             } else {
-                console.log('Save Profile Pic error', res.data.error.detail);
+                console.log('Save Profile Pic error', res.data.error);
                 let errorMsg = res.data.error.detail || res.data.error;
                 this.setState({
                     error: errorMsg
                 });
             }
         }).catch(e => {
-            this.setState({
-                error: e
-            });
+            // this.setState({
+            //     error: e
+            // });
             console.error(e)
         });
+    }
+    getFile(e) {
+        console.log('APP: get file', e.target.files[0]);
+        this.setState({
+            profilePicToUpload : e.target.files[0]
+        })
     }
     render(props) {
 
@@ -92,7 +103,8 @@ export default class App extends React.Component {
                 </nav>
                 {this.state.showUploadToggle && <PicUploader hideUploader={this.hideUploader}
                                                             setImage={this.setImage}
-                                                            error={this.state.error}/>}
+                                                            error={this.state.error}
+                                                            getFile={this.getFile}/>}
                 {this.props.children}
             </div>
         );
