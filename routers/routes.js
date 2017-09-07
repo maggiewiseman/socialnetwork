@@ -58,12 +58,9 @@ router.route('/login')
 router.route('/profilepic')
     .post(uploader.single('file'), sendToAWS, (req,res) => {
         console.log('ROUTE /upload');
-        console.log('REQ.FILE', req.body);
         if(req.file) {
             console.log('ROUTE: file upload ');
-            res.json({
-                success: true
-            });
+            handler('uploadProfilePic', req, res);
         } else {
             console.log('ROUTE no file');
             res.json({

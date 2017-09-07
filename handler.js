@@ -1,12 +1,25 @@
 const dbQuery = require('./dbQuery');
 const help = require('./helpers');
+const urlPrepend = require('./config.json');
 
 function handle(query, req, res) {
     if(query == 'uploadProfilePic') {
         var data = [req.session.user.id, req.file.filename];
-        return dbQuery.updateProfilePic(data);
+        console.log(`HANDLE: ${query} data:`, data);
+        return dbQuery.updateProfilePic(data).then((results) => {
+            console.log(`HANDLE: ${query} update successful sending response`);
+            req.session.user.profile_pic = urlPrepend.s3Url + req.file.filename
+            res.json({
+                success: true,
+                profile_pic: urlPrepend.s3Url + req.file.filename
+            });
+        }).catch((e) => {
+            res.json({
+                error: e
+            });
+        });
     }
-    
+
     if(query == 'registerUser') {
         return new Promise((resolve, reject) => {
             if(!(req.body.first_name && req.body.last_name && req.body.email && req.body.password)){

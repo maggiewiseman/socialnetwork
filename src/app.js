@@ -57,11 +57,17 @@ export default class App extends React.Component {
     setImage(e) {
         console.log('APP setImage', e.target);
         var formData = new FormData;
-        formData.append('file', this.state.profilePicToUpload)
+        formData.append('file', this.state.profilePicToUpload);
 
         axios.post('/profilepic', formData ).then(res => {
             if(res.data.success) {
-                console.log('Save Profile Pic Successful');
+                console.log('Save Profile Pic Successful', res.data);
+                this.setState({
+                    userInfo: {
+                        profile_pic: res.data.profile_pic
+                    }
+                });
+                console.log(this.state);
                 this.hideUploader();
             } else {
                 console.log('Save Profile Pic error', res.data.error);
