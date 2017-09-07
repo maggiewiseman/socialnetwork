@@ -2,9 +2,11 @@ const dbQuery = require('./dbQuery');
 const help = require('./helpers');
 
 function handle(query, req, res) {
-    if(query == 'uploadFile') {
-
+    if(query == 'uploadProfilePic') {
+        var data = [req.session.user.id, req.file.filename];
+        return dbQuery.updateProfilePic(data);
     }
+    
     if(query == 'registerUser') {
         return new Promise((resolve, reject) => {
             if(!(req.body.first_name && req.body.last_name && req.body.email && req.body.password)){
