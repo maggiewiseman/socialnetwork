@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 
 export function ProfilePic(props) {
     return (
-        <figure className='profile-pic' >
-            <img src={props.imgsrc} alt={`${props.first_name} ${props.last_name}`} onClick={props.showUploader}/>
+        <figure className='profile-pic' onClick={props.showUpLoader} >
+            <img src={props.imgsrc} alt={`${props.first_name} ${props.last_name}`} onClick={props.showUpLoader}/>
         </figure>
     );
 }

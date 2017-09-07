@@ -12,7 +12,7 @@ export default class App extends React.Component {
             showUploadToggle : false,
             error: ''
         };
-        this.showUploader = this.showUploader.bind(this);
+        this.showUpLoader = this.showUpLoader.bind(this);
         this.hideUploader = this.hideUploader.bind(this);
         this.setImage = this.setImage.bind(this);
     }
@@ -42,7 +42,8 @@ export default class App extends React.Component {
             console.error(e)
         });
     }
-    showUploader(e) {
+    showUpLoader(e) {
+        console.log('show uploader called');
         this.setState({
             showUploadToggle : true
         });
@@ -84,7 +85,7 @@ export default class App extends React.Component {
                         <li><Link to="/">Home</Link></li>
                         <li><Link to="/logout">Logout</Link></li>
                     </ul>
-                    <ProfilePic showUpLoader={this.showUploader}
+                    <ProfilePic showUpLoader={this.showUpLoader}
                                 imgsrc={this.state.userInfo.profile_pic}
                                 first_name={this.state.userInfo.first_name}
                                 last_name={this.state.userInfo.last_name}/>
