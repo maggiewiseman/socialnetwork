@@ -4,7 +4,7 @@ const handler = require('../handler').handle;
 const csrf = require('csurf');
 const path = require( 'path' );
 const uploader = require('../fileUploadHandler').uploader;
-
+const sendToAWS = require('../awsHandler').sendToAWS;
 
 const csrfProtection = csrf({ cookie: true });
 const router = express.Router();
@@ -56,7 +56,7 @@ router.route('/login')
     });
 
 router.route('/profilepic')
-    .post(uploader.single('file'), (req,res) => {
+    .post(uploader.single('file'), sendToAWS, (req,res) => {
         console.log('ROUTE /upload');
         console.log('REQ.FILE', req.body);
         if(req.file) {
