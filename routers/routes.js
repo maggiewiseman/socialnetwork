@@ -64,7 +64,7 @@ router.route('/user')
                 id: req.session.user.id,
                 first_name: req.session.user.first_name,
                 last_name: req.session.user.last_name,
-                imgsrc: req.session.user.imgsrc || 'http://clipart-library.com/images/LcdjLAAri.png',
+                profile_pic: req.session.user.imgsrc || 'http://clipart-library.com/images/LcdjLAAri.png',
                 bio: req.session.user.bio || 'No bio'
             }
         });

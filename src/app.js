@@ -85,7 +85,7 @@ export default class App extends React.Component {
                         <li><Link to="/logout">Logout</Link></li>
                     </ul>
                     <ProfilePic showUpLoader={this.showUploader}
-                                imgsrc={this.state.userInfo.imgsrc}
+                                imgsrc={this.state.userInfo.profile_pic}
                                 first_name={this.state.userInfo.first_name}
                                 last_name={this.state.userInfo.last_name}/>
                 </nav>
