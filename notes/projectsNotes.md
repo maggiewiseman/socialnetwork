@@ -96,3 +96,21 @@ function Welcome(props) {
 }
 
 ```
+## Day 3
+* App component
+* Profile Pic  
+* Logo  
+* Pic Upload
+
+When user clicks on it you should make a view show an option for Upload
+When user clicks a state property on app gets set and then app figures out that it needs to show this modal to upload an image.
+When app loads needs to make an ajax request to get information about the logged in user.
+App needs to feed to the profile pic the url for the profile pic, as well as the first and last name to go in the alt tag
+After we do the upload it needs to tell App what the url for the new image is and app should set the url in its own state and that should refresh the profile pic.
+Upload made an ajax request, saved it to uploads directory, send it to aws,
+
+If you have data that you need right away, when/how do you do an ajax request?
+The constructors is not the place to do this b/c of a time gap between constructing and putting it in the dom.
+* Something getting into the page in React speak is called "mounting".
+* React components hae lifecycle methods:
+    * give componentDidMount() to class and it will run as soon as the component mounts w/out having to 

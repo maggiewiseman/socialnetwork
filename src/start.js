@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Router, Route, Link, IndexRoute, hashHistory } from 'react-router';
 import Welcome from './welcome';
 import { Registration, Login} from './auth-form';
-import Logo from './logo';
+import App from './app';
 
 const authRouter = (
     <Router history={hashHistory}>
@@ -17,7 +17,8 @@ const authRouter = (
 
 let route = authRouter;
 if (location.pathname == '/') {
-    route = <Logo />
+    console.log('path = / route = app');
+    route = <App />;
 }
 
 ReactDOM.render(

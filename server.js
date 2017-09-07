@@ -3,7 +3,9 @@ const app = express();
 const compression = require('compression');
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
-const handler = require('./handler').handle;
+const handler = require('./handler').handle
+
+
 var secret = process.env.SESSION_SECRET || require('./secrets.json').sessionSecret;
 
 

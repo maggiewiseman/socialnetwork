@@ -1,7 +1,11 @@
 const dbQuery = require('./dbQuery');
 const help = require('./helpers');
+const fileUploadHandler = require('./fileUploadHandler');
 
 function handle(query, req, res) {
+    if(query == 'uploadFile') {
+        fileUploadHandler();
+    }
     if(query == 'registerUser') {
         return new Promise((resolve, reject) => {
             if(!(req.body.first_name && req.body.last_name && req.body.email && req.body.password)){
@@ -91,5 +95,7 @@ function validate(userInput) {
     //this makes sure that any blank strings get converted to null so that the database rejects any null but required fields
     return userInput.map(item => item == '' ? null : item);
 }
+
+
 
 module.exports.handle = handle;
