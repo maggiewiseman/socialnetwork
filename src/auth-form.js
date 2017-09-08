@@ -29,8 +29,8 @@ function wrapInAuthForm(Component, url) {
                     console.log('LOGIN component login successful');
                     location.replace('/');
                 } else {
-                    console.log('Welcome2: error', res.data.error.detail);
-                    let errorMsg = res.data.error.detail || res.data.error;
+                    console.log('Welcome2: error');
+                    let errorMsg = res.data.error || res.data.error;
                     this.setState({
                         error: errorMsg
                     });

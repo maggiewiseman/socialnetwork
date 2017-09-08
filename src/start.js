@@ -4,7 +4,8 @@ import { Router, Route, Link, IndexRoute, hashHistory } from 'react-router';
 import Welcome from './welcome';
 import { Registration, Login} from './auth-form';
 import App from './app';
-import { browserHistory } from 'react-router'
+import { browserHistory } from 'react-router';
+import Profile from './profile';
 
 const authRouter = (
     <Router history={hashHistory}>
@@ -19,7 +20,7 @@ const appRouter = (
     <Router history={browserHistory}>
         <Route path="/" component={App}>
             // <Route path="/login" component={Login} />
-             <IndexRoute component={Login} />
+             <IndexRoute component={Profile} />
         </Route>
     </Router>
 );

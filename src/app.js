@@ -94,8 +94,12 @@ export default class App extends React.Component {
         if(!this.state.userInfo) {
             return <div className='loading'>Loading...</div>;
         }
+        const children = React.cloneElement(this.props.children, {
+            info: this.state.userInfo
+        });
+
         return (
-            <div>
+            <div id='app-wrapper'>
                 <nav>
                     <Logo />
                     <ul>
@@ -111,7 +115,8 @@ export default class App extends React.Component {
                                                             setImage={this.setImage}
                                                             error={this.state.error}
                                                             getFile={this.getFile}/>}
-                {this.props.children}
+
+                {children}
             </div>
         );
     }
