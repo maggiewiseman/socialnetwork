@@ -6,6 +6,22 @@ function handle(query, req, res) {
     if (query == 'updateProfile') {
         //set data that is given
         console.log(`HANDLE ${query}`, req.body);
+        var data = [req.session.user.id, req.body.first_name, req.body.last_name, req.body.bio];
+
+        req.session.user.first_name = req.body.first_name;
+        req.session.user.last_name = req.body.last_name;
+        req.session.user.bio = req.body.bio;
+
+        dbQuery.updateProfile(data).then(()=> {
+            res.json({
+                success: true
+            });
+        }).catch((e) => {
+            console.error(e.stack);
+            res.json({
+                error:e
+            });
+        })
 
     }
     if(query == 'uploadProfilePic') {
