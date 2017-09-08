@@ -1,27 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {ProfilePic, PicUploader} from './profile-pic';
+import axios from 'axios';
 
 export default class Profile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             editBioToggle: false
-        }
-        console.log('PROFILE: ', this.props);
-        this.saveProfile = this.saveProfile.bind(this);
+        };
         this.toggleEditBio = this.toggleEditBio.bind(this);
     }
-    saveProfile() {
-        console.log('Profile component: Save Button clicked');
-        this.setState({
-            editBioToggle: !this.state.editBioToggle
-        }, () => {
-            console.log('JUST SAVED... editButton:', this.state.editBioToggle);
-        });
-    }
     toggleEditBio() {
-        console.log('editing toggle button');
         this.setState({
             editBioToggle: !this.state.editBioToggle
         }, () => {
@@ -40,10 +30,10 @@ export default class Profile extends React.Component {
                     {this.state.editBioToggle ?
                         (
                             <div id="edit-bio">
-                                <textarea cols='100' rows='4'>
+                                <textarea cols='100' rows='4' onChange={this.props.events.handleInput}>
                                     {this.props.info.bio || 'Add a bio!'}
                                 </textarea>
-                                <button onClick={this.saveProfile}>Save</button>
+                                <button onClick={(e) => {this.props.events.updateProfile(e); this.toggleEditBio(e);}}>Save</button>
                             </div>
                         ) :
                         (
@@ -54,6 +44,6 @@ export default class Profile extends React.Component {
                         )}
                 </section>
             </div>
-        )
+        );
     }
 }

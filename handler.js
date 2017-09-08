@@ -3,6 +3,11 @@ const help = require('./helpers');
 const urlPrepend = require('./config.json');
 
 function handle(query, req, res) {
+    if (query == 'updateProfile') {
+        //set data that is given
+        console.log(`HANDLE ${query}`, req.body);
+
+    }
     if(query == 'uploadProfilePic') {
         var data = [req.session.user.id, req.file.filename];
         console.log(`HANDLE: ${query} data:`, data);

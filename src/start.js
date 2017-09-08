@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, Link, IndexRoute, hashHistory } from 'react-router';
+import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router';
 import Welcome from './welcome';
 import { Registration, Login} from './auth-form';
 import App from './app';
-import { browserHistory } from 'react-router';
 import Profile from './profile';
 
 const authRouter = (

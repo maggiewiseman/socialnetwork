@@ -16,25 +16,20 @@ export default class App extends React.Component {
         this.hideUploader = this.hideUploader.bind(this);
         this.setImage = this.setImage.bind(this);
         this.getFile = this.getFile.bind(this);
+        this.updateProfile = this.updateProfile.bind(this);
+        this.handleInput = this.handleInput.bind(this);
+
     }
     componentDidMount() {
         //runs immediately after the component gets put in the DOM
         //make axios request here.
-        console.log('making axios call');
         axios.get('/user').then((res)=> {
             console.log('APP after mounting: res is:', res);
-            if(res.data.userInfo) {
-                console.log('user info received');
-                this.setState({
-                    userInfo: res.data.userInfo
-                });
-            } else {
-                console.log('Mount error', res);
-                // let errorMsg = res.data.error.detail || res;
-                // this.setState({
-                //     error: errorMsg
-                // });
-            }
+            var { id, first_name, last_name, profile_pic, bio} = res.data.userInfo;
+            this.setState({ id, first_name, last_name, profile_pic, bio}, () => {
+                console.log('did mount state: ', this.state);
+            });
+
 
         }).catch((e) =>{
             this.setState({
@@ -83,41 +78,74 @@ export default class App extends React.Component {
             console.error(e)
         });
     }
+    updateProfile(e) {
+        console.log('Profile component: Save Button clicked');
+        const { first_name, last_name, bio } = this.state;
+        axios.post('/update/profile', { first_name, last_name, bio }).then(res => {
+            if(res.data.success) {
+                console.log('Update Profile Successful');
+            } else {
+                console.log('Update Profile Pic error', res.data.error);
+                let errorMsg = res.data.error.detail || res.data.error;
+                this.setState({
+                    error: errorMsg
+                });
+            }
+        }).catch(e => {
+            // this.setState({
+            //     error: e
+            // });
+            console.error(e);
+        });
+    }
+    handleInput(e) {
+        // let obj = this.state;
+        // obj.userInfo.bio = e.target.value;
+        // console.log('state', this.state..bio);
+        this.setState({
+            bio: e.target.value
+        });
+    }
     getFile(e) {
         console.log('APP: get file', e.target.files[0]);
         this.setState({
             profilePicToUpload : e.target.files[0]
         })
     }
-    render(props) {
+    render() {
 
-        if(!this.state.userInfo) {
+        if(!this.state.profile_pic) {
             return <div className='loading'>Loading...</div>;
+        } else {
+            const children = React.cloneElement(this.props.children, {
+                info: this.state,
+                events : {
+                    updateProfile: this.updateProfile,
+                    handleInput: this.handleInput
+                }
+            });
+
+            return (
+                <div id='app-wrapper'>
+                    <nav>
+                        <Logo />
+                        <ul>
+                            <li><Link to="/">Home</Link></li>
+                            <li><Link to="/logout">Logout</Link></li>
+                        </ul>
+                        <ProfilePic showUpLoader={this.showUpLoader}
+                                    imgsrc={this.state.profile_pic}
+                                    first_name={this.state.first_name}
+                                    last_name={this.state.last_name}/>
+                    </nav>
+                    {this.state.showUploadToggle && <PicUploader hideUploader={this.hideUploader}
+                                                                setImage={this.setImage}
+                                                                error={this.state.error}
+                                                                getFile={this.getFile}/>}
+
+                    {children}
+                </div>
+            );
         }
-        const children = React.cloneElement(this.props.children, {
-            info: this.state.userInfo
-        });
-
-        return (
-            <div id='app-wrapper'>
-                <nav>
-                    <Logo />
-                    <ul>
-                        <li><Link to="/">Home</Link></li>
-                        <li><Link to="/logout">Logout</Link></li>
-                    </ul>
-                    <ProfilePic showUpLoader={this.showUpLoader}
-                                imgsrc={this.state.userInfo.profile_pic}
-                                first_name={this.state.userInfo.first_name}
-                                last_name={this.state.userInfo.last_name}/>
-                </nav>
-                {this.state.showUploadToggle && <PicUploader hideUploader={this.hideUploader}
-                                                            setImage={this.setImage}
-                                                            error={this.state.error}
-                                                            getFile={this.getFile}/>}
-
-                {children}
-            </div>
-        );
     }
 }

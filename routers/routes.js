@@ -68,6 +68,13 @@ router.route('/profilepic')
             });
         }
     });
+
+router.route('/update/profile')
+    .post(mw.loggedInCheck, (req,res, next)=> {
+        handler('updateProfile', req, res);
+    });
+
+
 router.route('/user')
     .get((req, res) => {
         //Return session info
@@ -79,22 +86,19 @@ router.route('/user')
                 first_name: req.session.user.first_name,
                 last_name: req.session.user.last_name,
                 profile_pic: req.session.user.imgsrc || 'http://clipart-library.com/images/LcdjLAAri.png',
-                bio: req.session.user.bio 
+                bio: req.session.user.bio
             }
         });
     });
 
 router.get('/logout', (req, res) => {
-    req.session.destroy((err) => {
-        if(err) {
-            console.error(err);
-        } else {
-            console.log('ROUTER: user logged out');
-        }
-    });
-    res.redirect('/login');
+    req.session.user = null;
+    res.redirect('/welcome');
 });
 
+router.get('*', function(req, res) {
+    res.sendFile(__dirname + '/index.html');
+});
 
 router.use((req,res) => {
     console.error('File Not Found, 404');

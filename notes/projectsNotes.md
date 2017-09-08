@@ -116,4 +116,58 @@ The constructors is not the place to do this b/c of a time gap between construct
     * give componentDidMount() to class and it will run as soon as the component mounts w/out having to
 
 ## Day 4:
-* If they are not logged in they go to /welcome 
+* If they are not logged in they go to /welcome
+
+## CSURF:
+Why does the app component need to make an ajax request? Why not use session data? B/c you need to verify that the user hasn't messed with the session and the only way to do that is to know what the hash is for the session and you'd have to give the hash to the client and that just isn't advisable at all.
+
+httpOnly: true means that the cookie cannot be read in the browser so that they can't be used in cross server scripting attack
+httpOnly: false means you can read cookie in the browser
+
+secure: true cookie only sent over https!
+secure: process.env.NODE_ENV == 'production'
+
+Another reason we don't want cookies to appear in the browser is if a nefarious actor can read those session cookies they can use them to send requests to our server and do all kinds of things we don't want them to do.
+
+CSURF PROTECTION with Axios
+t cookie is the csurf token
+
+with single page sites getting the token is problematic
+* we could put it in app state and send it with each request
+* if you were using jquery you could set configs for ajax requests
+* I don't want to type this for all ajax requests. Axios has a way where you can create a copy of axios
+
+```javascript
+axios.get({
+    url: '',
+    'xsrfCookieName' : 'cookieName',
+    'xsrfHeaderName' : 'csrf-token'
+});
+
+
+import axios from 'axios';
+
+export default var instance = axios.create({
+
+        'xsrfCookieName' : 'cookieName',
+        'xsrfHeaderName' : 'csrf-token'
+
+})
+
+//make sure to import axios from './axios'
+```
+
+## Part 5:
+Other user profiles
+
+this.props.params.id property when url is user/:id
+
+race condition:
+Can't use app.state data
+
+user/your id see a version of the profile that you cannot edit the bio, but if you want to chec that you are that user, need to detect that the ids are the same and redirect to the other page.
+
+if you don't have the id yet, you can't compare so check on the server.
+
+When you are at the route user/:id, if you click a link that goes to users/:differentId it keeps the old profile and just gives it new props and you won't see any change bc the component is already mounted.
+A new lifecycle method is componentWillReceiveProps you can then do an axios request to get new userInfo and set state??? 
