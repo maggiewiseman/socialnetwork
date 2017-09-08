@@ -79,7 +79,7 @@ router.route('/user')
                 first_name: req.session.user.first_name,
                 last_name: req.session.user.last_name,
                 profile_pic: req.session.user.imgsrc || 'http://clipart-library.com/images/LcdjLAAri.png',
-                bio: req.session.user.bio || 'No bio'
+                bio: req.session.user.bio 
             }
         });
     });

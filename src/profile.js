@@ -8,11 +8,25 @@ export default class Profile extends React.Component {
         this.state = {
             editBioToggle: false
         }
-        console.log('PROFILE: ', this.props)
+        console.log('PROFILE: ', this.props);
         this.saveProfile = this.saveProfile.bind(this);
+        this.toggleEditBio = this.toggleEditBio.bind(this);
     }
     saveProfile() {
         console.log('Profile component: Save Button clicked');
+        this.setState({
+            editBioToggle: !this.state.editBioToggle
+        }, () => {
+            console.log('JUST SAVED... editButton:', this.state.editBioToggle);
+        });
+    }
+    toggleEditBio() {
+        console.log('editing toggle button');
+        this.setState({
+            editBioToggle: !this.state.editBioToggle
+        }, () => {
+            console.log('JUST Clicked editButton:', this.state.editBioToggle);
+        });
     }
     render() {
         return (
@@ -23,10 +37,21 @@ export default class Profile extends React.Component {
                             last_name={this.props.info.last_name}/>
                 </sidebar>
                 <section id="edit-section">
-                    <textarea cols='50' rows='40'>
-                        {this.props.info.bio || 'Add a bio!'}
-                    </textarea>
-                    <button onClick={this.saveProfile}>Save</button>
+                    {this.state.editBioToggle ?
+                        (
+                            <div id="edit-bio">
+                                <textarea cols='100' rows='4'>
+                                    {this.props.info.bio || 'Add a bio!'}
+                                </textarea>
+                                <button onClick={this.saveProfile}>Save</button>
+                            </div>
+                        ) :
+                        (
+                            <div>
+                                <p>{this.props.info.bio || 'Add a bio!'}</p>
+                                <button onClick={this.toggleEditBio}>Edit</button>
+                            </div>
+                        )}
                 </section>
             </div>
         )
