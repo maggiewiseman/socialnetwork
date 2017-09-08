@@ -19,26 +19,29 @@ export default class Profile extends React.Component {
         });
     }
     render() {
+        var { first_name, last_name, profile_pic, bio} = this.props.info;
         return (
-            <div id="bio-wrapper">
+            <div id="bio-wrapper" className="profile-wrapper">
                 <sidebar>
-                <ProfilePic imgsrc={this.props.info.profile_pic}
-                            first_name={this.props.info.first_name}
-                            last_name={this.props.info.last_name}/>
+                <ProfilePic imgsrc={profile_pic}
+                            first_name={first_name}
+                            last_name={last_name}/>
                 </sidebar>
                 <section id="edit-section">
+                <h2>{first_name} {last_name}</h2>
+                <h2>Bio</h2>
                     {this.state.editBioToggle ?
                         (
                             <div id="edit-bio">
                                 <textarea cols='100' rows='4' onChange={this.props.events.handleInput}>
-                                    {this.props.info.bio || 'Add a bio!'}
+                                    {bio || 'Add a bio!'}
                                 </textarea>
                                 <button onClick={(e) => {this.props.events.updateProfile(e); this.toggleEditBio(e);}}>Save</button>
                             </div>
                         ) :
                         (
                             <div>
-                                <p>{this.props.info.bio || 'Add a bio!'}</p>
+                                <p>{bio || 'Add a bio!'}</p>
                                 <button onClick={this.toggleEditBio}>Edit</button>
                             </div>
                         )}
