@@ -4,6 +4,7 @@ import { Router, Route, Link, IndexRoute, hashHistory } from 'react-router';
 import Welcome from './welcome';
 import { Registration, Login} from './auth-form';
 import App from './app';
+import { browserHistory } from 'react-router'
 
 const authRouter = (
     <Router history={hashHistory}>
@@ -14,11 +15,20 @@ const authRouter = (
     </Router>
 );
 
+const appRouter = (
+    <Router history={browserHistory}>
+        <Route path="/" component={App}>
+            // <Route path="/login" component={Login} />
+             <IndexRoute component={Login} />
+        </Route>
+    </Router>
+);
+
 
 let route = authRouter;
 if (location.pathname == '/') {
-    console.log('path = / route = app');
-    route = <App />;
+    console.log('path = / route = appRouter');
+    route = appRouter
 }
 
 ReactDOM.render(

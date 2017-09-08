@@ -113,4 +113,7 @@ If you have data that you need right away, when/how do you do an ajax request?
 The constructors is not the place to do this b/c of a time gap between constructing and putting it in the dom.
 * Something getting into the page in React speak is called "mounting".
 * React components hae lifecycle methods:
-    * give componentDidMount() to class and it will run as soon as the component mounts w/out having to 
+    * give componentDidMount() to class and it will run as soon as the component mounts w/out having to
+
+## Day 4:
+* If they are not logged in they go to /welcome 
