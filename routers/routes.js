@@ -96,14 +96,15 @@ router.get('/logout', (req, res) => {
     res.redirect('/welcome');
 });
 
-router.get('*', function(req, res) {
-    res.sendFile(__dirname + '/index.html');
+router.get('*', mw.loggedInCheck, function(req, res) {
+    console.log('file not found');
+    return res.sendFile( path.join( __dirname, '../index.html' ) );
 });
 
-router.use((req,res) => {
-    console.error('File Not Found, 404');
-    res.status(404);
-    res.json({error: 404});
-});
+// router.use((req,res) => {
+//     console.error('File Not Found, 404');
+//     res.status(404);
+//     res.json({error: 404});
+// });
 
 module.exports = router;

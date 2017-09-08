@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {ProfilePic, PicUploader} from './profile-pic';
-import axios from 'axios';
+import axios from './axios';
 
 export default class Profile extends React.Component {
     constructor(props) {

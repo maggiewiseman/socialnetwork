@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import {ProfilePic, PicUploader} from './profile-pic';
 import Logo from './logo';
 import {Link} from 'react-router';
-import axios from 'axios';
+import axios from './axios';
+import Logout from './logout';
 
 export default class App extends React.Component {
     constructor(props) {
@@ -131,7 +132,7 @@ export default class App extends React.Component {
                         <Logo />
                         <ul>
                             <li><Link to="/">Home</Link></li>
-                            <li><Link to="/logout">Logout</Link></li>
+                            <li><Logout /></li>
                         </ul>
                         <ProfilePic showUpLoader={this.showUpLoader}
                                     imgsrc={this.state.profile_pic}

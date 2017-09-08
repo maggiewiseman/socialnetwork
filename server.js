@@ -3,6 +3,7 @@ const app = express();
 const compression = require('compression');
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
+const csurf = require('csurf');
 const handler = require('./handler').handle
 
 
@@ -23,6 +24,14 @@ app.use(cookieSession({
     secret: secret,
     maxAge: 1000 * 60 * 60 * 24 * 14
 }));
+
+app.use(csurf());
+
+app.use(function(req, res, next) {
+    res.cookie('north_Shore__Wave___Rider', req.csrfToken());
+    next();
+});
+
 app.use(express.static('./public'));
 
 app.use(require('./routers/routes'));
