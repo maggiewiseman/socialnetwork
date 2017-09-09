@@ -5,6 +5,9 @@ import axios from './axios';
 import { Sidebar, MainSection, UnderNav } from './styledComponents/wrapper';
 import { SectionHeader } from './styledComponents/headers';
 import { SidebarMenu, SidebarMenuItem } from './styledComponents/menus';
+import styled from 'styled-components';
+import { Button } from './styledComponents/buttons';
+import { HintText } from './styledComponents/text';
 
 export default class Profile extends React.Component {
     constructor(props) {
@@ -38,7 +41,8 @@ export default class Profile extends React.Component {
                         </SectionHeader>
                         <ul>
                             <SidebarMenuItem>Home</SidebarMenuItem>
-                            <SidebarMenuItem>User 1</SidebarMenuItem>
+                            <SidebarMenuItem>See Friends</SidebarMenuItem>
+                            <SidebarMenuItem>Edit Profile</SidebarMenuItem>
                         </ul>
                     </SidebarMenu>
                 </Sidebar>
@@ -47,24 +51,38 @@ export default class Profile extends React.Component {
                         Edit Profile
                     </SectionHeader>
                     <h2>{first_name} {last_name}</h2>
-                    <h2>Bio</h2>
-                    {this.state.editBioToggle ?
-                        (
-                            <div id="edit-bio">
-                                <textarea cols='60' rows='4' onChange={this.props.events.handleInput}>
-                                    {bio || 'Add a bio!'}
-                                </textarea>
-                                <button onClick={(e) => {this.props.events.updateProfile(e); this.toggleEditBio(e);}}>Save</button>
-                            </div>
-                        ) :
-                        (
-                            <div>
-                                <p>{bio || 'Add a bio!'}</p>
-                                <button onClick={this.toggleEditBio}>Edit</button>
-                            </div>
-                        )}
+                    <h3>Bio</h3>
+                    <HintText>Limit 300 characters</HintText>
+                    <EditBio>
+                        {this.state.editBioToggle ?
+                            (
+                                <div>
+                                    <textarea cols='60' rows='4' onChange={this.props.events.handleInput}>
+                                        {bio || 'Add a bio!'}
+                                    </textarea>
+                                    <Button onClick={(e) => {this.props.events.updateProfile(e); this.toggleEditBio(e);}}>Save</Button>
+                                </div>
+                            ) :
+                            (
+                                <div>
+                                    <p>{bio || 'Add a bio!'}</p>
+                                    <Button onClick={this.toggleEditBio}>Edit</Button>
+                                </div>
+                            )}
+                    </EditBio>
                 </MainSection>
             </UnderNav>
         );
     }
 }
+
+const EditBio = styled.div`
+    margin-left: 20px;
+
+    > div {
+        > textarea {
+            display: block;
+
+        }
+    }
+`;
