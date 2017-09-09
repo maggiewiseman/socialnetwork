@@ -27,9 +27,8 @@ const appRouter = (
 
 
 let route = appRouter;
-if (location.pathname == '/welcome') {
+if (location.pathname == '/welcome/') {
     route = authRouter;
-    
 }
 
 ReactDOM.render(

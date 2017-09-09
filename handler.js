@@ -79,7 +79,9 @@ function handle(query, req, res) {
 
             console.log('HANDLER: registerUser session info', req.session.user);
             //then route to main page
-            res.redirect('/');
+            res.json({
+                success: true
+            });
         }).catch(e => {
             console.log('caught an error');
             console.error(e);
