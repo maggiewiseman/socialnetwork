@@ -20,16 +20,16 @@ const appRouter = (
     <Router history={browserHistory}>
         <Route path="/" component={App}>
             <IndexRoute component={Profile} />
-            <Route path="/user/:id" component={OtherProfile} />
+            <Route path="/profile/:id" component={OtherProfile} />
         </Route>
     </Router>
 );
 
 
-let route = authRouter;
-if (location.pathname == '/') {
-    console.log('path = / route = appRouter');
-    route = appRouter;
+let route = appRouter;
+if (location.pathname == '/welcome') {
+    route = authRouter;
+    
 }
 
 ReactDOM.render(

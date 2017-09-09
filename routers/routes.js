@@ -35,22 +35,11 @@ router.route('/welcome')
     });
 
 router.route('/register')
-    //.all(csrfProtection)
-
-    // .get(mw.registerLoginCheck, (req, res) => {
-    //     res.render('register', {csrfToken: req.csrfToken()});
-    // })
-
     .post((req, res) => {
         handler('registerUser', req, res);
     });
 
 router.route('/login')
-    //.all(csrfProtection)
-    // .get(mw.registerLoginCheck, (req, res) => {
-    //     res.render('login', {csrfToken: req.csrfToken()});
-    // })
-
     .post((req, res) => {
         handler('login', req, res);
     });
@@ -74,7 +63,7 @@ router.route('/update/profile')
         handler('updateProfile', req, res);
     });
 
-router.route('/user/:id')
+router.route('/api/user/:id')
     .get((req,res) => {
         handler('getUserById', req, res);
     });

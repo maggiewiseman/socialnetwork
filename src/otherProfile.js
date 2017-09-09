@@ -9,8 +9,9 @@ export default class OtherProfile extends React.Component {
         this.state = {};
     }
     componentWillMount() {
+        console.log('in OtherProfile Comoneent');
         let id = this.props.params.id;
-        var url = '/users/' + id;
+        var url = '/api/user/' + id;
         axios.get(url).then((res)=> {
             console.log('OtherProfile after mounting: res is:', res);
             var { first_name, last_name, profile_pic, bio } = res.data.userInfo;
