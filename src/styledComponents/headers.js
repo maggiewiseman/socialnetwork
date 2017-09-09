@@ -6,4 +6,5 @@ export const SectionHeader = styled.header`
     text-transform: uppercase;
     border-bottom: 1px solid hsla(27, 15%, 36%, 0.5);
     padding: 0.25em;
+    text-align: left;
 `;

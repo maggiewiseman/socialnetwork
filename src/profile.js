@@ -4,7 +4,7 @@ import { ProfilePic, PicUploader } from './profile-pic';
 import axios from './axios';
 import { Sidebar, MainSection, UnderNav } from './styledComponents/wrapper';
 import { SectionHeader } from './styledComponents/headers';
-import { SidebarMenu } from './styledComponents/menus';
+import { SidebarMenu, SidebarMenuItem } from './styledComponents/menus';
 
 export default class Profile extends React.Component {
     constructor(props) {
@@ -36,6 +36,8 @@ export default class Profile extends React.Component {
                         <SectionHeader>
                             Menu
                         </SectionHeader>
+                        <SidebarMenuItem>Home</SidebarMenuItem>
+                        <SidebarMenuItem>User 1</SidebarMenuItem>
                     </SidebarMenu>
                 </Sidebar>
                 <MainSection>

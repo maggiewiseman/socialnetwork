@@ -56,9 +56,10 @@ export const Sidebar = styled.aside`
 `;
 
 export const MainSection = styled.section`
-    width: 75%;
+    width: 73%;
     border: 1px solid hsla(27, 15%, 36%, 1);
     background: hsla(27, 66%, 97%, 1);
+    margin-right: 20px;
 
     > * {
         padding: 0.25em;

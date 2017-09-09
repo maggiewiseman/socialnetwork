@@ -10,7 +10,7 @@ const ProfilePicFig = styled.figure`
     margin: 0 .5em;
 
     width: ${props => props.nav ? '60px' : '90%'};
-    height: ${props => props.nav ? '60px' : '90%'};
+    height: ${props => props.nav ? '60px' : 'auto'};
     display: inline-block;
 
     > img {
