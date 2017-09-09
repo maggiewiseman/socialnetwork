@@ -131,7 +131,7 @@ export default class App extends React.Component {
                 <Wrapper>
                     <Nav>
                         <div>
-                            <Logo />
+                            <Logo nav />
                             <ul>
                                 <li><Link to="/">Home</Link></li>
                                 <li><Logout /></li>

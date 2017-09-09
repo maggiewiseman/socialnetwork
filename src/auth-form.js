@@ -4,6 +4,10 @@ import axios from './axios';
 import styled from 'styled-components';
 import { Button } from './styledComponents/buttons';
 import { HintText, ErrorText } from './styledComponents/text';
+import { UnderNav } from './styledComponents/wrapper';
+import Logo from './logo';
+import {Link} from 'react-router';
+
 
 //An alternative to manually writing the two wrapping components above would be to write a function that can be passed a component and returns a new component that wraps the one passed in.
 export const Login = wrapInAuthForm(LoginForm, '/login');
@@ -56,8 +60,9 @@ function wrapInAuthForm(Component, url) {
 
 //the destructured params are the props that are sent in when the this component is instantiated
 function RegistrationForm({ handleInput, submit, error }) {
-    return (<div className='register-div'>
-            <RegForm>
+    return (<UnderNav>
+
+        <RegForm>
             <h1>Create a New Account</h1>
             <HintText>It is free, but you will not be able to delete it</HintText>
             {error && <ErrorText>{error}</ErrorText>}
@@ -67,24 +72,29 @@ function RegistrationForm({ handleInput, submit, error }) {
             <LoginInput type="password" name="password" placeholder="Password" onChange={handleInput}/>
             <Button type="submit" name="registerBtn" onClick={submit}>Submit</Button>
         </RegForm>
-    </div>);
+        <Logo url={"/img/dogBookLogo-brown.png"}/>
+    </UnderNav>);
 }
 
 function LoginForm({ handleInput, submit, error }) {
-    return (<div className='register-div'>
-        <RegForm>
+    return (<UnderNav>
 
+        <RegForm>
+            <h1>Login</h1>
+            <HintText>Or click <Link to="/">here</Link> to create a new account. </HintText>
             {error && <div className="error">{error}</div>}
             <LoginInput type="E-mail" name="email" placeholder="E-mail" onChange={ handleInput}/>
             <LoginInput type="password" name="password" placeholder="Password" onChange={handleInput}/>
             <Button center type="submit" name="registerBtn" onClick={e => submit(e)}>Submit</Button>
         </RegForm>
-    </div>);
+        <Logo url={"/img/dogBookLogo-brown.png"}/>
+    </UnderNav>);
 }
 const RegForm = styled.div`
     background: hsla(27, 66%, 97%, 1);
     border: 1px solid hsla(27, 15%, 36%, 1);
     width: 400px;
+    height: 250px;
     margin: 10px;
     padding: 20px;
     > * {

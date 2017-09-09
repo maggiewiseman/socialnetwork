@@ -6,8 +6,8 @@ const LogoFig = styled.figure`
 
     padding: 0.5em;
 
-    width: ${props => props.nav ? '100px' : '400px'};
-    height: ${props => props.nav ? '100px' : '400px'};
+    width: ${props => props.location == 'nav' ? '100px' : '400px'};
+    height: ${props => props.location == 'nav' ? '100px' : '400px'};
     display: inline-block;
 
     > img {
@@ -18,10 +18,14 @@ const LogoFig = styled.figure`
 
 
 export default class Logo extends React.Component {
+    constructor(props) {
+        super(props);
+
+    }
     render() {
         return (
-            <LogoFig nav>
-                <img src="img/dogBookLogoBW.png" alt="logo" />
+            <LogoFig location={this.props.location}>
+                <img src={this.props.url} alt="logo" />
             </LogoFig>
         );
     }
