@@ -8,7 +8,9 @@ export default class Logout extends React.Component {
         this.state = {};
     }
     logout() {
-        axios.get('/logout');
+        axios.get('/logout').then(()=> {
+            location.replace('/welcome/');
+        });
     }
     render() {
         return (

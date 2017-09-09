@@ -86,7 +86,7 @@ router.route('/user')
 
 router.get('/logout', (req, res) => {
     req.session.user = null;
-    res.redirect('/welcome');
+    res.redirect('/welcome/');
 });
 
 router.get('*', mw.loggedInCheck, function(req, res) {

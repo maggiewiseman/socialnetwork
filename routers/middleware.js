@@ -7,7 +7,7 @@ function registerLoginCheck(req, res, next) {
             res.redirect('/');
         } else {
             //logged in but haven't signed petition
-            res.redirect('/welcome');
+            res.redirect('/welcome/');
         }
     } else {
         //not logged in go to registration page
@@ -18,7 +18,7 @@ function loggedInCheck(req, res, next) {
     if(req.session.user) {
         next();
     } else {
-        res.redirect('/welcome');
+        res.redirect('/welcome/');
     }
 }
 

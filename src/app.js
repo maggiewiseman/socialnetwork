@@ -149,3 +149,7 @@ export default class App extends React.Component {
         }
     }
 }
+
+const logoutStyle = {
+
+}
