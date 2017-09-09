@@ -2,6 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from './axios';
 import { ProfilePic } from './profile-pic';
+import { Sidebar, MainSection, UnderNav } from './styledComponents/wrapper';
+import { SectionHeader } from './styledComponents/headers';
+import { SidebarMenu, SidebarMenuItem } from './styledComponents/menus';
+import styled from 'styled-components';
+import { Button } from './styledComponents/buttons';
+import { HintText } from './styledComponents/text';
 
 export default class OtherProfile extends React.Component {
     constructor(props) {
@@ -30,16 +36,19 @@ export default class OtherProfile extends React.Component {
         var { id, first_name, last_name, profile_pic, bio} = this.state;
         return (
 
-            <div className="profile-wrapper">
-                <sidebar>
-                <ProfilePic imgsrc={profile_pic}
+            <UnderNav>
+                <Sidebar>
+                    <ProfilePic imgsrc={profile_pic}
                             first_name={first_name}
                             last_name={last_name}/>
-                </sidebar>
-                <h2>{first_name} {last_name}</h2>
-                <h2>Bio</h2>
-                <p>{bio}</p>
-            </div>
+                            <Button>Make Friend Request</Button>
+                </Sidebar>
+                <MainSection>
+                    <h2>{first_name} {last_name}</h2>
+                    <h3>Bio</h3>
+                    <p>{bio}</p>
+                </MainSection>
+            </UnderNav>
         );
     }
 }
