@@ -21,7 +21,7 @@ export default class Logo extends React.Component {
     render() {
         return (
             <LogoFig nav>
-                <img src="/img/dogBookLogo.png" alt="logo" />
+                <img src="img/dogBookLogoBW.png" alt="logo" />
             </LogoFig>
         );
     }
