@@ -1,8 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import styled from 'styled-components';
 import axios from './axios';
 
+const LogoutLink = styled.a`
+    :hover {
+        color: purple;
+        cursor: pointer;
+    }
+`;
 export default class Logout extends React.Component {
     constructor(props) {
         super(props);
@@ -15,7 +21,7 @@ export default class Logout extends React.Component {
     }
     render() {
         return (
-            <a className='logout-btn' onClick={this.logout}>Log out</a>
+            <LogoutLink className='logout-btn' onClick={this.logout}>Log out</LogoutLink>
         );
     }
 
