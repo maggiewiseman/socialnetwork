@@ -39,6 +39,7 @@
     "redux-promise": "^0.5.3",
     "socket.io": "^2.0.3",
     "spiced-pg": "spicedacademy/spiced-pg",
+    "styled-components": "^2.1.2",
     "uid-safe": "^2.1.4",
     "webpack": "^1.14.0",
     "webpack-dev-middleware": "^1.8.4"

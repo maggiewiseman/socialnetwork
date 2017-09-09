@@ -24,7 +24,7 @@ export default class App extends React.Component {
     componentDidMount() {
         //runs immediately after the component gets put in the DOM
         //make axios request here.
-        axios.get('/user').then((res)=> {
+        axios.get('/api/user').then((res)=> {
             console.log('APP after mounting: res is:', res);
             var { id, first_name, last_name, profile_pic, bio} = res.data.userInfo;
             this.setState({ id, first_name, last_name, profile_pic, bio}, () => {

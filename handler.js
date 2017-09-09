@@ -3,9 +3,21 @@ const help = require('./helpers');
 const urlPrepend = require('./config.json');
 
 function handle(query, req, res) {
-    if (query == 'getUserById') {
+    if (query == 'getOtherUserById') {
         console.log(`HANDLE ${query}`, req.body);
         var data = [req.params.id]
+        dbQuery.getUserById(data).then((results) => {
+            console.log('results:', results.rows);
+            results.rows[0].profile_pic = urlPrepend.s3Url + results.rows[0].profile_pic;
+            res.json({
+                userInfo: results.rows[0]
+            });
+        });
+    }
+
+    if (query == 'getUserById') {
+        console.log(`HANDLE ${query}`, req.body);
+        var data = [req.session.user.id];
         dbQuery.getUserById(data).then((results) => {
             console.log('results:', results.rows);
             results.rows[0].profile_pic = urlPrepend.s3Url + results.rows[0].profile_pic;
@@ -134,8 +146,8 @@ function handle(query, req, res) {
 }
 
 function setUserData(req) {
-
-    var userInfo = [req.body['first_name'], req.body['last_name'], req.body['email'], req.body['password']];
+    let profile_pic  = urlPrepend + 'Tvl0e2wRJ8H3D_vxF1pvu8nhICVESy_h.png';
+    var userInfo = [req.body['first_name'], req.body['last_name'], req.body['email'], req.body['password'], profile_pic];
 
     return userInfo = help.validate(userInfo);
 }

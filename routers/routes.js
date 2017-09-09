@@ -65,23 +65,24 @@ router.route('/update/profile')
 
 router.route('/api/user/:id')
     .get((req,res) => {
-        handler('getUserById', req, res);
+        handler('getOtherUserById', req, res);
     });
 
-router.route('/user')
+router.route('/api/user')
     .get((req, res) => {
         //Return session info
         console.log('ROUTER: /user');
-        res.json({
-            success: true,
-            userInfo: {
-                id: req.session.user.id,
-                first_name: req.session.user.first_name,
-                last_name: req.session.user.last_name,
-                profile_pic: req.session.user.imgsrc || 'http://clipart-library.com/images/LcdjLAAri.png',
-                bio: req.session.user.bio
-            }
-        });
+        handler('getUserById', req, res);
+        // res.json({
+        //     success: true,
+        //     userInfo: {
+        //         id: req.session.user.id,
+        //         first_name: req.session.user.first_name,
+        //         last_name: req.session.user.last_name,
+        //         profile_pic: req.session.user.imgsrc || 'http://clipart-library.com/images/LcdjLAAri.png',
+        //         bio: req.session.user.bio
+        //     }
+        // });
     });
 
 router.get('/logout', (req, res) => {
