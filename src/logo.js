@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 
 const LogoFig = styled.figure`
-    border: solid #7A4519 3px;
-    padding: 0.25em;
+
+    padding: 0.5em;
 
     width: ${props => props.nav ? '100px' : '400px'};
     height: ${props => props.nav ? '100px' : '400px'};
+    display: inline-block;
 
     > img {
         width: 100%;
@@ -19,11 +20,9 @@ const LogoFig = styled.figure`
 export default class Logo extends React.Component {
     render() {
         return (
-            <div>
-                <LogoFig nav>
-                    <img src="/img/dogBookLogo.png" alt="logo" />
-                </LogoFig>
-            </div>
+            <LogoFig nav>
+                <img src="/img/dogBookLogo.png" alt="logo" />
+            </LogoFig>
         );
     }
 }

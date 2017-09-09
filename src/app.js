@@ -130,12 +130,14 @@ export default class App extends React.Component {
             return (
                 <Wrapper>
                     <Nav>
-                        <Logo />
-                        <ul>
-                            <li><Link to="/">Home</Link></li>
-                            <li><Logout /></li>
-                        </ul>
-                        <ProfilePic showUpLoader={this.showUpLoader}
+                        <div>
+                            <Logo />
+                            <ul>
+                                <li><Link to="/">Home</Link></li>
+                                <li><Logout /></li>
+                            </ul>
+                        </div>
+                        <ProfilePic nav={true} showUpLoader={this.showUpLoader}
                                     imgsrc={this.state.profile_pic}
                                     first_name={this.state.first_name}
                                     last_name={this.state.last_name}/>

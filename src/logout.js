@@ -5,7 +5,6 @@ import axios from './axios';
 
 const LogoutLink = styled.a`
     :hover {
-        color: purple;
         cursor: pointer;
     }
 `;
@@ -21,7 +20,7 @@ export default class Logout extends React.Component {
     }
     render() {
         return (
-            <LogoutLink className='logout-btn' onClick={this.logout}>Log out</LogoutLink>
+            <LogoutLink className='logout-btn' onClick={this.logout}>Logout</LogoutLink>
         );
     }
 

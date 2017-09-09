@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {ProfilePic, PicUploader} from './profile-pic';
+import { ProfilePic, PicUploader } from './profile-pic';
 import axios from './axios';
+import { Sidebar, MainSection, UnderNav } from './styledComponents/wrapper';
 
 export default class Profile extends React.Component {
     constructor(props) {
@@ -20,16 +21,19 @@ export default class Profile extends React.Component {
     }
     render() {
         var { first_name, last_name, profile_pic, bio} = this.props.info;
+        var divStyle = {
+            marginTop: 10
+        };
         return (
-            <div id="bio-wrapper" className="profile-wrapper">
-                <sidebar>
-                <ProfilePic imgsrc={profile_pic}
-                            first_name={first_name}
-                            last_name={last_name}/>
-                </sidebar>
-                <section id="edit-section">
-                <h2>{first_name} {last_name}</h2>
-                <h2>Bio</h2>
+            <UnderNav>
+                <Sidebar>
+                    <ProfilePic imgsrc={profile_pic}
+                        first_name={first_name}
+                        last_name={last_name}/>
+                </Sidebar>
+                <MainSection>
+                    <h2>{first_name} {last_name}</h2>
+                    <h2>Bio</h2>
                     {this.state.editBioToggle ?
                         (
                             <div id="edit-bio">
@@ -45,8 +49,8 @@ export default class Profile extends React.Component {
                                 <button onClick={this.toggleEditBio}>Edit</button>
                             </div>
                         )}
-                </section>
-            </div>
+                </MainSection>
+            </UnderNav>
         );
     }
 }
