@@ -5,6 +5,8 @@ import Logo from './logo';
 import {Link} from 'react-router';
 import axios from './axios';
 import Logout from './logout';
+import {Wrapper, Nav} from './styledComponents/wrapper';
+
 
 export default class App extends React.Component {
     constructor(props) {
@@ -126,8 +128,8 @@ export default class App extends React.Component {
             });
 
             return (
-                <div id='app-wrapper'>
-                    <nav>
+                <Wrapper>
+                    <Nav>
                         <Logo />
                         <ul>
                             <li><Link to="/">Home</Link></li>
@@ -137,19 +139,15 @@ export default class App extends React.Component {
                                     imgsrc={this.state.profile_pic}
                                     first_name={this.state.first_name}
                                     last_name={this.state.last_name}/>
-                    </nav>
+                    </Nav>
                     {this.state.showUploadToggle && <PicUploader hideUploader={this.hideUploader}
                                                                 setImage={this.setImage}
                                                                 error={this.state.error}
                                                                 getFile={this.getFile}/>}
 
                     {children}
-                </div>
+                </Wrapper>
             );
         }
     }
-}
-
-const logoutStyle = {
-
 }
