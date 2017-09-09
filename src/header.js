@@ -11,7 +11,7 @@ export default function Header() {
     return (
         <Nav>
             <div>
-                <Logo location={'nav'} url={"/img/dogBookLogoBW.png"}/>
+                <Logo location={'nav'} url={'/img/dogBookLogoBW.png'}/>
                 <ul>
                     <li><Link to="/">Home</Link></li>
                     <li><Link to="/login">Login</Link></li>

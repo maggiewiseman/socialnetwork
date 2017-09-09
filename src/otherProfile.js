@@ -41,7 +41,7 @@ export default class OtherProfile extends React.Component {
                     <ProfilePic imgsrc={profile_pic}
                             first_name={first_name}
                             last_name={last_name}/>
-                            <Button>Make Friend Request</Button>
+                            <Button center>Make Friend Request</Button>
                 </Sidebar>
                 <MainSection>
                     <h2>{first_name} {last_name}</h2>

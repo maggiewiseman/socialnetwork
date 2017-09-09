@@ -131,7 +131,7 @@ export default class App extends React.Component {
                 <Wrapper>
                     <Nav>
                         <div>
-                            <Logo nav />
+                            <Logo location={'nav'} url={'/img/dogBookLogoBW.png'}/>
                             <ul>
                                 <li><Link to="/">Home</Link></li>
                                 <li><Logout /></li>
