@@ -36,8 +36,10 @@ export default class Profile extends React.Component {
                         <SectionHeader>
                             Menu
                         </SectionHeader>
-                        <SidebarMenuItem>Home</SidebarMenuItem>
-                        <SidebarMenuItem>User 1</SidebarMenuItem>
+                        <ul>
+                            <SidebarMenuItem>Home</SidebarMenuItem>
+                            <SidebarMenuItem>User 1</SidebarMenuItem>
+                        </ul>
                     </SidebarMenu>
                 </Sidebar>
                 <MainSection>
