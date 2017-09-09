@@ -12,7 +12,7 @@ const db = spicedPg(dbUrl);
 
 function addUser(userInfo) {
     console.log('DBQUERY: in add user.');
-    let queryStr = 'INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURNING id';
+    let queryStr = 'INSERT INTO users (first_name, last_name, email, password, profile_pic) VALUES ($1, $2, $3, $4, $5) RETURNING id';
     return db.query(queryStr, userInfo).then((result) => {
         return(result.rows);
     });
