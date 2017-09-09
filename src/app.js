@@ -59,11 +59,10 @@ export default class App extends React.Component {
             if(res.data.success) {
                 console.log('Save Profile Pic Successful', res.data);
                 this.setState({
-                    userInfo: {
-                        profile_pic: res.data.profile_pic
-                    }
+                    profile_pic: res.data.profile_pic
+                }, () => {
+                    console.log('JUST SET STATE FOR PROFILE PIC: ', this.state);
                 });
-                console.log(this.state);
                 this.hideUploader();
             } else {
                 console.log('Save Profile Pic error', res.data.error);
