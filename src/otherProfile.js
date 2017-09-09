@@ -1,22 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from './axios';
+import { ProfilePic } from './profile-pic';
 
-export default class OtherProfile extends React.Comonent{
+export default class OtherProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
-
     }
     componentWillMount() {
-        var url = location.path
+        let id = this.props.params.id;
+        var url = '/users/' + id;
         axios.get(url).then((res)=> {
             console.log('OtherProfile after mounting: res is:', res);
-            var { id, first_name, last_name, profile_pic, bio} = res.data.userInfo;
+            var { first_name, last_name, profile_pic, bio } = res.data.userInfo;
             this.setState({ id, first_name, last_name, profile_pic, bio}, () => {
                 console.log('did mount state: ', this.state);
             });
-
 
         }).catch((e) =>{
             this.setState({
@@ -29,7 +29,7 @@ export default class OtherProfile extends React.Comonent{
         var { id, first_name, last_name, profile_pic, bio} = this.state;
         return (
 
-            <div id="bio-wrapper" className="profile-wrapper">
+            <div className="profile-wrapper">
                 <sidebar>
                 <ProfilePic imgsrc={profile_pic}
                             first_name={first_name}
@@ -39,7 +39,6 @@ export default class OtherProfile extends React.Comonent{
                 <h2>Bio</h2>
                 <p>{bio}</p>
             </div>
-        );
         );
     }
 }

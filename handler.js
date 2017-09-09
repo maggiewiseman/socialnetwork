@@ -3,6 +3,18 @@ const help = require('./helpers');
 const urlPrepend = require('./config.json');
 
 function handle(query, req, res) {
+    if (query == 'getUserById') {
+        console.log(`HANDLE ${query}`, req.body);
+        var data = [req.params.id]
+        dbQuery.getUserById(data).then((results) => {
+            console.log('results:', results.rows);
+            results.rows[0].profile_pic = urlPrepend.s3Url + results.rows[0].profile_pic;
+            res.json({
+                userInfo: results.rows[0]
+            });
+        });
+    }
+
     if (query == 'updateProfile') {
         //set data that is given
         console.log(`HANDLE ${query}`, req.body);

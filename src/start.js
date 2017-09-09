@@ -5,6 +5,7 @@ import Welcome from './welcome';
 import { Registration, Login} from './auth-form';
 import App from './app';
 import Profile from './profile';
+import OtherProfile from './otherProfile';
 
 const authRouter = (
     <Router history={hashHistory}>
@@ -18,8 +19,8 @@ const authRouter = (
 const appRouter = (
     <Router history={browserHistory}>
         <Route path="/" component={App}>
-            // <Route path="/login" component={Login} />
-             <IndexRoute component={Profile} />
+            <IndexRoute component={Profile} />
+            <Route path="/user/:id" component={OtherProfile} />
         </Route>
     </Router>
 );
@@ -28,7 +29,7 @@ const appRouter = (
 let route = authRouter;
 if (location.pathname == '/') {
     console.log('path = / route = appRouter');
-    route = appRouter
+    route = appRouter;
 }
 
 ReactDOM.render(

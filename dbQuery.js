@@ -36,6 +36,12 @@ function updateProfile(data) {
     let queryStr = 'UPDATE users SET first_name = $2, last_name = $3, bio = $4 WHERE id = $1';
     return db.query(queryStr, data);
 }
+
+function getUserById(id) {
+    console.log('DBQUERY in getUser, user_id=', id);
+    let queryStr ='SELECT first_name, last_name, profile_pic, bio FROM users WHERE id = $1';
+    return db.query(queryStr, id);
+}
 // function addProfile(profileData) {
 //     console.log('DBQUERY in addProfile, user_id = ', profileData);
 //     let queryStr = 'INSERT INTO user_profiles (user_id, age, city, homepage) VALUES ((SELECT id from users WHERE id=$1), $2, $3, $4)';
@@ -48,11 +54,7 @@ function updateProfile(data) {
 //     return db.query(queryStr, user_id);
 // }
 //
-// function getProfileById(id) {
-//     console.log('DBQUERY in getProfile, user_id=', id);
-//     let queryStr ='SELECT users.email, user_profiles.age, user_profiles.city, user_profiles.homepage, user_profiles.id FROM users LEFT OUTER JOIN user_profiles ON users.id = user_profiles.user_id WHERE users.id = $1';
-//     return db.query(queryStr, id);
-// }
+
 //
 //
 // function updateProfile(profileData) {
@@ -69,6 +71,7 @@ module.exports.updateProfilePic = updateProfilePic;
 // module.exports.getProfileId = getProfileId;
 // module.exports.updateUser = updateUser;
 module.exports.updateProfile = updateProfile;
+module.exports.getUserById = getUserById;
 
 
 /* Tests */

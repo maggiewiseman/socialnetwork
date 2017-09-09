@@ -74,6 +74,10 @@ router.route('/update/profile')
         handler('updateProfile', req, res);
     });
 
+router.route('/user/:id')
+    .get((req,res) => {
+        handler('getUserById', req, res);
+    });
 
 router.route('/user')
     .get((req, res) => {
