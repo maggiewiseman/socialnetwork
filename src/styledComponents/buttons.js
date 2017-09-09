@@ -6,11 +6,14 @@ export const Button = styled.button`
     color: white;
     padding: 0.25em 0.5em;
     border-radius: 0;
-    margin: 4px 0;
+
+    display: block;
 
     :hover {
         border: hsla(27, 66%, 5%, 1) 2px solid;
         background: white;
         color: hsla(27, 66%, 5%, 1);
     }
+
+    margin:  ${props => props.center ? '0 auto' : '5px 0' };
 `;
