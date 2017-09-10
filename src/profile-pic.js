@@ -36,7 +36,7 @@ export function PicUploader(props) {
 
 
 const ProfilePicFig = styled.figure`
-    border: solid 4px hsl(27, 66%, 29%);
+    border:  ${props => props.nav ? 'solid 4px hsl(27, 66%, 29%)' : 'none' };
     border-radius: ${props => props.nav ? '50%' : 0};
     overflow: hidden;
     margin: 0 .5em;
@@ -48,6 +48,7 @@ const ProfilePicFig = styled.figure`
     > img {
         width: 100%;
         height: 100%;
+        border:  ${props => props.nav ? 'none' : 'solid 4px hsl(27, 66%, 29%)'};
     }
 
     :hover {
@@ -63,5 +64,5 @@ const PicUploaderDiv = styled.div`
         margin-left: 10px;
         margin-top: 10px;
     }
-    
+
 `;
