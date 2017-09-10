@@ -40,6 +40,18 @@ export default class Friends extends React.Component {
     render() {
 
 
+        const friends = [{
+            id: 1,
+            first_name: 'Phil',
+            last_name: 'Bulldog',
+            profile_pic: 'https://s3.amazonaws.com/maggiesgingersocialnetwork/6xuprnPc76QwWoSGJhDt4BifybxUPfZR.png'
+        }, {
+            id: 2,
+            first_name: 'Mr',
+            last_name: 'Peanutbutter',
+            profile_pic: 'https://s3.amazonaws.com/maggiesgingersocialnetwork/2vZpdN1StHdAf32l-iPQpYJCbGmCHaAQ.png'
+        }];
+
         const friend = (
             <ProfileListItem>
                 <SidePic>
@@ -53,8 +65,6 @@ export default class Friends extends React.Component {
             </ProfileListItem>
         );
 
-
-
         return (
             <UnderNav>
                 <Column two>
@@ -64,7 +74,7 @@ export default class Friends extends React.Component {
                         </SectionHeader>
                         <ul>
                             {friend}
-                            {friend}
+
                         </ul>
                     </SidebarMenu>
                 </Column>
