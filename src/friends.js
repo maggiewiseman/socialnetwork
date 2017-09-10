@@ -24,7 +24,7 @@ export default class Friends extends React.Component {
                 last_name: 'Peanutbutter',
                 profile_pic: 'https://s3.amazonaws.com/maggiesgingersocialnetwork/2vZpdN1StHdAf32l-iPQpYJCbGmCHaAQ.png'
             }],
-            pendingFriends: [{
+            friendRequests: [{
                 id: 3,
                 first_name: 'Sheryl',
                 last_name: 'Poodle',
@@ -38,33 +38,6 @@ export default class Friends extends React.Component {
         };
     }
     render() {
-
-
-        const friends = [{
-            id: 1,
-            first_name: 'Phil',
-            last_name: 'Bulldog',
-            profile_pic: 'https://s3.amazonaws.com/maggiesgingersocialnetwork/6xuprnPc76QwWoSGJhDt4BifybxUPfZR.png'
-        }, {
-            id: 2,
-            first_name: 'Mr',
-            last_name: 'Peanutbutter',
-            profile_pic: 'https://s3.amazonaws.com/maggiesgingersocialnetwork/2vZpdN1StHdAf32l-iPQpYJCbGmCHaAQ.png'
-        }];
-
-        const friend = (
-            <ProfileListItem>
-                <SidePic>
-                    <ProfilePic nav
-                        imgsrc={'https://s3.amazonaws.com/maggiesgingersocialnetwork/6xuprnPc76QwWoSGJhDt4BifybxUPfZR.png'}
-                        first_name={'Phil'}
-                        last_name={'Bulldog'} />
-                </SidePic>
-                <DogInfo><p>Phil Bulldog</p><Button>End Friendship</Button></DogInfo>
-
-            </ProfileListItem>
-        );
-
         return (
             <UnderNav>
                 <Column two>
@@ -72,10 +45,7 @@ export default class Friends extends React.Component {
                         <SectionHeader>
                             Friend Requests:
                         </SectionHeader>
-                        <ul>
-                            {friend}
-
-                        </ul>
+                        {FriendList(this.state.friendRequests)}
                     </SidebarMenu>
                 </Column>
                 <Column two>
@@ -83,9 +53,7 @@ export default class Friends extends React.Component {
                         <SectionHeader>
                             Friends:
                         </SectionHeader>
-                        <ul>
-                            {friend}
-                        </ul>
+                        {FriendList(this.state.friends)}
                     </SidebarMenu>
                 </Column>
             </UnderNav>
@@ -109,3 +77,27 @@ const DogInfo = styled.div`
     padding: 10px 0;
 
 `;
+
+function FriendList(newFriends) {
+
+    const friendItems = newFriends.map((dog) => {
+        return (
+            <ProfileListItem key={dog.id.toString()}>
+                <SidePic>
+                    <ProfilePic nav
+                        imgsrc={dog.profile_pic}
+                        first_name={dog.first_name}
+                        last_name={dog.last_name}/>
+                </SidePic>
+                <DogInfo><p>{dog.first_name + ' ' + dog.last_name}</p><Button>End Friendship</Button></DogInfo>
+
+            </ProfileListItem>
+        );
+    });
+
+    return (
+        <ul>
+            {friendItems}
+        </ul>
+    );
+}
