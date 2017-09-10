@@ -36,6 +36,7 @@ export function PicUploader(props) {
 
 
 const ProfilePicFig = styled.figure`
+    
     border:  ${props => props.nav ? 'solid 4px hsl(27, 66%, 29%)' : 'none' };
     border-radius: ${props => props.nav ? '50%' : 0};
     overflow: hidden;

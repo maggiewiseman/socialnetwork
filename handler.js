@@ -146,7 +146,7 @@ function handle(query, req, res) {
 }
 
 function setUserData(req) {
-    let profile_pic  = urlPrepend + 'Tvl0e2wRJ8H3D_vxF1pvu8nhICVESy_h.png';
+    let profile_pic  = '8U6SwVSYYaNTC-TAKzw2g5pYI3Strfph.png';
     var userInfo = [req.body['first_name'], req.body['last_name'], req.body['email'], req.body['password'], profile_pic];
 
     return userInfo = help.validate(userInfo);
