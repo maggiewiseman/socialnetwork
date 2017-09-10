@@ -44,9 +44,15 @@ export const Nav = styled.div`
 
 export const UnderNav = styled.div`
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     justify-content: space-around;
     margin-top: 10px;
+
+    @media (max-width: 530px) {
+        flex-flow: column nowrap;
+    }
+
+
 `;
 
 export const Sidebar = styled.aside`
@@ -90,6 +96,6 @@ export const Column = styled.section`
         } else {
             return '100%';
         }
-    }}
+    }};
 
 `;
