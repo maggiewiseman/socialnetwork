@@ -1,6 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
+import { FullPageModal } from './styledComponents/wrapper';
+import { Button, ButtonGroup } from './styledComponents/buttons';
+import { HintText, ErrorText } from './styledComponents/text';
+import { SectionHeader } from './styledComponents/headers';
+
+
+export function ProfilePic(props) {
+    return (
+        <ProfilePicFig nav={props.nav}>
+            <img src={props.imgsrc} alt={`${props.first_name} ${props.last_name}`} onClick={props.showUpLoader}/>
+        </ProfilePicFig>
+    );
+}
+
+export function PicUploader(props) {
+    return (
+        <FullPageModal>
+            <PicUploaderDiv>
+                <SectionHeader>
+                    Upload New Profile Picture
+                </SectionHeader>
+                {props.error && <ErrorText>{props.error}</ErrorText>}
+                <input type="file" onChange={props.getFile}/>
+                <ButtonGroup>
+                    <Button go onClick={props.setImage}>Upload</Button>
+                    <Button cancel onClick={props.hideUploader}>Cancel</Button>
+                </ButtonGroup>
+            </PicUploaderDiv>
+        </FullPageModal>
+    );
+
+}
 
 
 const ProfilePicFig = styled.figure`
@@ -23,26 +55,13 @@ const ProfilePicFig = styled.figure`
     }
 `;
 
-export function ProfilePic(props) {
-    return (
-        <ProfilePicFig nav={props.nav}>
-            <img src={props.imgsrc} alt={`${props.first_name} ${props.last_name}`} onClick={props.showUpLoader}/>
-        </ProfilePicFig>
-    );
-}
-
-export function PicUploader(props) {
-    return (
-        <div className="upload-wrapper">
-            <div className="upload-div">
-                {props.error && <div className='error'>{props.error}</div>}
-                <p className="close-btn"  onClick={props.hideUploader}>X</p>
-                <input type="file" onChange={props.getFile}/>
-                <div className="btn-grp">
-                    <button id="upload-btn" onClick={props.setImage}>Upload</button>
-                    <button id="cancel-btn" onClick={props.hideUploader}>Cancel</button>
-                </div>
-            </div>
-        </div>
-    );
-}
+const PicUploaderDiv = styled.div`
+    border: 1px solid hsla(27, 15%, 36%, 1);
+    background: hsla(27, 66%, 97%, 1);
+    > div,
+    > input {
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+    
+`;

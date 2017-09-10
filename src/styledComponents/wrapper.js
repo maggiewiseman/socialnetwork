@@ -65,3 +65,16 @@ export const MainSection = styled.section`
         padding: 0.25em;
     }
 `;
+
+export const FullPageModal = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: hsla(27, 15%, 36%, 0.45);
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+`;

@@ -82,7 +82,7 @@ function LoginForm({ handleInput, submit, error }) {
         <RegForm>
             <h1>Login</h1>
             <HintText>Or click <Link to="/">here</Link> to create a new account. </HintText>
-            {error && <div className="error">{error}</div>}
+            {error && <ErrorText>{error}</ErrorText>}
             <LoginInput type="E-mail" name="email" placeholder="E-mail" onChange={ handleInput}/>
             <LoginInput type="password" name="password" placeholder="Password" onChange={handleInput}/>
             <Button center type="submit" name="registerBtn" onClick={e => submit(e)}>Submit</Button>
@@ -94,7 +94,6 @@ const RegForm = styled.div`
     background: hsla(27, 66%, 97%, 1);
     border: 1px solid hsla(27, 15%, 36%, 1);
     width: 400px;
-    height: 250px;
     margin: 10px;
     padding: 20px;
     > * {
