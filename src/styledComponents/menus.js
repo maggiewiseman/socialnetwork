@@ -19,3 +19,7 @@ export const SidebarMenuItem = styled.li`
     text-align: left;
 
 `;
+
+export const ProfileListItem = styled.li`
+
+`;

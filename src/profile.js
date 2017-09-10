@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { ProfilePic, PicUploader } from './profile-pic';
 import axios from './axios';
+import { Link } from 'react-router';
 import { Sidebar, MainSection, UnderNav } from './styledComponents/wrapper';
 import { SectionHeader } from './styledComponents/headers';
 import { SidebarMenu, SidebarMenuItem } from './styledComponents/menus';
@@ -40,8 +41,8 @@ export default class Profile extends React.Component {
                             Menu
                         </SectionHeader>
                         <ul>
-                            <SidebarMenuItem>Home</SidebarMenuItem>
-                            <SidebarMenuItem>See Friends</SidebarMenuItem>
+                            <SidebarMenuItem><Link to='/'>Home</Link></SidebarMenuItem>
+                            <SidebarMenuItem><Link to='/friends'>See Friends</Link></SidebarMenuItem>
                             <SidebarMenuItem>Edit Profile</SidebarMenuItem>
                         </ul>
                     </SidebarMenu>

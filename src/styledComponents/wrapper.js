@@ -78,3 +78,18 @@ export const FullPageModal = styled.div`
     justify-content: center;
     align-items: center;
 `;
+
+export const Column = styled.section`
+    width:  ${props => {
+        if(props.two) {
+            return '50%';
+        } else if ( props.three ) {
+            return '33%';
+        } else if ( props.four ){
+            return '25%';
+        } else {
+            return '100%';
+        }
+    }}
+
+`;

@@ -6,6 +6,7 @@ import { Registration, Login} from './auth-form';
 import App from './app';
 import Profile from './profile';
 import OtherProfile from './otherProfile';
+import Friends from './friends';
 
 const authRouter = (
     <Router history={hashHistory}>
@@ -20,6 +21,7 @@ const appRouter = (
     <Router history={browserHistory}>
         <Route path="/" component={App}>
             <IndexRoute component={Profile} />
+            <Route path='/friends' component={Friends} />
             <Route path="/profile/:id" component={OtherProfile} />
         </Route>
     </Router>
