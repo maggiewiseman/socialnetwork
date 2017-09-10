@@ -22,9 +22,10 @@ export const Button = styled.button`
         } else {
             return 'block';
         }
-    }}
+    }};
 
     :hover {
+        background: white;
         border: ${props => {
             if(props.go) {
                 return 'rgba(123, 200, 25, 1) solid 2px';
@@ -33,9 +34,9 @@ export const Button = styled.button`
             } else {
                 return 'hsla(27, 66%, 5%, 1) solid 2px';
             }
-        }
-        };
-        background: white;
+        }};
+
+
         color: ${props => {
             if(props.go) {
                 return 'rgba(123, 200, 25, 1)';

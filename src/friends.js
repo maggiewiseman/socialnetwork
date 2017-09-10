@@ -41,19 +41,16 @@ export default class Friends extends React.Component {
 
 
         const friend = (
-            <div>
+            <ProfileListItem>
                 <SidePic>
                     <ProfilePic nav
                         imgsrc={'https://s3.amazonaws.com/maggiesgingersocialnetwork/6xuprnPc76QwWoSGJhDt4BifybxUPfZR.png'}
                         first_name={'Phil'}
                         last_name={'Bulldog'} />
                 </SidePic>
-                <DogInfo>
-                    Phil Bulldog
-                    <Button>End Friendship</Button>
-                </DogInfo>
+                <DogInfo><p>Phil Bulldog</p><Button>End Friendship</Button></DogInfo>
 
-            </div>
+            </ProfileListItem>
         );
 
 
@@ -63,9 +60,10 @@ export default class Friends extends React.Component {
                 <Column two>
                     <SidebarMenu>
                         <SectionHeader>
-                            Dogs who want to be friends:
+                            Friend Requests:
                         </SectionHeader>
                         <ul>
+                            {friend}
                             {friend}
                         </ul>
                     </SidebarMenu>
@@ -88,12 +86,16 @@ export default class Friends extends React.Component {
 const SidePic = styled.div`
     width: 30%;
     text-align: center;
+    display: inline-block;
+    margin: 0;
     padding: 6px 0;
-    float: left;
 `;
 
 const DogInfo = styled.div`
     width: 60%;
-    float: left;
-    padding: 6px 0;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0;
+    padding: 10px 0;
+
 `;

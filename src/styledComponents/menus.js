@@ -20,6 +20,6 @@ export const SidebarMenuItem = styled.li`
 
 `;
 
-export const ProfileListItem = styled.li`
-
+export const ProfileListItem = styled.div`
+    border-bottom: 1px solid hsla(27, 15%, 36%, 1);
 `;
