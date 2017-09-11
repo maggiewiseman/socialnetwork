@@ -48,6 +48,7 @@ function getFriendStatus(data) {
     console.log('DBQUERY: in getFriendStatus');
     let queryStr = 'SELECT status, sender_id FROM friendships WHERE (sender_id = $1 AND receiver_id = $2) OR (sender_id = $2 AND receiver_id = $1)';
     return db.query(queryStr, data).then((result) => {
+        console.log('DBQUERY getFriendStatus', result.rows);
         return(result.rows);
     });
 }

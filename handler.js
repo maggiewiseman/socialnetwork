@@ -21,7 +21,7 @@ function handle(query, req, res) {
                 //relationship exists so update relationship
                 updateFriendship(req, res, results.rows[0].status);
             } else {
-                //relationship does not exist and a new one.
+                //relationship does not exist add a new one.
                 let data = [req.session.user.id, req.body.otherUserId, statusMap.pending];
                 dbQuery.addFriendship(data).then(()=> {
                     res.json({
@@ -38,28 +38,20 @@ function handle(query, req, res) {
 
     }
 
-    if (query == 'getOtherUserById') {
-        console.log(`HANDLE ${query}`, req.body);
-        let data = [req.params.id];
-        let userInfo = {};
-        //get user profile data
-        return dbQuery.getUserById(data).then((results) => {
-            console.log('results:', results.rows);
-            results.rows[0].profile_pic = urlPrepend.s3Url + results.rows[0].profile_pic;
-            userInfo = results.rows[0];
-            //figure out if there is a current relationship
-            return dbQuery.getFriendStatus([req.session.user.id, req.params.id]);
-        }).then((results) => {
-            console.log(results.rows);
-            if(results.rows){
+    if (query == 'getFriendStatus') {
+        return dbQuery.getFriendStatus([req.session.user.id, req.params.id]).then((results) => {
+
+            let friendshipStatus = 'Make';
+
+            if(results[0].status){
+                console.log('there is a relationship');
+                //there is a friendship
                 //do the logic to determine what status should be sent to the button
-                userInfo.friendshipStatus = determineReturnStatus(req.session.user.id, results.rows[0]);
-            } else {
-                //there is no friendship
-                userInfo.friendshipStatus = 'Make';
+                friendshipStatus = determineReturnStatus(req.session.user.id, results[0].status);
             }
-            console.log('HANDLER getOtherUserById: userINfo:', userInfo);
-            res.json(userInfo);
+            console.log('GetFriend Status:', friendshipStatus);
+            res.json({friendshipStatus});
+
         }).catch(e => {
             console.error(e.stack);
             res.json({
@@ -67,6 +59,47 @@ function handle(query, req, res) {
             });
         });
     }
+
+    if (query == 'getOtherUserById') {
+        console.log(`HANDLE ${query}`, req.body);
+        let data = [req.params.id];
+        dbQuery.getUserById(data).then((results) => {
+            console.log('results:', results.rows);
+            results.rows[0].profile_pic = urlPrepend.s3Url + results.rows[0].profile_pic;
+            res.json({
+                userInfo: results.rows[0]
+            });
+        });
+    }
+    // if (query == 'getOtherUserById') {
+    //     console.log(`HANDLE ${query}`, req.body);
+    //     let data = [req.params.id];
+    //     let userInfo = {};
+    //     //get user profile data
+    //     return dbQuery.getUserById(data).then((results) => {
+    //         console.log('results:', results.rows);
+    //         results.rows[0].profile_pic = urlPrepend.s3Url + results.rows[0].profile_pic;
+    //         userInfo = results.rows[0];
+    //         //figure out if there is a current relationship
+    //         return dbQuery.getFriendStatus([req.session.user.id, req.params.id]);
+    //     }).then((results) => {
+    //         console.log(results.rows);
+    //         if(results.rows){
+    //             //do the logic to determine what status should be sent to the button
+    //             userInfo.friendshipStatus = determineReturnStatus(req.session.user.id, results.rows[0]);
+    //         } else {
+    //             //there is no friendship
+    //             userInfo.friendshipStatus = 'Make';
+    //         }
+    //         console.log('HANDLER getOtherUserById: userINfo:', userInfo);
+    //         res.json(userInfo);
+    //     }).catch(e => {
+    //         console.error(e.stack);
+    //         res.json({
+    //             error: e
+    //         });
+    //     });
+    // }
 
     if (query == 'getUserById') {
         console.log(`HANDLE ${query}`, req.body);
@@ -289,4 +322,6 @@ function updateFriendship(req, res, status) {
 
 //Tests
 //for this one, comment out the res.json sections
-//updateFriendship({session: {user: {id: 1}}, params: {id: 2}}, {}, 3);
+//updateFriendship({session: {user: {id: 1}}, params: {id: 2}}, {}, 1);
+
+//handle('getFriendStatus', {session: {user: {id: 1}}, params: {id: 2}}, {});
