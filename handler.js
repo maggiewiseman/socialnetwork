@@ -271,17 +271,22 @@ function updateFriendship(req, res, status) {
 
     dbQuery.updateFriendship(data).then((results) => {
         console.log('HANDLER updateFriendship results: ', results[0].status);
-        // res.json({
-        //     friendshipStatus: results.rows[0].status
-        // });
+
+        //Turn the status back into a word that React can use to render the correct button
+        let friendshipStatus = determineReturnStatus(req.session.user.id, {status: results[0].status, sender_id: req.session.user.id});
+
+        console.log(friendshipStatus);
+        res.json({
+            friendshipStatus: friendshipStatus
+        });
     }).catch(e => {
         console.error(e.stack);
-        // res.json({
-        //     error: e
-        // });
+        res.json({
+            error: e
+        });
     });
 }
 
 //Tests
 //for this one, comment out the res.json sections
-updateFriendship({session: {user: {id: 1}}, params: {id: 2}}, {}, 3);
+//updateFriendship({session: {user: {id: 1}}, params: {id: 2}}, {}, 3);
