@@ -28,6 +28,18 @@ function addFriendship(data) {
     });
 }
 
+/*
+- data is an array with sender_id as first param and receiver_id as second param
+- returns a number that represents status
+*/
+function getFriendStatus(data) {
+    console.log('DBQUERY: in getFriendStatus');
+    let queryStr = 'SELECT status, sender_id FROM friendships WHERE (sender_id = $1 AND receiver_id = $2) OR (sender_id = $2 AND receiver_id = $1)';
+    return db.query(queryStr, data).then((result) => {
+        return(result.rows);
+    });
+}
+
 //dbQuery to get password, first_name and last_name and id from users table using e-mail
 function getUserInfo(email) {
     console.log('DBQUERY: in getUserInfo');
@@ -79,7 +91,7 @@ module.exports.updateProfilePic = updateProfilePic;
 module.exports.addFriendship = addFriendship;
 module.exports.updateProfile = updateProfile;
 module.exports.getUserById = getUserById;
-
+module.exports.getFriendStatus = getFriendStatus;
 
 /* Tests */
 // addFriendship([1, 2, 1]).then((results) => {

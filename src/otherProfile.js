@@ -20,8 +20,8 @@ export default class OtherProfile extends React.Component {
         var url = '/api/user/' + id;
         axios.get(url).then((res)=> {
             console.log('OtherProfile after mounting: res is:', res);
-            var { first_name, last_name, profile_pic, bio } = res.data.userInfo;
-            this.setState({ id, first_name, last_name, profile_pic, bio}, () => {
+            var { first_name, last_name, profile_pic, bio, friendshipStatus } = res.data;
+            this.setState({ id, first_name, last_name, profile_pic, bio, friendshipStatus}, () => {
                 console.log('did mount state: ', this.state);
             });
 
@@ -33,7 +33,8 @@ export default class OtherProfile extends React.Component {
         });
     }
     render() {
-        var { id, first_name, last_name, profile_pic, bio} = this.state;
+        var { id, first_name, last_name, profile_pic, bio, friendshipStatus} = this.state;
+        console.log('friendshipStatus: ', friendshipStatus);
         return (
 
             <UnderNav>

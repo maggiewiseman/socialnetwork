@@ -4,22 +4,63 @@ const urlPrepend = require('./config.json');
 
 const PENDING = 1, ACCEPTED = 2, REJECTED = 3, CANCELLED = 4, TERMINATED = 5;
 
+var statusMap = {
+    pending: 1,
+    accepted: 2,
+    rejected: 3,
+    cancelled: 4,
+    terminated: 5
+};
+
 function handle(query, req, res) {
+    if (query == 'makeFriendship') {
+        console.log('HANDLE ${query}');
+        let data = [req.session.user.id, req.body.otherUserId, statusMap.pending];
+        dbQuery.addFriendship(data).then(()=> {
+            res.json({
+                success: true
+            });
+        }).catch((e) => {
+            console.error(e.stack);
+            res.json({
+                error: e
+            });
+        });
+    }
+
     if (query == 'getOtherUserById') {
         console.log(`HANDLE ${query}`, req.body);
-        var data = [req.params.id]
-        dbQuery.getUserById(data).then((results) => {
+        let data = [req.params.id];
+        let userInfo = {};
+        //get user profile data
+        return dbQuery.getUserById(data).then((results) => {
             console.log('results:', results.rows);
             results.rows[0].profile_pic = urlPrepend.s3Url + results.rows[0].profile_pic;
+            userInfo = results.rows[0];
+            //figure out if there is a current relationship
+            return dbQuery.getFriendStatus([req.session.user.id, req.params.id]);
+        }).then((results) => {
+            console.log(results.rows);
+            if(results.rows){
+                //do the logic to determine what status should be sent to the button
+                userInfo.friendshipStatus = determineReturnStatus(req.session.user.id, results.rows[0]);
+            } else {
+                //there is no friendship
+                userInfo.friendshipStatus = 'Make';
+            }
+            console.log('HANDLER getOtherUserById: userINfo:', userInfo);
+            res.json(userInfo);
+        }).catch(e => {
+            console.error(e.stack);
             res.json({
-                userInfo: results.rows[0]
+                error: e
             });
         });
     }
 
     if (query == 'getUserById') {
         console.log(`HANDLE ${query}`, req.body);
-        var data = [req.session.user.id];
+        let data = [req.session.user.id];
         dbQuery.getUserById(data).then((results) => {
             console.log('results:', results.rows);
             results.rows[0].profile_pic = urlPrepend.s3Url + results.rows[0].profile_pic;
@@ -32,7 +73,7 @@ function handle(query, req, res) {
     if (query == 'updateProfile') {
         //set data that is given
         console.log(`HANDLE ${query}`, req.body);
-        var data = [req.session.user.id, req.body.first_name, req.body.last_name, req.body.bio];
+        let data = [req.session.user.id, req.body.first_name, req.body.last_name, req.body.bio];
 
         req.session.user.first_name = req.body.first_name;
         req.session.user.last_name = req.body.last_name;
@@ -51,7 +92,7 @@ function handle(query, req, res) {
 
     }
     if(query == 'uploadProfilePic') {
-        var data = [req.session.user.id, req.file.filename];
+        let data = [req.session.user.id, req.file.filename];
         console.log(`HANDLE: ${query} data:`, data);
         return dbQuery.updateProfilePic(data).then((results) => {
             console.log(`HANDLE: ${query} update successful sending response`);
@@ -149,7 +190,7 @@ function handle(query, req, res) {
 
 function setUserData(req) {
     let profile_pic  = '8U6SwVSYYaNTC-TAKzw2g5pYI3Strfph.png';
-    var userInfo = [req.body['first_name'], req.body['last_name'], req.body['email'], req.body['password'], profile_pic];
+    let userInfo = [req.body['first_name'], req.body['last_name'], req.body['email'], req.body['password'], profile_pic];
 
     return userInfo = help.validate(userInfo);
 }
@@ -162,3 +203,29 @@ function validate(userInput) {
 
 
 module.exports.handle = handle;
+
+/*
+- dbResults is an object that contains status and sender_id
+- returns the status that should be displayed by the button
+*/
+function determineReturnStatus(user_id, dbResults) {
+
+    var { status, sender_id } = dbResults;
+
+    if(status == ACCEPTED) {
+        //user and sender are friends, so option is to terminate relationship
+        return 'End';
+    } else if (status == PENDING) {
+        //one of them sent a friend request
+        if(user_id == sender_id) {
+            //if the user is the sender, then they should see Pending
+            //if the user was not the one who sent the request, they should see Accept
+            return 'Pending';
+        } else {
+            return 'Accept';
+        }
+    } else {
+        //If status is cancelled, rejected, or terminated the users should have the option to make a friend request again.
+        return 'Make';
+    }
+}

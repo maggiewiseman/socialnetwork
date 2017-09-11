@@ -75,6 +75,10 @@ router.route('/api/user')
         handler('getUserById', req, res);
     });
 
+router.post('/api/makeFriendship', (req,res) => {
+    handler('makeFriendship', req, res);
+});
+
 router.get('/logout', (req, res) => {
     req.session = null;
     res.redirect('/welcome/');
