@@ -59,7 +59,7 @@ router.route('/profilepic')
     });
 
 router.route('/update/profile')
-    .post(mw.loggedInCheck, (req,res, next)=> {
+    .post(mw.loggedInCheck, (req,res)=> {
         handler('updateProfile', req, res);
     });
 
@@ -73,16 +73,6 @@ router.route('/api/user')
         //Return session info
         console.log('ROUTER: /user');
         handler('getUserById', req, res);
-        // res.json({
-        //     success: true,
-        //     userInfo: {
-        //         id: req.session.user.id,
-        //         first_name: req.session.user.first_name,
-        //         last_name: req.session.user.last_name,
-        //         profile_pic: req.session.user.imgsrc || 'http://clipart-library.com/images/LcdjLAAri.png',
-        //         bio: req.session.user.bio
-        //     }
-        // });
     });
 
 router.get('/logout', (req, res) => {

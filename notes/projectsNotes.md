@@ -170,4 +170,29 @@ user/your id see a version of the profile that you cannot edit the bio, but if y
 if you don't have the id yet, you can't compare so check on the server.
 
 When you are at the route user/:id, if you click a link that goes to users/:differentId it keeps the old profile and just gives it new props and you won't see any change bc the component is already mounted.
-A new lifecycle method is componentWillReceiveProps you can then do an axios request to get new userInfo and set state??? 
+A new lifecycle method is componentWillReceiveProps you can then do an axios request to get new userInfo and set state???
+
+## Make friend request button:
+Button Component:
+- needs to know the relationship between the user and the profile being viewed.
+- how to store that info?
+- the button component make an ajax request to get status of this user vs logged in user OR
+- you can return that information with the other user's profile
+
+- friendOptions: {
+    canAccept: true
+}
+
+- push button and make ajax request... need to know what button should say and if you know that you can know the url
+- click the button and give the ajax request the userId and so given a current status (which it can get from db), there's always only one thing.  If it's pending make it accepted.  If it is accepted make it terminated.  If it doesn't exist, make it pending.
+Status:
+accepted
+rejected
+cancelled
+terminated
+pending
+
+Make Friend request
+Accept Friend request
+Cancel Friend request
+End Friendship

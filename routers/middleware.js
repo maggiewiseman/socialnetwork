@@ -2,13 +2,7 @@ function registerLoginCheck(req, res, next) {
 
     if(req.session.user) {
         //logged in
-        if(req.session.user.sigId) {
-            //already signed petition
-            res.redirect('/');
-        } else {
-            //logged in but haven't signed petition
-            res.redirect('/welcome/');
-        }
+        res.redirect('/');
     } else {
         //not logged in go to registration page
         next();
