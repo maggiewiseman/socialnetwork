@@ -4,14 +4,6 @@ const urlPrepend = require('./config.json');
 
 const PENDING = 1, ACCEPTED = 2, REJECTED = 3, CANCELLED = 4, TERMINATED = 5;
 
-var statusMap = {
-    pending: 1,
-    accepted: 2,
-    rejected: 3,
-    cancelled: 4,
-    terminated: 5
-};
-
 function handle(query, req, res) {
     if (query == 'updateFriendship') {
         console.log('HANDLE ${query}');
@@ -19,13 +11,13 @@ function handle(query, req, res) {
         return dbQuery.getFriendStatus([req.session.user.id, req.params.id]).then((results)=>{
             if(results[0]) {
                 //relationship exists so update relationship
-                updateFriendship(req, res, results[0].status);
+                updateFriendship(req, res, results[0]);
             } else {
                 //relationship does not exist add a new one.
                 let data = [req.session.user.id, req.params.id, PENDING];
                 dbQuery.addFriendship(data).then(()=> {
                     res.json({
-                        friendshipStatus: 'pending'
+                        friendshipStatus: 'Pending'
                     });
                 }).catch((e) => {
                     console.error(e.stack);
@@ -40,14 +32,15 @@ function handle(query, req, res) {
 
     if (query == 'getFriendStatus') {
         return dbQuery.getFriendStatus([req.session.user.id, req.params.id]).then((results) => {
+            //results is an array with one object that contains status and sender_id properties
 
             let friendshipStatus = 'Make';
 
             if(results[0]){
-                console.log('there is a relationship');
+                console.log('there is a relationship', results[0]);
                 //there is a friendship
                 //do the logic to determine what status should be sent to the button
-                friendshipStatus = determineReturnStatus(req.session.user.id, results[0].status);
+                friendshipStatus = determineReturnStatus(req.session.user.id, results[0]);
             } else {
                 console.log('there is no relationship');
             }
@@ -254,7 +247,7 @@ module.exports.handle = handle;
 - returns the status that should be displayed by the button
 */
 function determineReturnStatus(user_id, dbResults) {
-
+    console.log('DetermineReturnStatus:', dbResults);
     var { status, sender_id } = dbResults;
 
     if(status == ACCEPTED) {
@@ -265,7 +258,7 @@ function determineReturnStatus(user_id, dbResults) {
         if(user_id == sender_id) {
             //if the user is the sender, then they should see Pending
             //if the user was not the one who sent the request, they should see Accept
-            return 'Pending';
+            return 'Cancel';
         } else {
             return 'Accept';
         }
@@ -280,35 +273,54 @@ function determineReturnStatus(user_id, dbResults) {
 - dbResults is an object that contains status and sender_id
 - returns the status that should be displayed by the button
 */
-function updateFriendship(req, res, status) {
+function updateFriendship(req, res, dbResults) {
+    let status = dbResults.status;
     console.log('status is: ', status);
-    let data = [req.session.user.id, req.params.id];
+
+    //set sender and receiver to keep these the same in database
+    let sender = dbResults.sender_id;
+
+    let receiver = sender == req.session.user.id ? req.params.id : req.session.user.id;
+
+    let data = [sender, receiver];
+    console.log('sender - receiver', data);
     //if it says accepted than it is being changed to terminated
     if(status == ACCEPTED) {
         console.log('Accepted to terminated');
         data.push(TERMINATED);
     } else if (status == PENDING) {
-        //Just got status from db.  If it is pending there's two possible responses
+
+        //Just got status from db.  If it is pending there's 3 possible responses
         //1) reject in this case there will be params in the body that say reject
-        //2) accept, no status in body
-        if(req.body) {
+        //2) if the current user is sender it is to cancel request
+        //3) If the current user is the receiver it is to accept request
+        if(req.body.reject) {
             console.log('Pending to reject');
             data.push(REJECTED);
         } else {
-            console.log('Pending to accept');
-            data.push(ACCEPTED);
+            if(req.session.user.id == dbResults.sender_id){
+                console.log('Pending to cancelled');
+                data.push(CANCELLED);
+            } else {
+                console.log('Pending to accept');
+                data.push(ACCEPTED);
+            }
         }
     } else {
         //if it says terminated, cancelled, or rejected we are changing it to pending and updating the user ids
         console.log('terminated, cancelled or rejected to Pending');
-        data.push(PENDING);
+
+        //reset sender and receiver just in case the sender in the previous situation is now the receiver.
+        sender = req.session.user.id;
+        receiver = req.params.id;
+        data = [sender, receiver, PENDING];
     }
 
     dbQuery.updateFriendship(data).then((results) => {
         console.log('HANDLER updateFriendship results: ', results[0].status);
 
         //Turn the status back into a word that React can use to render the correct button
-        let friendshipStatus = determineReturnStatus(req.session.user.id, {status: results[0].status, sender_id: req.session.user.id});
+        let friendshipStatus = determineReturnStatus(req.session.user.id, {sender_id: sender, status: results[0].status });
 
         console.log(friendshipStatus);
         res.json({

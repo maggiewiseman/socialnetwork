@@ -41,8 +41,9 @@ export default class FriendButton extends React.Component {
         //}
 
         axios.post(url + this.state.receiver_id).then((newStatus) => {
+            console.log('newStatus:', newStatus);
             this.setState({
-                friendshipStatus: newStatus
+                friendshipStatus: newStatus.data.friendshipStatus
             });
         });
     }

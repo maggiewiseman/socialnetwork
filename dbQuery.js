@@ -109,8 +109,8 @@ module.exports.updateFriendship = updateFriendship;
 
 
 /* Tests */
-
-// addFriendship([1, 2, 1]).then((results) => {
+//getFriendStatus([1, 2]);
+//  addFriendship([1, 2, 1]).then((results) => {
 //     console.log(results);
 // }).catch(e => console.error(e));
 // addUser(['Maggie', 'Wiseman', 'maggie', 'maggiepass']).then((results) => {
