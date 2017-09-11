@@ -17,12 +17,12 @@ function handle(query, req, res) {
         console.log('HANDLE ${query}');
         //find out if relationship already exists
         return dbQuery.getFriendStatus([req.session.user.id, req.params.id]).then((results)=>{
-            if(results.rows[0].status) {
+            if(results[0]) {
                 //relationship exists so update relationship
-                updateFriendship(req, res, results.rows[0].status);
+                updateFriendship(req, res, results[0].status);
             } else {
                 //relationship does not exist add a new one.
-                let data = [req.session.user.id, req.body.otherUserId, statusMap.pending];
+                let data = [req.session.user.id, req.params.id, PENDING];
                 dbQuery.addFriendship(data).then(()=> {
                     res.json({
                         friendshipStatus: 'pending'
