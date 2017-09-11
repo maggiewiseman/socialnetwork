@@ -34,7 +34,7 @@ function addFriendship(data) {
 */
 function updateFriendship(data) {
     console.log('DBQUERY: in updateFriendship.');
-    let queryStr = 'UPDATE friendships SET sender_id = $1, receiver_id = $2, status = $3 WHERE (sender_id = $1 AND receiver_id = $2) OR (sender_id = $2 and receiver_id = $1)';
+    let queryStr = 'UPDATE friendships SET sender_id = $1, receiver_id = $2, status = $3 WHERE (sender_id = $1 AND receiver_id = $2) OR (sender_id = $2 and receiver_id = $1) RETURNING status';
     return db.query(queryStr, data).then((result) => {
         return(result.rows);
     });

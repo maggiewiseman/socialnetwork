@@ -13,19 +13,29 @@ var statusMap = {
 };
 
 function handle(query, req, res) {
-    if (query == 'makeFriendship') {
+    if (query == 'updateFriendship') {
         console.log('HANDLE ${query}');
-        let data = [req.session.user.id, req.body.otherUserId, statusMap.pending];
-        dbQuery.addFriendship(data).then(()=> {
-            res.json({
-                success: true
-            });
-        }).catch((e) => {
-            console.error(e.stack);
-            res.json({
-                error: e
-            });
+        //find out if relationship already exists
+        return dbQuery.getFriendStatus([req.session.user.id, req.params.id]).then((results)=>{
+            if(results.rows[0].status) {
+                //relationship exists so update relationship
+                updateFriendship(req, res, results.rows[0].status);
+            } else {
+                //relationship does not exist and a new one.
+                let data = [req.session.user.id, req.body.otherUserId, statusMap.pending];
+                dbQuery.addFriendship(data).then(()=> {
+                    res.json({
+                        friendshipStatus: 'pending'
+                    });
+                }).catch((e) => {
+                    console.error(e.stack);
+                    res.json({
+                        error: e
+                    });
+                });
+            }
         });
+
     }
 
     if (query == 'getOtherUserById') {
@@ -229,3 +239,49 @@ function determineReturnStatus(user_id, dbResults) {
         return 'Make';
     }
 }
+
+
+/*
+- dbResults is an object that contains status and sender_id
+- returns the status that should be displayed by the button
+*/
+function updateFriendship(req, res, status) {
+    console.log('status is: ', status);
+    let data = [req.session.user.id, req.params.id];
+    //if it says accepted than it is being changed to terminated
+    if(status == ACCEPTED) {
+        console.log('Accepted to terminated');
+        data.push(TERMINATED);
+    } else if (status == PENDING) {
+        //Just got status from db.  If it is pending there's two possible responses
+        //1) reject in this case there will be params in the body that say reject
+        //2) accept, no status in body
+        if(req.body) {
+            console.log('Pending to reject');
+            data.push(REJECTED);
+        } else {
+            console.log('Pending to accept');
+            data.push(ACCEPTED);
+        }
+    } else {
+        //if it says terminated, cancelled, or rejected we are changing it to pending and updating the user ids
+        console.log('terminated, cancelled or rejected to Pending');
+        data.push(PENDING);
+    }
+
+    dbQuery.updateFriendship(data).then((results) => {
+        console.log('HANDLER updateFriendship results: ', results[0].status);
+        // res.json({
+        //     friendshipStatus: results.rows[0].status
+        // });
+    }).catch(e => {
+        console.error(e.stack);
+        // res.json({
+        //     error: e
+        // });
+    });
+}
+
+//Tests
+//for this one, comment out the res.json sections
+updateFriendship({session: {user: {id: 1}}, params: {id: 2}}, {}, 3);
