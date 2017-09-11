@@ -2,6 +2,8 @@ const dbQuery = require('./dbQuery');
 const help = require('./helpers');
 const urlPrepend = require('./config.json');
 
+const PENDING = 1, ACCEPTED = 2, REJECTED = 3, CANCELLED = 4, TERMINATED = 5;
+
 function handle(query, req, res) {
     if (query == 'getOtherUserById') {
         console.log(`HANDLE ${query}`, req.body);

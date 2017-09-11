@@ -1,7 +1,7 @@
 const spicedPg = require('spiced-pg');
 var localUrl = '';
 
-const PENDING = 1, ACCEPTED = 2, REJECTED = 3, CANCELLED = 4, TERMINATED = 5;
+
 
 if(!process.env.DATABASE_URL) {
     const secrets = require('./secrets.json');
@@ -9,13 +9,21 @@ if(!process.env.DATABASE_URL) {
 }
 var dbUrl = process.env.DATABASE_URL || localUrl;
 
-const db = spicedPg(dbUrl);
 //db returns a promise and you will get back a result
+const db = spicedPg(dbUrl);
 
 function addUser(userInfo) {
     console.log('DBQUERY: in add user.');
     let queryStr = 'INSERT INTO users (first_name, last_name, email, password, profile_pic) VALUES ($1, $2, $3, $4, $5) RETURNING id';
     return db.query(queryStr, userInfo).then((result) => {
+        return(result.rows);
+    });
+}
+
+function addFriendship(data) {
+    console.log('DBQUERY: in addFriendship.');
+    let queryStr = 'INSERT INTO friendships (sender_id, receiver_id, status) VALUES ($1, $2, $3)';
+    return db.query(queryStr, data).then((result) => {
         return(result.rows);
     });
 }
@@ -68,16 +76,13 @@ function getUserById(id) {
 module.exports.addUser = addUser;
 module.exports.getUserInfo = getUserInfo;
 module.exports.updateProfilePic = updateProfilePic;
-// module.exports.addProfile = addProfile;
-// module.exports.getProfileById = getProfileById;
-// module.exports.getProfileId = getProfileId;
-// module.exports.updateUser = updateUser;
+module.exports.addFriendship = addFriendship;
 module.exports.updateProfile = updateProfile;
 module.exports.getUserById = getUserById;
 
 
 /* Tests */
-// updateProfilePic([1, 'https://s3.amazonaws.com/maggiesgingersocialnetwork/7LIWEMODw1hCcTv9D7wy7Ak7ZV8EzGU4.png']).then((results) => {
+// addFriendship([1, 2, 1]).then((results) => {
 //     console.log(results);
 // }).catch(e => console.error(e));
 // addUser(['Maggie', 'Wiseman', 'maggie', 'maggiepass']).then((results) => {
