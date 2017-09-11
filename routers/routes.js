@@ -69,7 +69,7 @@ router.route('/api/user/:id')
     });
 
 router.route('/api/user')
-    .get((req, res) => {
+    .get(mw.loggedInCheck, (req, res) => {
         //Return session info
         console.log('ROUTER: /user');
         handler('getUserById', req, res);
@@ -86,7 +86,7 @@ router.route('/api/user')
     });
 
 router.get('/logout', (req, res) => {
-    req.session.user = null;
+    req.session = null;
     res.redirect('/welcome/');
 });
 

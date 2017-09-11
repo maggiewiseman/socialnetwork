@@ -1,4 +1,6 @@
+DROP TABLE IF EXISTS friendships;
 DROP TABLE IF EXISTS users;
+
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -9,4 +11,11 @@ CREATE TABLE users (
     profile_pic VARCHAR(255),
     bio VARCHAR(300),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE friendships (
+    id SERIAL PRIMARY KEY,
+    sender_id INT NOT NULL,
+    receiver_id INT NOT NULL,
+    status INT NOT NULL
 );

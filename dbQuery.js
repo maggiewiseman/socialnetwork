@@ -1,6 +1,8 @@
 const spicedPg = require('spiced-pg');
 var localUrl = '';
 
+const PENDING = 1, ACCEPTED = 2, REJECTED = 3, CANCELLED = 4, TERMINATED = 5;
+
 if(!process.env.DATABASE_URL) {
     const secrets = require('./secrets.json');
     localUrl = `postgres:${secrets.dbUser}:${secrets.pass}@localhost:5432/social`;

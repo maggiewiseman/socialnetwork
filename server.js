@@ -1,11 +1,10 @@
 const express = require('express');
-const app = express();
 const compression = require('compression');
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const csurf = require('csurf');
-const handler = require('./handler').handle
 
+const app = express();
 
 var secret = process.env.SESSION_SECRET || require('./secrets.json').sessionSecret;
 
@@ -13,7 +12,10 @@ var secret = process.env.SESSION_SECRET || require('./secrets.json').sessionSecr
 app.use(compression());
 
 if (process.env.NODE_ENV != 'production') {
-    app.use(require('./build'));
+    // app.use(require('./build'));
+    app.use('/bundle.js', require('http-proxy-middleware')({
+        target: 'http://localhost:8081'
+    }));
 }
 
 //use all the rest of the middleware here

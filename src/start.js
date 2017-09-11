@@ -21,8 +21,8 @@ const appRouter = (
     <Router history={browserHistory}>
         <Route path="/" component={App}>
             <IndexRoute component={Profile} />
-            <Route path='/friends' component={Friends} />
-            <Route path="/profile/:id" component={OtherProfile} />
+            <Route path='friends' component={Friends} />
+            <Route path="profile/:id" component={OtherProfile} />
         </Route>
     </Router>
 );
