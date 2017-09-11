@@ -6,13 +6,14 @@ import { Sidebar, MainSection, UnderNav } from './styledComponents/wrapper';
 import { SectionHeader } from './styledComponents/headers';
 import { SidebarMenu, SidebarMenuItem } from './styledComponents/menus';
 import styled from 'styled-components';
-import { Button } from './styledComponents/buttons';
+import FriendButton from './friendButton';
 import { HintText } from './styledComponents/text';
 
 export default class OtherProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
+
     }
     componentWillMount() {
         console.log('in OtherProfile Comoneent');
@@ -20,8 +21,8 @@ export default class OtherProfile extends React.Component {
         var url = '/api/user/' + id;
         axios.get(url).then((res)=> {
             console.log('OtherProfile after mounting: res is:', res);
-            var { first_name, last_name, profile_pic, bio, friendshipStatus } = res.data;
-            this.setState({ id, first_name, last_name, profile_pic, bio, friendshipStatus}, () => {
+            var { first_name, last_name, profile_pic, bio } = res.data.userInfo;
+            this.setState({ id, first_name, last_name, profile_pic, bio}, () => {
                 console.log('did mount state: ', this.state);
             });
 
@@ -29,12 +30,12 @@ export default class OtherProfile extends React.Component {
             this.setState({
                 error: e
             });
-            console.error(e)
+            console.error(e);
         });
     }
     render() {
-        var { id, first_name, last_name, profile_pic, bio, friendshipStatus} = this.state;
-        console.log('friendshipStatus: ', friendshipStatus);
+        var { id, first_name, last_name, profile_pic, bio} = this.state;
+        console.log('ID', id);
         return (
 
             <UnderNav>
@@ -42,7 +43,7 @@ export default class OtherProfile extends React.Component {
                     <ProfilePic imgsrc={profile_pic}
                             first_name={first_name}
                             last_name={last_name}/>
-                            <Button center>Make Friend Request</Button>
+                            {id && <FriendButton receiver={id}/>}
                 </Sidebar>
                 <MainSection>
                     <h2>{first_name} {last_name}</h2>

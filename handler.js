@@ -43,11 +43,13 @@ function handle(query, req, res) {
 
             let friendshipStatus = 'Make';
 
-            if(results[0].status){
+            if(results[0]){
                 console.log('there is a relationship');
                 //there is a friendship
                 //do the logic to determine what status should be sent to the button
                 friendshipStatus = determineReturnStatus(req.session.user.id, results[0].status);
+            } else {
+                console.log('there is no relationship');
             }
             console.log('GetFriend Status:', friendshipStatus);
             res.json({friendshipStatus});

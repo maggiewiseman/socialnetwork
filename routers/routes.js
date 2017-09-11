@@ -75,8 +75,12 @@ router.route('/api/user')
         handler('getUserById', req, res);
     });
 
-router.post('/api/makeFriendship', (req,res) => {
+router.post('/api/makeFriend/:id', (req,res) => {
     handler('makeFriendship', req, res);
+});
+
+router.get('/api/friendStatus/:id', (req,res) => {
+    handler('getFriendStatus', req, res);
 });
 
 router.get('/logout', (req, res) => {
