@@ -29,6 +29,18 @@ function addFriendship(data) {
 }
 
 /*
+- data is an array with the current user id, the id of the friend who is on the receiving end of this request and the new status.
+- it doesn't return anything that gets used.
+*/
+function updateFriendship(data) {
+    console.log('DBQUERY: in updateFriendship.');
+    let queryStr = 'UPDATE friendships SET sender_id = $1, receiver_id = $2, status = $3 WHERE (sender_id = $1 AND receiver_id = $2) OR (sender_id = $2 and receiver_id = $1)';
+    return db.query(queryStr, data).then((result) => {
+        return(result.rows);
+    });
+}
+
+/*
 - data is an array with sender_id as first param and receiver_id as second param
 - returns a number that represents status
 */
@@ -92,6 +104,8 @@ module.exports.addFriendship = addFriendship;
 module.exports.updateProfile = updateProfile;
 module.exports.getUserById = getUserById;
 module.exports.getFriendStatus = getFriendStatus;
+module.exports.updateFriendship = updateFriendship;
+
 
 /* Tests */
 // addFriendship([1, 2, 1]).then((results) => {
