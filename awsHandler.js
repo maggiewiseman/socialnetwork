@@ -34,13 +34,13 @@ function sendToAWS(req, res, next) {
         console.log('wasSuccessful', wasSuccessful);
         if(wasSuccessful) {
             next();
+            fs.unlink(req.file.path);
         } else {
             res.json({
                 success: false
             });
         }
     });
-
 }
 
 module.exports.sendToAWS = sendToAWS;
