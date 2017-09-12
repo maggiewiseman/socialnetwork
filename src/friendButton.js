@@ -53,7 +53,10 @@ export default class FriendButton extends React.Component {
     render() {
         console.log(this.state);
         return (
-            <Button center onClick={this.state.friendshipStatus == 'Pending' ||  this.handleFriendRequest}>{this.state.friendshipStatus} Friend Request</Button>
+            <div>
+                <Button center onClick={this.handleFriendRequest}>{this.state.friendshipStatus} Friend Request</Button>
+                {this.state.friendshipStatus == 'Accept' && (<Button center cancel onClick={this.rejectFriendRequest}>Reject Friend Request</Button>)}
+            </div>
         );
     }
 }
