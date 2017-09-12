@@ -13,7 +13,6 @@ export default class OtherProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
-
     }
     componentWillMount() {
         console.log('in OtherProfile Comoneent');
@@ -21,10 +20,15 @@ export default class OtherProfile extends React.Component {
         var url = '/api/user/' + id;
         axios.get(url).then((res)=> {
             console.log('OtherProfile after mounting: res is:', res);
-            var { first_name, last_name, profile_pic, bio } = res.data.userInfo;
-            this.setState({ id, first_name, last_name, profile_pic, bio}, () => {
-                console.log('did mount state: ', this.state);
-            });
+            if(res.data.success == '200') {
+                var { first_name, last_name, profile_pic, bio } = res.data.userInfo;
+                this.setState({ id, first_name, last_name, profile_pic, bio}, () => {
+                    console.log('did mount state: ', this.state);
+                });
+            } else if (res.data.success == 204) {
+                //redirect to home page this is the same user
+                location.replace('/');
+            }
 
         }).catch((e) =>{
             this.setState({

@@ -65,7 +65,12 @@ router.route('/update/profile')
 
 router.route('/api/user/:id')
     .get((req,res) => {
-        handler('getOtherUserById', req, res);
+        if(req.session.user.id == req.params.id) {
+            //same user as profile asked for, redirect to homepage
+            res.json({success: 204});
+        } else {
+            handler('getOtherUserById', req, res);
+        }
     });
 
 router.route('/api/user')

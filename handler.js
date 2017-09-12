@@ -62,6 +62,7 @@ function handle(query, req, res) {
             console.log('results:', results.rows);
             results.rows[0].profile_pic = urlPrepend.s3Url + results.rows[0].profile_pic;
             res.json({
+                success: 200,
                 userInfo: results.rows[0]
             });
         });
