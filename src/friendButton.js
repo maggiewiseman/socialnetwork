@@ -49,6 +49,12 @@ export default class FriendButton extends React.Component {
     }
     rejectFriendRequest() {
         console.log('Reject Button Clicked');
+        axios.post('/api/updateFriendship/' + this.state.receiver_id, {reject: true}).then((newStatus) => {
+            console.log('newStatus:', newStatus);
+            this.setState({
+                friendshipStatus: newStatus.data.friendshipStatus
+            });
+        });
     }
     render() {
         console.log(this.state);
