@@ -1,16 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
 import User from './user';
+import { makeNotAction } from './actions';
+
 
 class Hot extends React.Component {
     render() {
-        const { users, makeNot } = this.props;
+        const { users, dispatch} = this.props;
         if (!users) {
             return null;
         }
         const hotUsers = (
             <div className="users">
-                {users.map(user => <User user={user} makeNot={makeNot} />)}
+                {users.map(user => <User user={user}
+                    makeNotFunction={id => dispatch(makeNotAction(id))} />)}
             </div>
         );
         return (
@@ -25,3 +29,15 @@ class Hot extends React.Component {
         );
     }
 }
+
+const mapStateToProps = function(state) {
+    return {
+        users: state.users && state.users.filter(user => {
+            if(user.hot) {
+                return user;
+            }
+        })
+    };
+};
+
+export default connect(mapStateToProps)(Hot);

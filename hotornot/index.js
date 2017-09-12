@@ -24,6 +24,7 @@ const users = [
         id: 4,
         name: 'Samuel L. Jackson',
         image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Samuel_L._Jackson_SDCC_2014_%28cropped%29.jpg/1024px-Samuel_L._Jackson_SDCC_2014_%28cropped%29.jpg'
+
     },
     {
         id: 5,

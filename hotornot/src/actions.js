@@ -9,3 +9,17 @@ export function receiveUsers() {
         };
     });
 }
+
+export function makeHotAction(id) {
+    return {
+        type: 'MAKE_HOT',
+        id
+    };
+}
+
+export function makeNotAction(id) {
+    return {
+        type: 'MAKE_NOT',
+        id
+    };
+}

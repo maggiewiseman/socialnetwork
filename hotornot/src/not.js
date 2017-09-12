@@ -1,16 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
 import User from './user';
+import { makeHotAction } from './actions';
+
 
 class Not extends React.Component {
     render() {
-        const { users, makeHot } = this.props;
+        const { users, dispatch } = this.props;
         if (!users) {
             return null;
         }
         const notUsers = (
             <div className="users">
-                {users.map(user => <User user={user} makeHot={makeHot} />)}
+                {users.map(user => <User user={user} makeHotFunction={id => dispatch(makeHotAction(id))}/>)}
             </div>
         );
         return (
@@ -25,3 +28,11 @@ class Not extends React.Component {
         );
     }
 }
+
+const mapStateToProps = function(state) {
+    return {
+        users: state.users && state.users.filter(user => user.hot == false)
+    };
+};
+
+export default connect(mapStateToProps)(Not);

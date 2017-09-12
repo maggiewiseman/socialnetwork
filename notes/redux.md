@@ -16,11 +16,11 @@
 
 # Actions/ Action Creators
 * functions that create Actions
-* actions are plain JS objects that describe something that happen.  They are are just plain normal JS objects that describe something that aught to have an impact on your state.
+* actions are plain JS objects that describe something that happens.  They are are just plain normal JS objects that describe something that aught to have an impact on your state.
 * all have a property that describe what kind of action it is
 * common to have additional properties that are necessary for the completion of the action
 * an action creator returns one of these action objects. So every object needs an action creator.  
-* The nomrmal pattern: for every action you might want you create an action_creator
+* The normal pattern: for every action you might want you create an action_creator
 * the dispatching of an action is like triggering an event.  
 * the function that runs is called the reducer.
 
