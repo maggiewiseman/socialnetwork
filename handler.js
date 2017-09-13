@@ -5,6 +5,15 @@ const urlPrepend = require('./config.json');
 const PENDING = 1, ACCEPTED = 2, REJECTED = 3, CANCELLED = 4, TERMINATED = 5;
 
 function handle(query, req, res) {
+    if (query == 'getFriendships') {
+        dbQuery.getFriends([req.session.user.id]).then(friends => {
+            console.log('HANDLER: getFriendships: friends: ', friends);
+            //res.json({friends});
+        }).catch(error => {
+            console.error(error);
+            //res.json({error});
+        });
+    }
     if (query == 'updateFriendship') {
         console.log('HANDLE ${query}');
         //find out if relationship already exists
