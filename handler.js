@@ -22,7 +22,9 @@ function handle(query, req, res) {
         });
     }
     if (query == 'updateFriendship') {
-        console.log('HANDLE ${query}');
+        console.log(`HANDLE ${query}`);
+        console.log(`HANDLE: getFriendStatus user: ${req.session.user.id} and otherDog: ${req.params.id}`);
+
         //find out if relationship already exists
         return dbQuery.getFriendStatus([req.session.user.id, req.params.id]).then((results)=>{
             if(results[0]) {
@@ -83,35 +85,6 @@ function handle(query, req, res) {
             });
         });
     }
-    // if (query == 'getOtherUserById') {
-    //     console.log(`HANDLE ${query}`, req.body);
-    //     let data = [req.params.id];
-    //     let userInfo = {};
-    //     //get user profile data
-    //     return dbQuery.getUserById(data).then((results) => {
-    //         console.log('results:', results.rows);
-    //         results.rows[0].profile_pic = urlPrepend.s3Url + results.rows[0].profile_pic;
-    //         userInfo = results.rows[0];
-    //         //figure out if there is a current relationship
-    //         return dbQuery.getFriendStatus([req.session.user.id, req.params.id]);
-    //     }).then((results) => {
-    //         console.log(results.rows);
-    //         if(results.rows){
-    //             //do the logic to determine what status should be sent to the button
-    //             userInfo.friendshipStatus = determineReturnStatus(req.session.user.id, results.rows[0]);
-    //         } else {
-    //             //there is no friendship
-    //             userInfo.friendshipStatus = 'Make';
-    //         }
-    //         console.log('HANDLER getOtherUserById: userINfo:', userInfo);
-    //         res.json(userInfo);
-    //     }).catch(e => {
-    //         console.error(e.stack);
-    //         res.json({
-    //             error: e
-    //         });
-    //     });
-    // }
 
     if (query == 'getUserById') {
         console.log(`HANDLE ${query}`, req.body);

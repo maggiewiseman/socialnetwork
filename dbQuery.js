@@ -46,12 +46,13 @@ function updateFriendship(data) {
 */
 function getFriendStatus(data) {
     console.log('DBQUERY: in getFriendStatus');
-    let queryStr = 'SELECT users.first_name, users.last_name, users.id, users.profile_pic, users.bio, friendships.status FROM users, friendships WHERE friendships.sender_id =  users.id OR f';
+    let queryStr = 'SELECT status, sender_id FROM friendships WHERE (sender_id = $1 AND receiver_id = $2) OR (sender_id = $2 AND receiver_id = $1)';
     return db.query(queryStr, data).then((result) => {
         console.log('DBQUERY getFriendStatus', result.rows);
         return(result.rows);
     });
 }
+
 
 /*
 Look at friendships table, get all the rows where the status is pending and the sender_id is the user. Then find out the reciever_id for that row and go get the user information that matches it.

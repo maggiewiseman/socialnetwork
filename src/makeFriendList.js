@@ -7,6 +7,10 @@ import { Button } from './styledComponents/buttons';
 const PENDING = 1, ACCEPTED = 2, REJECTED = 3, CANCELLED = 4, TERMINATED = 5;
 
 export default function(newFriends, eventHandler) {
+    console.log(`makeFriendList: friends: ${newFriends}`);
+    if(newFriends.length == 0) {
+        return null;
+    }
     var status = newFriends[0].status;
     var btnWord, btnAction;
 
