@@ -21,6 +21,7 @@ const mapStateToProps = function(state) {
     return {
         friends: state.friends && state.friends.filter(friend => {
             if(friend.status == ACCEPTED) {
+                console.log('maping...' + friend.first_name);
                 return friend;
             }
         })

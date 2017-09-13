@@ -24,7 +24,7 @@ export function updateFriendship(id) {
     console.log('ACTION: about to updateFriendship');
     console.log('url is: ' + '/api/updateFriendship/' + id);
     return axios.post('/api/updateFriendship/' + id).then((results) => {
-        console.log(`ACTION: UPDATE_FRIENDSHIP ${results}`);
+        console.log('ACTION: UPDATE_FRIENDSHIP', results);
         return {
             type: UPDATE_FRIENDSHIP,
             status: results.data.status,

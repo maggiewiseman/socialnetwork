@@ -314,6 +314,7 @@ function updateFriendship(req, res, dbResults) {
 
         console.log(friendshipStatus);
         res.json({
+            status: results[0].status,
             friendshipStatus: friendshipStatus
         });
     }).catch(e => {
