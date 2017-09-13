@@ -1,22 +1,11 @@
 export default function(state = {}, action) {
-    if (action.type == 'RECEIVE_FRIENDS') {
+    console.log('in reducer. this is the aciton:', action);
+    if (action.type == 'RECIEVE_FRIENDS') {
+
         state = Object.assign({}, state, {
             friends: action.friends
         });
     }
-    // if (action.type == 'MAKE_HOT' || action.type == 'MAKE_NOT') {
-    //     state = Object.assign({}, state, {
-    //         users: state.users.map(function(user) {
-    //             if(user.id == action.id) {
-    //                 return Object.assign({}, user, {
-    //                     hot: action.type == 'MAKE_HOT'
-    //                 });
-    //             } else {
-    //                 return user;
-    //             }
-    //         })
-    //     });
-    // }
-
+    console.log('state in reducer', state);
     return state;
 }

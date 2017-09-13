@@ -16,13 +16,21 @@ class Friends extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
+        this.dispatch = this.props.dispatch.bind(this);
     }
     componentDidMount() {
-        console.log('FRIENDS: didMount');
+        console.log('FRIENDS: didMount', this.props);
         this.props.dispatch(receiveFriends());
     }
     render() {
-
+        const { friends, dispatch } = this.props;
+        console.log('this.props', this.props);
+        if(!friends) {
+            console.log('no users');
+            return null;
+        } else {
+            console.log('RENDER function of friends. here is list of friends:', friends);
+        }
         return (
             <UnderNav>
                 <Column two>
@@ -30,7 +38,7 @@ class Friends extends React.Component {
                         <SectionHeader>
                             Friend Requests:
                         </SectionHeader>
-                        {FriendRequestList}
+                        {<FriendRequestList friends={friends}/>}
                         {/*FriendList(this.state.friendRequests)*/}
                     </SidebarMenu>
                 </Column>
@@ -39,7 +47,7 @@ class Friends extends React.Component {
                         <SectionHeader>
                             Friends:
                         </SectionHeader>
-                        {FriendList}
+                        {<FriendList friends={friends}/>}
                         {/*FriendList(this.state.friends)*/}
                     </SidebarMenu>
                 </Column>
