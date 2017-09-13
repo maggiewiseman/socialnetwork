@@ -53,24 +53,23 @@ function getFriendStatus(data) {
     });
 }
 
+/*
+Look at friendships table, get all the rows where the status is pending and the sender_id is the user. Then find out the reciever_id for that row and go get the user information that matches it.
+Also get the rows where the status is accepted and the user is either the sender or the reciever. For those rows, get the opposite users information. 
+*/
 function getFriends(data) {
     console.log('DBQUERY: in getFriendStatus');
     let queryStr = `SELECT users.first_name, users.last_name, users.id, users.profile_pic, users.bio, friendships.status
     FROM friendships INNER JOIN users
-    ON (friendships.status = ${ACCEPTED} AND users.id =$1 AND users.id = friendships.sender_id)
-    OR (friendships.status = ${ACCEPTED} AND users.id =$1 AND users.id = friendships.receiver_id)
-    OR (friendships.status = ${PENDING} AND users.id=$1 AND users.id = friendships.receiver_id)`;
+    ON (friendships.status = ${PENDING} AND sender_id = $1 AND receiver_id = users.id)
+    OR (friendships.status = ${ACCEPTED} AND sender_id = $1 AND receiver_id = users.id)
+    OR (friendships.status = ${ACCEPTED} AND receiver_id = $1 AND sender_id = users.id)`;
     return db.query(queryStr, data).then((result) => {
         console.log('DBQUERY getFriendStatus', result.rows);
         return(result.rows);
     });
 }
 
-// SELECT users.first_name, users.last_name, users.id, users.profile_pic, users.bio, friendships.status
-// FROM friendships INNER JOIN users
-// ON (friendships.status = 2 AND users.id =4 AND users.id = friendships.sender_id)
-// OR (friendships.status = 2 AND users.id =4 AND users.id = friendships.receiver_id)
-// OR (friendships.status = 1 AND users.id=4 AND users.id = friendships.receiver_id)
 
 //dbQuery to get password, first_name and last_name and id from users table using e-mail
 function getUserInfo(email) {
