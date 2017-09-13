@@ -11,6 +11,7 @@ import { receiveFriends } from './actions';
 import { connect } from 'react-redux';
 import FriendList from './friendList';
 import FriendRequestList from './friendRequestList';
+import { updateFriendship } from './actions';
 
 class Friends extends React.Component {
     constructor(props) {
@@ -38,8 +39,8 @@ class Friends extends React.Component {
                         <SectionHeader>
                             Friend Requests:
                         </SectionHeader>
-                        {<FriendRequestList friends={friends}/>}
-                        {/*FriendList(this.state.friendRequests)*/}
+                        {<FriendRequestList friends={friends} handleFriendshipChange={id => dispatch(updateFriendship(id))}/>}
+
                     </SidebarMenu>
                 </Column>
                 <Column two>
@@ -47,8 +48,7 @@ class Friends extends React.Component {
                         <SectionHeader>
                             Friends:
                         </SectionHeader>
-                        {<FriendList friends={friends}/>}
-                        {/*FriendList(this.state.friends)*/}
+                        {<FriendList friends={friends} handleFriendshipChange={id => dispatch(updateFriendship(id))}/>}
                     </SidebarMenu>
                 </Column>
             </UnderNav>
