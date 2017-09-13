@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from './axios';
 
 const RECEIVE_FRIENDS = 'RECEIVE_FRIENDS',
     UPDATE_FRIENDSHIP = 'UPDATE_FRIENDSHIP';
@@ -22,6 +22,7 @@ export function receiveFriends() {
 
 export function updateFriendship(id) {
     console.log('ACTION: about to updateFriendship');
+    console.log('url is: ' + '/api/updateFriendship/' + id);
     return axios.post('/api/updateFriendship/' + id).then((results) => {
         return {
             type: UPDATE_FRIENDSHIP,
