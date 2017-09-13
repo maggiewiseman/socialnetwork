@@ -130,3 +130,28 @@ function Bio(props) {
 //online you will see:
 const ConnectedBio = connect(mapStateToProps)(Bio);
 ```
+
+* the gist is that 1) when an event happens we want to have access to the dispatch function. We pass this an action creator which will create an action object that then gets filtered through the reducer. The action and state are given to the reducer and the reducer makes a new state based on what the action was.
+
+* so we need to make a connected component. So we have a component that renders some stuff based on state.  We need to make a connected component that basically takes our original component and sends specific state properties to it
+
+    mapStateToProps = function(state) {
+        return {
+            and object with state properties
+        }};
+
+    Then we make the connected component by importing connect from redux and saying
+    var connectedComponent = connect(mapStateToProps)(Component).
+
+    Now the connected component will receive state props when it is instantiated and will also receive the dispatch function.
+
+    So now we can define what actions we want the dispatch function to do when an event happens and we will make action creators in the actions file to do so.
+    Then we will update the reducer file to handle the various actions.
+    Generally the action creators will have db calls.
+
+    So in our friends scenario we will have a friends component.
+    We will send that component through the connection logic to make a connected component.
+    Then we will render the friends page which will render each friend with a button and each pendingFriend with a button.
+    The friend object is like the user object and should be sent props that include the events that we will need to add to the buttons.
+    If we need to send an id, make sure the prop is sent as an arrow function or bound and id is the param of the arrow function.
+    Then in the friend object send the event that came with props to the onClick method of the button in the render function and send in relevant params (like id)

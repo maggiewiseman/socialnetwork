@@ -7,6 +7,10 @@ import App from './app';
 import Profile from './profile';
 import OtherProfile from './otherProfile';
 import Friends from './friends';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import reducer from './reducers';
+import reduxPromise from 'redux-promise';
 
 const authRouter = (
     <Router history={hashHistory}>
@@ -17,16 +21,18 @@ const authRouter = (
     </Router>
 );
 
+const store = createStore(reducer, applyMiddleware(reduxPromise));
 const appRouter = (
-    <Router history={browserHistory}>
-        <Route path="/" component={App}>
-            <IndexRoute component={Profile} />
-            <Route path='friends' component={Friends} />
-            <Route path="profile/:id" component={OtherProfile} />
-        </Route>
-    </Router>
+    <Provider store={store}>
+        <Router history={browserHistory}>
+            <Route path="/" component={App}>
+                <IndexRoute component={Profile} />
+                <Route path='friends' component={Friends} />
+                <Route path="profile/:id" component={OtherProfile} />
+            </Route>
+        </Router>
+    </Provider>
 );
-
 
 let route = appRouter;
 if (location.pathname == '/welcome/') {

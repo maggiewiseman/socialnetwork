@@ -196,3 +196,12 @@ Make Friend request
 Accept Friend request
 Cancel Friend request
 End Friendship
+
+## Redux Day
+* write a query that selects friends join on users where status is accepted and status is pending and where user id is in recipient column
+* put one array in the state object
+* on the page we will create two components: one for showing friends and one for showing friend requests
+* use the function you pass to the reducer
+* change action of button to use redux by replacing list of friends with new list of friends. So you should see the friend move from one section to another section.
+
+* a nice to have feature is when connected component mounts the first time it needs to make an ajax request to get friends.  After that if you leave the friends route and come back see if the data is still in the store so you don't have to go back to database. 
