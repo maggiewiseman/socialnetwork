@@ -90,7 +90,7 @@ Put all related components:
 * userProfile directory with one file with all the related reducers and another file to get related actions.
 
 # The Store
-* Main entrypoint into Redux is the store
+* Main entry point into Redux is the store
 * the Store contains the state and it also has useful methods like
     * dispatch
     * subscribe (send callback that will inspect new state)
