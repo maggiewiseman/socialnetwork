@@ -1,7 +1,7 @@
 export default function(state = {}, action) {
-    if (action.type == 'RECEIVE_USERS') {
+    if (action.type == 'RECEIVE_FRIENDS') {
         state = Object.assign({}, state, {
-            users: action.users
+            friends: action.friends
         });
     }
     // if (action.type == 'MAKE_HOT' || action.type == 'MAKE_NOT') {
