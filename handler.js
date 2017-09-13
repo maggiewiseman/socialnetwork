@@ -9,7 +9,13 @@ function handle(query, req, res) {
         console.log('HANDLER: getFriendships');
         dbQuery.getFriends([req.session.user.id]).then(friends => {
             console.log('HANDLER: getFriendships: friends: ', friends);
-            res.json({friends});
+
+            var s3mappedFriends = friends.map(friend => {
+                friend.profile_pic = urlPrepend.s3Url + friend.profile_pic;
+                return friend;
+            });
+            console.log('s3mapped friends:', s3mappedFriends);
+            res.json({friends: s3mappedFriends});
         }).catch(error => {
             console.error(error);
             res.json({error});
