@@ -94,6 +94,7 @@ router.get('/api/friendStatus/:id', (req,res) => {
 
 //gets all friends and friend requests.
 router.get('/api/getFriendships', (req,res) => {
+    console.log('ROUTER: getFriendships');
     handler('getFriendships', req, res);
 });
 
