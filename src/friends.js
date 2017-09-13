@@ -9,6 +9,8 @@ import { Button } from './styledComponents/buttons';
 import { HintText } from './styledComponents/text';
 import { receiveFriends } from './actions';
 import { connect } from 'react-redux';
+import FriendList from './friendList';
+import FriendRequestList from './friendRequestList';
 
 class Friends extends React.Component {
     constructor(props) {
@@ -20,6 +22,7 @@ class Friends extends React.Component {
         this.props.dispatch(receiveFriends());
     }
     render() {
+
         return (
             <UnderNav>
                 <Column two>
@@ -27,6 +30,7 @@ class Friends extends React.Component {
                         <SectionHeader>
                             Friend Requests:
                         </SectionHeader>
+                        {FriendRequestList}
                         {/*FriendList(this.state.friendRequests)*/}
                     </SidebarMenu>
                 </Column>
@@ -35,6 +39,7 @@ class Friends extends React.Component {
                         <SectionHeader>
                             Friends:
                         </SectionHeader>
+                        {FriendList}
                         {/*FriendList(this.state.friends)*/}
                     </SidebarMenu>
                 </Column>

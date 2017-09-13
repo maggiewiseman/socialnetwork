@@ -10,12 +10,7 @@ export function receiveFriends() {
                 type: 'RECIEVE_FRIENDS',
                 friends: results.data.friends
             };
-        } else {
-            return {
-                type: 'RECEIVE_FRIENDS',
-                friends: null
-            };
-        }
+        } 
     }).catch(e => {
         console.log(e);
         this.setState({
