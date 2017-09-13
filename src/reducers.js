@@ -1,4 +1,6 @@
-const RECEIVE_FRIENDS = 'RECEIVE_FRIENDS';
+const RECEIVE_FRIENDS = 'RECEIVE_FRIENDS',
+    UPDATE_FRIENDSHIP = 'UPDATE_FRIENDSHIP';
+
 
 export default function(state = {}, action) {
     console.log('in reducer. this is the aciton:', action);
@@ -8,6 +10,21 @@ export default function(state = {}, action) {
             friends: action.friends
         });
     }
+
+    if(action.type == UPDATE_FRIENDSHIP) {
+        state = Object.assign({}, state, {
+            friends: state.friends.map((friend) => {
+                if(friend.id == action.id) {
+                    return Object.assign({}, friend, {
+                        status: action.status
+                    });
+                } else {
+                    return friend;
+                }
+            })
+        });
+    }
+    
     console.log('state in reducer', state);
     return state;
 }
