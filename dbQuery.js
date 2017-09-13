@@ -62,7 +62,7 @@ function getFriends(data) {
     console.log('DBQUERY: in getFriendStatus');
     let queryStr = `SELECT users.first_name, users.last_name, users.id, users.profile_pic, users.bio, friendships.status
     FROM friendships INNER JOIN users
-    ON (friendships.status = ${PENDING} AND sender_id = $1 AND receiver_id = users.id)
+    ON (friendships.status = ${PENDING} AND receiver_id = $1 AND sender_id = users.id)
     OR (friendships.status = ${ACCEPTED} AND sender_id = $1 AND receiver_id = users.id)
     OR (friendships.status = ${ACCEPTED} AND receiver_id = $1 AND sender_id = users.id)`;
     return db.query(queryStr, data).then((result) => {

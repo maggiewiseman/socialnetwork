@@ -48,7 +48,7 @@ function handle(query, req, res) {
 
     }
 
-    if (query == 'getFriendStatus') {
+    if( query == 'getFriendStatus') {
         return dbQuery.getFriendStatus([req.session.user.id, req.params.id]).then((results) => {
             //results is an array with one object that contains status and sender_id properties
 
@@ -73,7 +73,7 @@ function handle(query, req, res) {
         });
     }
 
-    if (query == 'getOtherUserById') {
+    if( query == 'getOtherUserById') {
         console.log(`HANDLE ${query}`, req.body);
         let data = [req.params.id];
         dbQuery.getUserById(data).then((results) => {
@@ -86,7 +86,7 @@ function handle(query, req, res) {
         });
     }
 
-    if (query == 'getUserById') {
+    if( query == 'getUserById') {
         console.log(`HANDLE ${query}`, req.body);
         let data = [req.session.user.id];
         dbQuery.getUserById(data).then((results) => {
@@ -98,7 +98,7 @@ function handle(query, req, res) {
         });
     }
 
-    if (query == 'updateProfile') {
+    if( query == 'updateProfile') {
         //set data that is given
         console.log(`HANDLE ${query}`, req.body);
         let data = [req.session.user.id, req.body.first_name, req.body.last_name, req.body.bio];
@@ -119,7 +119,7 @@ function handle(query, req, res) {
         })
 
     }
-    if(query == 'uploadProfilePic') {
+    if( query == 'uploadProfilePic') {
         let data = [req.session.user.id, req.file.filename];
         console.log(`HANDLE: ${query} data:`, data);
         return dbQuery.updateProfilePic(data).then((results) => {
@@ -136,7 +136,7 @@ function handle(query, req, res) {
         });
     }
 
-    if(query == 'registerUser') {
+    if( query == 'registerUser') {
         return new Promise((resolve, reject) => {
             if(!(req.body.first_name && req.body.last_name && req.body.email && req.body.password)){
                 reject('All fields are required when registering');
@@ -175,7 +175,7 @@ function handle(query, req, res) {
     }
 
     var userInfo;
-    if(query == 'login') {
+    if( query == 'login') {
         return dbQuery.getUserInfo([req.body.email]).then((returnedUserInfo)=>{
             //show me stuff that came back
             //console.log('HANDLER login returnedUserINfo ', returnedUserInfo);
