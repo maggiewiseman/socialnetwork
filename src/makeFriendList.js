@@ -3,8 +3,18 @@ import { ProfilePic } from './profile-pic';
 import { ProfileListItem } from './styledComponents/menus';
 import styled from 'styled-components';
 import { Button } from './styledComponents/buttons';
-export default function(newFriends) {
 
+const PENDING = 1, ACCEPTED = 2, REJECTED = 3, CANCELLED = 4, TERMINATED = 5;
+
+export default function(newFriends) {
+    var status = newFriends[0].status;
+    var btnWord, btnAction;
+
+    if(status == PENDING) {
+        btnWord = 'Accept';
+    } else {
+        btnWord = 'End';
+    }
     const friendItems = newFriends.map((dog) => {
         return (
             <ProfileListItem key={dog.id.toString()}>
@@ -14,7 +24,7 @@ export default function(newFriends) {
                         first_name={dog.first_name}
                         last_name={dog.last_name}/>
                 </SidePic>
-                <DogInfo><p>{dog.first_name + ' ' + dog.last_name}</p><Button>End Friendship</Button></DogInfo>
+                <DogInfo><p>{dog.first_name + ' ' + dog.last_name}</p><Button>{btnWord} Friendship</Button></DogInfo>
             </ProfileListItem>
         );
     });
