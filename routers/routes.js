@@ -63,6 +63,7 @@ router.route('/update/profile')
         handler('updateProfile', req, res);
     });
 
+//returns another user's profile
 router.route('/api/user/:id')
     .get((req,res) => {
         if(req.session.user.id == req.params.id) {
@@ -73,6 +74,7 @@ router.route('/api/user/:id')
         }
     });
 
+//returns current user's profile
 router.route('/api/user')
     .get(mw.loggedInCheck, (req, res) => {
         //Return session info
@@ -80,12 +82,19 @@ router.route('/api/user')
         handler('getUserById', req, res);
     });
 
+//updates friendship
 router.post('/api/updateFriendship/:id', (req,res) => {
     handler('updateFriendship', req, res);
 });
 
+//gets current status between user and other user
 router.get('/api/friendStatus/:id', (req,res) => {
     handler('getFriendStatus', req, res);
+});
+
+//gets all friends and friend requests.
+router.get('/api/getFriendships', (req,res) => {
+    handler('getFriendships', req, res);
 });
 
 router.get('/logout', (req, res) => {
