@@ -16,6 +16,7 @@ class Friends extends React.Component {
         this.state = {};
     }
     componentDidMount() {
+        console.log('FRIENDS: didMount');
         this.props.dispatch(receiveFriends());
     }
     render() {
@@ -26,7 +27,7 @@ class Friends extends React.Component {
                         <SectionHeader>
                             Friend Requests:
                         </SectionHeader>
-                        {FriendList(this.state.friendRequests)}
+                        {/*FriendList(this.state.friendRequests)*/}
                     </SidebarMenu>
                 </Column>
                 <Column two>
@@ -34,7 +35,7 @@ class Friends extends React.Component {
                         <SectionHeader>
                             Friends:
                         </SectionHeader>
-                        {FriendList(this.state.friends)}
+                        {/*FriendList(this.state.friends)*/}
                     </SidebarMenu>
                 </Column>
             </UnderNav>
@@ -42,9 +43,9 @@ class Friends extends React.Component {
     }
 }
 
-/********* CONNECTED COMPONENT ********/
+{/********* CONNECTED COMPONENT ********/}
 
-//the connect function we use below (and that was imported) will pass state to the mapStateToProps function.
+{/*the connect function we use below (and that was imported) will pass state to the mapStateToProps function. */}
 const mapStateToProps = function(state) {
     return {
         friends: state.friends
@@ -55,8 +56,8 @@ export default connect(mapStateToProps)(Friends);
 
 
 
-/********* CHILD COMPONENTS **********/
-function FriendList(newFriends) {
+{/********* CHILD COMPONENTS **********/}
+{/*function FriendList(newFriends) {
 
     const friendItems = newFriends.map((dog) => {
         return (
@@ -77,9 +78,9 @@ function FriendList(newFriends) {
             {friendItems}
         </ul>
     );
-}
+} */}
 
-/******** STYLED COMPONENTS ***********/
+{/******** STYLED COMPONENTS ***********/}
 
 const SidePic = styled.div`
     width: 30%;

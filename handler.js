@@ -6,6 +6,7 @@ const PENDING = 1, ACCEPTED = 2, REJECTED = 3, CANCELLED = 4, TERMINATED = 5;
 
 function handle(query, req, res) {
     if (query == 'getFriendships') {
+        console.log('HANDLER: getFriendships');
         dbQuery.getFriends([req.session.user.id]).then(friends => {
             console.log('HANDLER: getFriendships: friends: ', friends);
             res.json({friends});

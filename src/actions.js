@@ -1,12 +1,19 @@
 import axios from 'axios';
 
 export function receiveFriends() {
-    //get friends
-    axios.get('/getFriendships').then((results)=> {
+    console.log('ACTION: about to send to axios');
+    axios.get('/api/getFriendships').then((results)=> {
+        console.log('ACTIONS: receiveFriends: ', results);
+
         if(results.data.success == 200) {
             return {
                 type: 'RECIEVE_FRIENDS',
-                friends: results.friends
+                friends: results.data.friends
+            };
+        } else {
+            return {
+                type: 'RECEIVE_FRIENDS',
+                friends: null
             };
         }
     }).catch(e => {
