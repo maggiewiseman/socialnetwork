@@ -130,6 +130,9 @@ function Bio(props) {
 //online you will see:
 const ConnectedBio = connect(mapStateToProps)(Bio);
 ```
+* first you set up your app to use the Provider, Store and promise making middleware.  
+* Then you make your component  and then connect it.
+* When you make the component you are likely doing an axios call to get some data and the when you get it back you need to dispatch it.  The dispatch action sends the action and the state through the reducer.  This sets global state. When global state changes, all the changed states get updated through the app.
 
 * the gist is that 1) when an event happens we want to have access to the dispatch function. We pass this an action creator which will create an action object that then gets filtered through the reducer. The action and state are given to the reducer and the reducer makes a new state based on what the action was.
 

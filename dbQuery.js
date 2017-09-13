@@ -1,7 +1,7 @@
 const spicedPg = require('spiced-pg');
 var localUrl = '';
 
-
+const PENDING = 1, ACCEPTED = 2, REJECTED = 3, CANCELLED = 4, TERMINATED = 5;
 
 if(!process.env.DATABASE_URL) {
     const secrets = require('./secrets.json');
@@ -46,12 +46,31 @@ function updateFriendship(data) {
 */
 function getFriendStatus(data) {
     console.log('DBQUERY: in getFriendStatus');
-    let queryStr = 'SELECT status, sender_id FROM friendships WHERE (sender_id = $1 AND receiver_id = $2) OR (sender_id = $2 AND receiver_id = $1)';
+    let queryStr = 'SELECT users.first_name, users.last_name, users.id, users.profile_pic, users.bio, friendships.status FROM users, friendships WHERE friendships.sender_id =  users.id OR f';
     return db.query(queryStr, data).then((result) => {
         console.log('DBQUERY getFriendStatus', result.rows);
         return(result.rows);
     });
 }
+
+function getFriends(data) {
+    console.log('DBQUERY: in getFriendStatus');
+    let queryStr = `SELECT users.first_name, users.last_name, users.id, users.profile_pic, users.bio, friendships.status
+    FROM friendships INNER JOIN users
+    ON (friendships.status = ${ACCEPTED} AND users.id =$1 AND users.id = friendships.sender_id)
+    OR (friendships.status = ${ACCEPTED} AND users.id =$1 AND users.id = friendships.receiver_id)
+    OR (friendships.status = ${PENDING} AND users.id=$1 AND users.id = friendships.receiver_id)`;
+    return db.query(queryStr, data).then((result) => {
+        console.log('DBQUERY getFriendStatus', result.rows);
+        return(result.rows);
+    });
+}
+
+// SELECT users.first_name, users.last_name, users.id, users.profile_pic, users.bio, friendships.status
+// FROM friendships INNER JOIN users
+// ON (friendships.status = 2 AND users.id =4 AND users.id = friendships.sender_id)
+// OR (friendships.status = 2 AND users.id =4 AND users.id = friendships.receiver_id)
+// OR (friendships.status = 1 AND users.id=4 AND users.id = friendships.receiver_id)
 
 //dbQuery to get password, first_name and last_name and id from users table using e-mail
 function getUserInfo(email) {
@@ -77,26 +96,7 @@ function getUserById(id) {
     let queryStr ='SELECT first_name, last_name, profile_pic, bio FROM users WHERE id = $1';
     return db.query(queryStr, id);
 }
-// function addProfile(profileData) {
-//     console.log('DBQUERY in addProfile, user_id = ', profileData);
-//     let queryStr = 'INSERT INTO user_profiles (user_id, age, city, homepage) VALUES ((SELECT id from users WHERE id=$1), $2, $3, $4)';
-//     return db.query(queryStr, profileData);
-// }
-//
-// function getProfileId(user_id) {
-//     console.log('DBQUERY in getProfileId, user_id=', user_id);
-//     let queryStr ='SELECT id FROM user_profiles WHERE user_id = $1';
-//     return db.query(queryStr, user_id);
-// }
-//
 
-//
-//
-// function updateProfile(profileData) {
-//     console.log('DBQUERY in updateProfile, profileData', profileData);
-//     let queryStr = 'UPDATE user_profiles SET age = $2, city = $3, homepage = $4 WHERE user_id = $1';
-//     return db.query(queryStr, profileData);
-// }
 
 module.exports.addUser = addUser;
 module.exports.getUserInfo = getUserInfo;
@@ -105,10 +105,14 @@ module.exports.addFriendship = addFriendship;
 module.exports.updateProfile = updateProfile;
 module.exports.getUserById = getUserById;
 module.exports.getFriendStatus = getFriendStatus;
+module.exports.getFriends = getFriends;
 module.exports.updateFriendship = updateFriendship;
 
 
 /* Tests */
+getFriends([4]).then((results) => {
+    console.log(results);
+}).catch(e => console.error(e));
 //getFriendStatus([1, 2]);
 //  addFriendship([1, 2, 1]).then((results) => {
 //     console.log(results);
