@@ -8,11 +8,11 @@ const PENDING = 1, ACCEPTED = 2, REJECTED = 3, CANCELLED = 4, TERMINATED = 5;
 
 class FriendList extends React.Component {
     render() {
-        const { friends } = this.props;
+        const { friends, handleFriendshipChange } = this.props;
         if (!friends) {
             return null;
         }
-        return makeFriendList(friends);
+        return makeFriendList(friends, handleFriendshipChange);
     }
 }
 

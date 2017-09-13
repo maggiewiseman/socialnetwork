@@ -6,7 +6,7 @@ import { Button } from './styledComponents/buttons';
 
 const PENDING = 1, ACCEPTED = 2, REJECTED = 3, CANCELLED = 4, TERMINATED = 5;
 
-export default function(newFriends) {
+export default function(newFriends, eventHandler) {
     var status = newFriends[0].status;
     var btnWord, btnAction;
 
@@ -24,7 +24,7 @@ export default function(newFriends) {
                         first_name={dog.first_name}
                         last_name={dog.last_name}/>
                 </SidePic>
-                <DogInfo><p>{dog.first_name + ' ' + dog.last_name}</p><Button>{btnWord} Friendship</Button></DogInfo>
+                <DogInfo><p>{dog.first_name + ' ' + dog.last_name}</p><Button onClick={e => eventHandler(dog.id)}>{btnWord} Friendship</Button></DogInfo>
             </ProfileListItem>
         );
     });
