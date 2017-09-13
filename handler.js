@@ -8,10 +8,10 @@ function handle(query, req, res) {
     if (query == 'getFriendships') {
         dbQuery.getFriends([req.session.user.id]).then(friends => {
             console.log('HANDLER: getFriendships: friends: ', friends);
-            //res.json({friends});
+            res.json({friends});
         }).catch(error => {
             console.error(error);
-            //res.json({error});
+            res.json({error});
         });
     }
     if (query == 'updateFriendship') {
@@ -345,6 +345,8 @@ function updateFriendship(req, res, dbResults) {
 }
 
 //Tests
+//handle('getFriendships', {session: {user: {id: 4}}, params: {id: 2}}, {});
+
 //for this one, comment out the res.json sections
 //updateFriendship({session: {user: {id: 1}}, params: {id: 2}}, {}, 1);
 

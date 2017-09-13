@@ -55,7 +55,7 @@ function getFriendStatus(data) {
 
 /*
 Look at friendships table, get all the rows where the status is pending and the sender_id is the user. Then find out the reciever_id for that row and go get the user information that matches it.
-Also get the rows where the status is accepted and the user is either the sender or the reciever. For those rows, get the opposite users information. 
+Also get the rows where the status is accepted and the user is either the sender or the reciever. For those rows, get the opposite users information.
 */
 function getFriends(data) {
     console.log('DBQUERY: in getFriendStatus');
@@ -109,9 +109,9 @@ module.exports.updateFriendship = updateFriendship;
 
 
 /* Tests */
-getFriends([4]).then((results) => {
-    console.log(results);
-}).catch(e => console.error(e));
+// getFriends([4]).then((results) => {
+//     console.log(results);
+// }).catch(e => console.error(e));
 //getFriendStatus([1, 2]);
 //  addFriendship([1, 2, 1]).then((results) => {
 //     console.log(results);
