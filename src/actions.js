@@ -1,7 +1,8 @@
 import axios from './axios';
 
 const RECEIVE_FRIENDS = 'RECEIVE_FRIENDS',
-    UPDATE_FRIENDSHIP = 'UPDATE_FRIENDSHIP';
+    UPDATE_FRIENDSHIP = 'UPDATE_FRIENDSHIP',
+    FIND_FRIENDS = 'FIND_FRIENDS';
 
 export function receiveFriends() {
     console.log('ACTION: about to send to axios');
@@ -30,6 +31,23 @@ export function updateFriendship(id) {
             status: results.data.status,
             id
         };
+    }).catch(e => {
+        console.log(e);
+        return {
+            type: 'ERROR'
+        };
+    });
+}
+
+export function findAFriend(name, url) {
+
+    axios.post(url, {name}).then(foundFriends => {
+
+        return {
+            type: FIND_FRIENDS,
+            foundFriends
+        };
+
     }).catch(e => {
         console.log(e);
         return {
