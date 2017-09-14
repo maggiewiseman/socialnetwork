@@ -6,7 +6,7 @@ import {Link} from 'react-router';
 import axios from './axios';
 import Logout from './logout';
 import {Wrapper, Nav} from './styledComponents/wrapper';
-import { SearchNames } from './search';
+import SearchNames  from './search';
 
 
 export default class App extends React.Component {

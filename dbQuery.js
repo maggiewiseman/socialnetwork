@@ -73,7 +73,7 @@ function getFriends(data) {
 
 //dbQuery to get profile information: first_name and last_name and id from users table using e-mail
 function getOtherUserByName(name) {
-    console.log('DBQUERY: in getUserInfo');
+    console.log('DBQUERY: in getUserInfo', name);
     let queryStr = 'SELECT id, first_name, last_name, bio, profile_pic FROM users WHERE (first_name = $1) OR (last_name = $1)';
     return db.query(queryStr, name);
 }
@@ -117,6 +117,9 @@ module.exports.getOtherUserByName = getOtherUserByName;
 
 
 /* Tests */
+// getOtherUserByName(['Dogg']).then((results) => {
+//     console.log(results);
+// }).catch(e => console.error(e));
 // getFriends([4]).then((results) => {
 //     console.log(results);
 // }).catch(e => console.error(e));

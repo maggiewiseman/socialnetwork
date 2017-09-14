@@ -27,6 +27,7 @@ export default function(state = {}, action) {
     }
 
     if(action.type == FIND_FRIENDS) {
+        console.log(action);
         state = Object.assign({}, state, {
             foundFriends: action.foundFriends
         });

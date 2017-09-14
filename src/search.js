@@ -6,14 +6,8 @@ import { Button } from './styledComponents/buttons';
 import { findAFriend } from './actions';
 import { connect } from 'react-redux';
 
-
-
-
-//An alternative to manually writing the two wrapping components above would be to write a function that can be passed a component and returns a new component that wraps the one passed in.
-
-
-function wrapInAuthForm(Component, url) {
-    return class AuthForm extends React.Component {
+function wrapSearchForm(Component, url) {
+    return class extends React.Component {
         constructor(props) {
             super(props);
             this.state = {url};
@@ -31,7 +25,7 @@ function wrapInAuthForm(Component, url) {
         submit(e) {
             console.log(this.state.searchString);
             console.log(this);
-            this.props.dispatch(findAFriend(this.state.searchString));
+            this.props.dispatch(findAFriend(this.state.searchString, this.state.url));
         }
         render() {
             //when making a component to be rendered you say:
@@ -61,11 +55,7 @@ const SearchDiv = styled.div`
 
 `;
 
-export const SearchNames = wrapInAuthForm(SearchForm, '/api/findAFriend');
+export const SearchNames = wrapSearchForm(SearchForm, '/api/findAFriend');
 
-const mapStateToProps = function(state) {
-
-    return {state};
-};
-
-export default connect(mapStateToProps)(SearchNames);
+console.log(connect()(SearchNames));
+export default connect()(SearchNames);

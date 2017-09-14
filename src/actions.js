@@ -40,9 +40,9 @@ export function updateFriendship(id) {
 }
 
 export function findAFriend(name, url) {
-
+    console.log('findAfriend', name, url);
     axios.post(url, {name}).then(foundFriends => {
-
+        console.log(foundFriends);
         return {
             type: FIND_FRIENDS,
             foundFriends

@@ -7,15 +7,16 @@ const PENDING = 1, ACCEPTED = 2, REJECTED = 3, CANCELLED = 4, TERMINATED = 5;
 function handle(query, req, res) {
     if(query == 'findAFriend') {
         //need to loop through name array here...
+        console.log('HANDLER: req.body', req.body);
         return dbQuery.getOtherUserByName([req.body.name]).then(friends => {
             if(friends.rowCount == 0) {
                 console.error('User does not exist');
-                res.json({success: 204, message: 'User with that name does not exist.'});
+                return res.json({success: 204, message: 'User with that name does not exist.'});
             }
 
-            console.log('HANDLER: findAFriend: friends: ', friends);
+            console.log('HANDLER: findAFriend: friends: ', friends.rows);
 
-            var s3mappedFriends = friends.map(friend => {
+            var s3mappedFriends = friends.rows.map(friend => {
                 friend.profile_pic = urlPrepend.s3Url + friend.profile_pic;
                 return friend;
             });
