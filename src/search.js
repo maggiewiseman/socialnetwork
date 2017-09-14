@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { Button } from './styledComponents/buttons';
 import { findAFriend } from './actions';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 function wrapSearchForm(Component, url) {
     return class extends React.Component {
@@ -26,7 +27,7 @@ function wrapSearchForm(Component, url) {
             console.log(this.state.searchString);
             console.log(this);
             this.props.dispatch(findAFriend(this.state.searchString, this.state.url));
-            location.replace('/searchResults');
+            browserHistory.push('/searchResults');
         }
         render() {
             //when making a component to be rendered you say:

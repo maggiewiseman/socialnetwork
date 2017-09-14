@@ -44,12 +44,11 @@ class SearchResults extends React.Component {
 
 {/********* CONNECTED COMPONENT ********/}
 
-{/*the connect function we use below (and that was imported) will pass state to the mapStateToProps function. */
-// const mapStateToProps = function(state) {
-//     return {
-//         searchResults: state.searchResults
-//     };
-// };
-//
-// export default connect(mapStateToProps)(SearchResults);
-}
+/*the connect function we use below (and that was imported) will pass state to the mapStateToProps function. */
+const mapStateToProps = function(state) {
+    return {
+        searchResults: state.searchResults
+    };
+};
+
+export default connect(mapStateToProps)(SearchResults);
