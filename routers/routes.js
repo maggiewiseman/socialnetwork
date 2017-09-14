@@ -74,8 +74,8 @@ router.route('/api/user/:id')
         }
     });
 
-router.route('/api/findAFriend/:name')
-    .get(mw.loggedInCheck, (req, res) => {
+router.route('/api/findAFriend')
+    .post(mw.loggedInCheck, (req, res) => {
         console.log('ROUTER: /api/findAFriend');
         handler('findAFriend', req, res);
     });
