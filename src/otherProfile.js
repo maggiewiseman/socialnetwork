@@ -15,6 +15,7 @@ export default class OtherProfile extends React.Component {
         this.state = {};
     }
     componentWillMount() {
+        //check props.state for id, otherwise do the following:
         console.log('in OtherProfile Comoneent');
         let id = this.props.params.id;
         var url = '/api/user/' + id;
