@@ -11,6 +11,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import reducer from './reducers';
 import reduxPromise from 'redux-promise';
+import SearchResults from './searchResults';
 
 const authRouter = (
     <Router history={hashHistory}>
@@ -29,6 +30,7 @@ const appRouter = (
                 <IndexRoute component={Profile} />
                 <Route path='friends' component={Friends} />
                 <Route path="profile/:id" component={OtherProfile} />
+                <Route path="searchResults" component={SearchResults} />
             </Route>
         </Router>
     </Provider>

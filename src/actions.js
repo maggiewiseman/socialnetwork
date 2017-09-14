@@ -3,7 +3,7 @@ import axios from './axios';
 const RECEIVE_FRIENDS = 'RECEIVE_FRIENDS',
     UPDATE_FRIENDSHIP = 'UPDATE_FRIENDSHIP',
     FIND_FRIENDS = 'FIND_FRIENDS';
-
+    
 export function receiveFriends() {
     console.log('ACTION: about to send to axios');
     return axios.get('/api/getFriendships').then((results)=> {
