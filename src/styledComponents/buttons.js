@@ -6,6 +6,8 @@ export const Button = styled.button`
             return 'rgba(123, 200, 25, 1)';
         } else if ( props.cancel ) {
             return 'rgba(255, 69, 25, 1)';
+        } else if ( props.search){
+            return 'rgba(123, 69, 25, 1)';
         } else {
             return 'hsla(27, 66%, 5%, 1)';
         }
@@ -17,7 +19,7 @@ export const Button = styled.button`
     border-radius: 0;
 
     display: ${props => {
-        if(props.go || props.cancel) {
+        if(props.go || props.cancel || props.search) {
             return 'inline';
         } else {
             return 'block';

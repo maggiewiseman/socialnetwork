@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from './axios';
 import styled from 'styled-components';
 import { Button } from './styledComponents/buttons';
+import { findAFriend } from './actions';
 
 
 
@@ -22,11 +23,12 @@ function wrapInAuthForm(Component, url) {
             console.log('setting state');
             //console.log(e.target.name);
             this.setState({
-                [e.target.name] : e.target.value
+                searchString : e.target.value
             });
         }
         submit(e) {
             console.log(e);
+            this.props.dispatch(findAFriend(this.state.searchString));
         }
         render() {
             //when making a component to be rendered you say:
@@ -42,10 +44,11 @@ function wrapInAuthForm(Component, url) {
 
 function SearchForm({ handleInput, submit, error }) {
     return (
+
         <SearchDiv>
-            <label forHTML=""></label>
-            <input type="text" placeholder="Search" />
-            <Button search>Search</Button>
+            <label forHTML="searchBox">Search</label>
+            <input name="searchBox" type="text" placeholder="Search" onChange={handleInput}/>
+            <Button search onClick={submit}>Search</Button>
         </SearchDiv>
     );
 }
