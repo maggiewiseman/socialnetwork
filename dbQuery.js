@@ -71,6 +71,12 @@ function getFriends(data) {
     });
 }
 
+//dbQuery to get profile information: first_name and last_name and id from users table using e-mail
+function getOtherUserByName(email) {
+    console.log('DBQUERY: in getUserInfo');
+    let queryStr = 'SELECT id, first_name, last_name, bio, profile_pic FROM users WHERE (first_name = $1) OR (last_name = $1)';
+    return db.query(queryStr, email);
+}
 
 //dbQuery to get password, first_name and last_name and id from users table using e-mail
 function getUserInfo(email) {
@@ -107,6 +113,7 @@ module.exports.getUserById = getUserById;
 module.exports.getFriendStatus = getFriendStatus;
 module.exports.getFriends = getFriends;
 module.exports.updateFriendship = updateFriendship;
+module.exports.getOtherUserByName = getOtherUserByName;
 
 
 /* Tests */
