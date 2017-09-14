@@ -72,10 +72,10 @@ function getFriends(data) {
 }
 
 //dbQuery to get profile information: first_name and last_name and id from users table using e-mail
-function getOtherUserByName(email) {
+function getOtherUserByName(name) {
     console.log('DBQUERY: in getUserInfo');
     let queryStr = 'SELECT id, first_name, last_name, bio, profile_pic FROM users WHERE (first_name = $1) OR (last_name = $1)';
-    return db.query(queryStr, email);
+    return db.query(queryStr, name);
 }
 
 //dbQuery to get password, first_name and last_name and id from users table using e-mail

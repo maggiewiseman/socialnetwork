@@ -5,6 +5,28 @@ const urlPrepend = require('./config.json');
 const PENDING = 1, ACCEPTED = 2, REJECTED = 3, CANCELLED = 4, TERMINATED = 5;
 
 function handle(query, req, res) {
+    if(query == 'findAFriend') {
+
+        return dbQuery.getOtherUserByName([req.params.name]).then(friends => {
+            if(friends.rowCount == 0) {
+                console.error('User does not exist');
+                res.json({success: 204, message: 'User with that name does not exist.'});
+            }
+
+            console.log('HANDLER: findAFriend: friends: ', friends);
+
+            var s3mappedFriends = friends.map(friend => {
+                friend.profile_pic = urlPrepend.s3Url + friend.profile_pic;
+                return friend;
+            });
+            console.log('s3mapped friends:', s3mappedFriends);
+            res.json({friends: s3mappedFriends});
+        }).catch(error => {
+            console.error(error);
+            res.json({error});
+        });
+    }
+
     if (query == 'getFriendships') {
         console.log('HANDLER: getFriendships');
         dbQuery.getFriends([req.session.user.id]).then(friends => {
@@ -89,7 +111,13 @@ function handle(query, req, res) {
     if( query == 'getUserById') {
         console.log(`HANDLE ${query}`, req.body);
         let data = [req.session.user.id];
+
         dbQuery.getUserById(data).then((results) => {
+            if(results.rowCount == 0) {
+                console.error('User does not exist');
+                res.json({success: 204, message: 'User with that e-mail does not exist.'});
+            }
+
             console.log('results:', results.rows);
             results.rows[0].profile_pic = urlPrepend.s3Url + results.rows[0].profile_pic;
             res.json({
@@ -173,6 +201,8 @@ function handle(query, req, res) {
             });
         });
     }
+
+
 
     var userInfo;
     if( query == 'login') {
