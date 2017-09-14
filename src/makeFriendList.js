@@ -7,7 +7,7 @@ import { Link } from 'react-router';
 
 const PENDING = 1, ACCEPTED = 2, REJECTED = 3, CANCELLED = 4, TERMINATED = 5;
 
-export default function(newFriends, btnEventHandler, nameEventHandler) {
+export default function(newFriends, btnEventHandler) {
     console.log(`makeFriendList: friends: ${newFriends}`);
     if(newFriends.length == 0) {
         return null;
@@ -28,8 +28,7 @@ export default function(newFriends, btnEventHandler, nameEventHandler) {
                     <ProfilePic nav
                         imgsrc={dog.profile_pic}
                         first_name={dog.first_name}
-                        last_name={dog.last_name}
-                        onClick={() => nameEventHandler(dog.id)}/>
+                        last_name={dog.last_name}/>
                 </SidePic>
                 <DogInfo><Link to={link}>{dog.first_name + ' ' + dog.last_name}</Link><Button onClick={() => btnEventHandler(dog.id)}>{btnWord} Friendship</Button></DogInfo>
             </ProfileListItem>

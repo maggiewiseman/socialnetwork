@@ -18,14 +18,10 @@ class Friends extends React.Component {
         super(props);
         this.state = {};
         this.dispatch = this.props.dispatch.bind(this);
-        this.goToProfile = this.goToProfile.bind(this);
     }
     componentDidMount() {
         console.log('FRIENDS: didMount', this.props);
         this.props.dispatch(receiveFriends());
-    }
-    goToProfile(id) {
-        console.log('ClickedOnGetProfile. id:', id);
     }
     render() {
         const { friends, dispatch } = this.props;
@@ -36,7 +32,6 @@ class Friends extends React.Component {
         } else {
             console.log('RENDER function of friends. here is list of friends:', friends);
         }
-        console.log('FRIENDS: this.goToProfile', this.goToProfile);
         return (
             <UnderNav>
                 <Column two>
@@ -44,8 +39,7 @@ class Friends extends React.Component {
                         <SectionHeader>
                             Friend Requests:
                         </SectionHeader>
-                        {<FriendRequestList friends={friends} handleFriendshipChange={id => dispatch(updateFriendship(id))}
-                            goToProfile={this.goToProfile}/>}
+                        {<FriendRequestList friends={friends} handleFriendshipChange={id => dispatch(updateFriendship(id))}/>}
 
                     </SidebarMenu>
                 </Column>
