@@ -6,8 +6,8 @@ const PENDING = 1, ACCEPTED = 2, REJECTED = 3, CANCELLED = 4, TERMINATED = 5;
 
 function handle(query, req, res) {
     if(query == 'findAFriend') {
-
-        return dbQuery.getOtherUserByName([req.params.name]).then(friends => {
+        //need to loop through name array here...
+        return dbQuery.getOtherUserByName([req.body.name]).then(friends => {
             if(friends.rowCount == 0) {
                 console.error('User does not exist');
                 res.json({success: 204, message: 'User with that name does not exist.'});
