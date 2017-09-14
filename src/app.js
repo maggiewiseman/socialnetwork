@@ -136,6 +136,7 @@ export default class App extends React.Component {
                                 <li><Link to="/">Home</Link></li>
                                 <li><Logout /></li>
                             </ul>
+                            <Search />
                         </div>
                         <ProfilePic nav={true} showUpLoader={this.showUpLoader}
                                     imgsrc={this.state.profile_pic}
