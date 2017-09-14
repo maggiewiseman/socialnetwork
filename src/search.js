@@ -26,6 +26,7 @@ function wrapSearchForm(Component, url) {
             console.log(this.state.searchString);
             console.log(this);
             this.props.dispatch(findAFriend(this.state.searchString, this.state.url));
+            location.replace('/searchResults');
         }
         render() {
             //when making a component to be rendered you say:
