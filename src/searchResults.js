@@ -12,6 +12,8 @@ import { connect } from 'react-redux';
 import FriendList from './friendList';
 import FriendRequestList from './friendRequestList';
 import { updateFriendship } from './actions';
+import makeFriendList from './makeFriendList';
+
 
 
 class SearchResults extends React.Component {
@@ -29,14 +31,15 @@ class SearchResults extends React.Component {
         } else {
             console.log('RENDER function of friends. here is list of friends:', searchResults);
         }
+        var list = makeFriendList(searchResults);
         return (
             <UnderNav>
-                <MainSection>
+                <SidebarMenu>
                     <SectionHeader>
                         Search Results:
                     </SectionHeader>
-                    {<FriendRequestList friends={searchResults} handleFriendshipChange={id => dispatch(updateFriendship(id))}/>}
-                </MainSection>
+                    {list}
+                </SidebarMenu>
             </UnderNav>
         );
     }
@@ -46,9 +49,14 @@ class SearchResults extends React.Component {
 
 /*the connect function we use below (and that was imported) will pass state to the mapStateToProps function. */
 const mapStateToProps = function(state) {
+    console.log('SearchResults state:', state.foundFriends);
     return {
-        searchResults: state.searchResults
+        searchResults: state.foundFriends
     };
 };
 
 export default connect(mapStateToProps)(SearchResults);
+
+function SearchResultList() {
+
+}
