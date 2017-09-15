@@ -11,7 +11,12 @@ function updateList (io, req, res){
     }
 
     console.log(socketList);
-    return socketList;
+
+    //get User list
+    var userList = socketList.map(socketListItem => socketListItem.userId);
+    console.log('SocketHandler: userList: ', userList);
+
+    return userList;
 
 }
 
