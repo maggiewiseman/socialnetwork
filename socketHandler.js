@@ -1,3 +1,5 @@
+const dbQuery = require('./dbQuery');
+
 
 let socketList = []
 function updateList (io, req, res){
@@ -16,7 +18,14 @@ function updateList (io, req, res){
     var userList = socketList.map(socketListItem => socketListItem.userId);
     console.log('SocketHandler: userList: ', userList);
 
-    return userList;
+    dbQuery.getUsersByIds(userList).then(() => {
+        res.json({
+            success: 200
+        })
+    }).catch(e => {
+        console.log(e.stack);
+        res.json({error: e});
+    });
 
 }
 

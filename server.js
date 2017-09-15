@@ -44,11 +44,7 @@ app.use(express.static('./public'));
 
 
 app.post('/connected/:socketId', mw.loggedInCheck, (req,res) => {
-    var socketList = socketHandler.updateList(io, req, res);
-    console.log('SERVER: socketList: ', socketList);
-    res.json({
-        success: 200
-    });
+    socketHandler.updateList(io, req, res);
 });
 
 app.use(require('./routers/routes'));

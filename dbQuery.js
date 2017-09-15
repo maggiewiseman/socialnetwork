@@ -103,6 +103,11 @@ function getUserById(id) {
     return db.query(queryStr, id);
 }
 
+function getUsersByIds(ids) {
+    console.log('DBQUERY: in getUsersByIds: ', ids);
+    let queryStr = 'SELECT first_name, last_name, profile_pic, bio FROM users WHERE id = ANY($1)';
+    return db.query(queryStr, [ids]);
+}
 
 module.exports.addUser = addUser;
 module.exports.getUserInfo = getUserInfo;
@@ -114,9 +119,12 @@ module.exports.getFriendStatus = getFriendStatus;
 module.exports.getFriends = getFriends;
 module.exports.updateFriendship = updateFriendship;
 module.exports.getOtherUserByName = getOtherUserByName;
-
+module.exports.getUsersByIds = getUsersByIds;
 
 /* Tests */
+getUsersByIds([6,6,3]).then((results) => {
+    console.log(results.rows);
+});
 // getOtherUserByName(['Dogg']).then((results) => {
 //     console.log(results);
 // }).catch(e => console.error(e));
