@@ -1,4 +1,3 @@
-const io = require('./server');
 
 let socketList = []
 function updateList (io, req, res){
@@ -14,4 +13,4 @@ function updateList (io, req, res){
 
 
 
-//module.exports.usersList = usersList;
+module.exports.updateList = updateList;

@@ -10,6 +10,7 @@ import SearchNames  from './search';
 import {Socket} from './socket';
 import { connect } from 'react-redux';
 
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -28,7 +29,7 @@ class App extends React.Component {
     componentDidMount() {
         //runs immediately after the component gets put in the DOM
         //make axios request here.
-        var socket = Socket();
+
 
         axios.get('/api/user').then((res)=> {
             console.log('APP after mounting: res is:', res);
@@ -119,7 +120,7 @@ class App extends React.Component {
         })
     }
     render() {
-
+        Socket(() => this.props.dispatch);
         if(!this.state.profile_pic) {
             return <div className='loading'>Loading...</div>;
         } else {

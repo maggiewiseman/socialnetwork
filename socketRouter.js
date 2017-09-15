@@ -11,11 +11,6 @@ module.exports = function socketRouter(app, io) {
             success: 200
         });
     });
-
-
-
-
-
 }
 
 

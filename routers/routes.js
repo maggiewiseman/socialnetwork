@@ -5,8 +5,6 @@ const csrf = require('csurf');
 const path = require( 'path' );
 const uploader = require('../fileUploadHandler').uploader;
 const sendToAWS = require('../awsHandler').sendToAWS;
-const socketHandler = require('../socketHandler').handle;
-const io = require('../server');
 
 const csrfProtection = csrf({ cookie: true });
 const router = express.Router();

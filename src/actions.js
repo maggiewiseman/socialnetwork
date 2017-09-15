@@ -2,8 +2,9 @@ import axios from './axios';
 
 const RECEIVE_FRIENDS = 'RECEIVE_FRIENDS',
     UPDATE_FRIENDSHIP = 'UPDATE_FRIENDSHIP',
-    FIND_FRIENDS = 'FIND_FRIENDS';
-    
+    FIND_FRIENDS = 'FIND_FRIENDS',
+    GET_ONLINE_USERS = 'GET_ONLINE_USERS';
+
 export function receiveFriends() {
     console.log('ACTION: about to send to axios');
     return axios.get('/api/getFriendships').then((results)=> {
@@ -52,6 +53,17 @@ export function findAFriend(name, url) {
         console.log(e);
         return {
             type: 'ERROR'
+        };
+    });
+}
+
+export function getOnlineUsers(id) {
+    console.log('ACTIONS: getOnlineUsers');
+    return axios.post('/connected/' + id).then((users) => {
+        console.log('ACTIONS: back from getting online users, users:', users);
+        return {
+            type: GET_ONLINE_USERS,
+            users
         };
     });
 }
