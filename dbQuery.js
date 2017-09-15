@@ -105,7 +105,7 @@ function getUserById(id) {
 
 function getUsersByIds(ids) {
     console.log('DBQUERY: in getUsersByIds: ', ids);
-    let queryStr = 'SELECT first_name, last_name, profile_pic, bio FROM users WHERE id = ANY($1)';
+    let queryStr = 'SELECT id, first_name, last_name, profile_pic, bio FROM users WHERE id = ANY($1)';
     return db.query(queryStr, [ids]);
 }
 

@@ -8,7 +8,7 @@ import { Link } from 'react-router';
 const PENDING = 1, ACCEPTED = 2, REJECTED = 3, CANCELLED = 4, TERMINATED = 5;
 
 export default function(newFriends, btnEventHandler) {
-    console.log(`makeFriendList: friends: ${newFriends}`);
+    console.log(`makeFriendList: friends:`, newFriends);
     if(newFriends.length == 0) {
         return null;
     }
