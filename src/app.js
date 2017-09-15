@@ -8,9 +8,9 @@ import Logout from './logout';
 import {Wrapper, Nav} from './styledComponents/wrapper';
 import SearchNames  from './search';
 import {Socket} from './socket';
+import { connect } from 'react-redux';
 
-
-export default class App extends React.Component {
+class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -29,6 +29,7 @@ export default class App extends React.Component {
         //runs immediately after the component gets put in the DOM
         //make axios request here.
         var socket = Socket();
+
         axios.get('/api/user').then((res)=> {
             console.log('APP after mounting: res is:', res);
             var { id, first_name, last_name, profile_pic, bio} = res.data.userInfo;
@@ -157,3 +158,7 @@ export default class App extends React.Component {
         }
     }
 }
+
+{/********* CONNECTED COMPONENT ********/}
+
+export default connect()(App);

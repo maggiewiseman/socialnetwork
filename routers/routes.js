@@ -5,6 +5,8 @@ const csrf = require('csurf');
 const path = require( 'path' );
 const uploader = require('../fileUploadHandler').uploader;
 const sendToAWS = require('../awsHandler').sendToAWS;
+const socketHandler = require('../socketHandler').handle;
+const io = require('../server');
 
 const csrfProtection = csrf({ cookie: true });
 const router = express.Router();
@@ -102,6 +104,13 @@ router.get('/api/friendStatus/:id', (req,res) => {
 router.get('/api/getFriendships', (req,res) => {
     console.log('ROUTER: getFriendships');
     handler('getFriendships', req, res);
+});
+
+router.get('/connected/:socketId', mw.loggedInCheck, (req,res) => {
+    socketHandler(io, req, res);
+    res.json({
+        success: 200
+    });
 });
 
 router.get('/logout', (req, res) => {

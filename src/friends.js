@@ -67,32 +67,6 @@ const mapStateToProps = function(state) {
 
 export default connect(mapStateToProps)(Friends);
 
-
-
-{/********* CHILD COMPONENTS **********/}
-{/*function FriendList(newFriends) {
-
-    const friendItems = newFriends.map((dog) => {
-        return (
-            <ProfileListItem key={dog.id.toString()}>
-                <SidePic>
-                    <ProfilePic nav
-                        imgsrc={dog.profile_pic}
-                        first_name={dog.first_name}
-                        last_name={dog.last_name}/>
-                </SidePic>
-                <DogInfo><p>{dog.first_name + ' ' + dog.last_name}</p><Button>End Friendship</Button></DogInfo>
-            </ProfileListItem>
-        );
-    });
-
-    return (
-        <ul>
-            {friendItems}
-        </ul>
-    );
-} */}
-
 {/******** STYLED COMPONENTS ***********/}
 
 const SidePic = styled.div`

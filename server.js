@@ -40,12 +40,18 @@ app.use(express.static('./public'));
 
 app.use(require('./routers/routes'));
 
+
+server.listen(8080, function() {
+    console.log("I'm listening.");
+});
+
+
 /************* Socket Logic ***********/
 io.on('connection', (socket) => {
     console.log(`socket with the id ${socket.id} is now connected`);
+    //check to see if that socket exists in list
+
+    io.emit('welcome', 'hello from server');
 });
 
-
-server.listen(8080, function() {
-    console.log("I'm listening.")
-});
+module.exports.io = io;
