@@ -122,9 +122,9 @@ module.exports.getOtherUserByName = getOtherUserByName;
 module.exports.getUsersByIds = getUsersByIds;
 
 /* Tests */
-getUsersByIds([6,6,3]).then((results) => {
-    console.log(results.rows);
-});
+// getUsersByIds([6,6,3]).then((results) => {
+//     console.log(results.rows);
+// });
 // getOtherUserByName(['Dogg']).then((results) => {
 //     console.log(results);
 // }).catch(e => console.error(e));
