@@ -5,6 +5,8 @@ const cookieSession = require('cookie-session');
 const csurf = require('csurf');
 
 const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 
 var secret = process.env.SESSION_SECRET || require('./secrets.json').sessionSecret;
 
@@ -38,6 +40,6 @@ app.use(express.static('./public'));
 
 app.use(require('./routers/routes'));
 
-app.listen(8080, function() {
+server.listen(8080, function() {
     console.log("I'm listening.")
 });

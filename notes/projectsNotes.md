@@ -204,4 +204,70 @@ End Friendship
 * use the function you pass to the reducer
 * change action of button to use redux by replacing list of friends with new list of friends. So you should see the friend move from one section to another section.
 
-* a nice to have feature is when connected component mounts the first time it needs to make an ajax request to get friends.  After that if you leave the friends route and come back see if the data is still in the store so you don't have to go back to database. 
+* a nice to have feature is when connected component mounts the first time it needs to make an ajax request to get friends.  After that if you leave the friends route and come back see if the data is still in the store so you don't have to go back to database.
+
+
+## Online Users:
+* The route for this future is going to be similar to friends
+* The component displays the users
+* get online user from the store and displays them
+* socket.io for events of users coming and going and updating state accordingly
+
+
+* Since we are doing redux, redux will be constantly updating events in the store in the background no matter if we are looking at online
+* Hook up socket io on the server and when a socket connects, hook up a disconnet event.
+* when a socket connects you don't want to at that time count the user as online because when the socket connects and you receive that event it would be difficult to figure out that user's id.
+* we need to maintain a list of all the users that are online.
+* keep online array, push object with id and socket id
+* connection event doesn't have user id.
+* the client should then make an ajax request to some route and that route
+    * app.post('/connected/:socketId', (req, res) => {
+            //send socketId and req.session.user.id
+            test to see if there is an object already with that socketId and if there isn't, pass in an object.
+
+         });
+    * could be more than one connection for a given user
+    * if users not already there then io.sockets.emit('userJoined')
+
+
+* don't worry about client running out of memory, more concerned about memory running out on the server
+* potential that someone could open millions of tabs, but they would have to have logins...
+* just store two values in array, not user info b/c we still want to keep this array as small as possible.
+
+io.sockets.sockets[socketId].emit('onlineUsers', )
+
+getUsersByIds(ids).then(users =>
+    io.sockets.emit('onlineUsers', users))
+
+Building a query with an array:
+2 ways but one is better for our purposes b/c it uses the $
+
+//Sql will ignore any multiple id's.  (auto de-dupes)
+const q = 'SELECT first_name, last_name, profile_pic, id FROM users WHERE id = ANY($1)'
+
+The client should check for duplicate users.
+
+Client listens for userJoined
+Dispatch an action and reducer updates the list
+
+On the server:
+On the route...check loggedin
+check to see if socket is already there and check to see that it is a valid socketid
+push the user into the list of sockets
+getUsersById then emit and online users event and send the list back to the client
+if the user is not already there then emit an userJoined event.
+
+
+Do once in App
+const socket = io.connect();
+.on connect event do the axios post... when to do this?
+.on('userJoined'), userLeft, onlineUsers
+
+the callbacks for these events should dispatch and action
+
+need to make sure only do it once and only if user is logged in and do it in a way that it has a dispatch action.
+the socket needs to be available to another element or at least the emit event needs to be available (the chat component)
+
+Create a socket component
+Declare a variable socket.
+If it is undefined, you can 
