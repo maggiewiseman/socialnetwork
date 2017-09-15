@@ -1,13 +1,17 @@
 
 let socketList = []
 function updateList (io, req, res){
+    console.log(req.params.socketId);
     var socketExists = socketList.find(socketListItem => socketListItem.id == req.params.socketId);
-    if(!socketExists && io.sockets.sockets[req.params.socketsId]) {
+    if(!socketExists) {
         socketList.push({
-            socketId: req.params.socketsId,
+            socketId: req.params.socketId,
             userId: req.session.user.id
         });
     }
+
+    console.log(socketList);
+    return socketList;
 
 }
 
