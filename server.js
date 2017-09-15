@@ -3,6 +3,10 @@ const compression = require('compression');
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const csurf = require('csurf');
+const mw = require('./routers/middleware');
+const socketHandler = require('./socketHandler').handle;
+
+
 
 const app = express();
 const server = require('http').Server(app);
@@ -38,6 +42,14 @@ app.use(function(req, res, next) {
 
 app.use(express.static('./public'));
 
+
+app.get('/connected/:socketId', mw.loggedInCheck, (req,res) => {
+    socketHandler(io, req, res);
+    res.json({
+        success: 200
+    });
+});
+
 app.use(require('./routers/routes'));
 
 
@@ -53,5 +65,3 @@ io.on('connection', (socket) => {
 
     io.emit('welcome', 'hello from server');
 });
-
-module.exports.io = io;

@@ -106,13 +106,6 @@ router.get('/api/getFriendships', (req,res) => {
     handler('getFriendships', req, res);
 });
 
-router.get('/connected/:socketId', mw.loggedInCheck, (req,res) => {
-    socketHandler(io, req, res);
-    res.json({
-        success: 200
-    });
-});
-
 router.get('/logout', (req, res) => {
     req.session = null;
     res.redirect('/welcome/');
