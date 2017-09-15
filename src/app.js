@@ -120,7 +120,7 @@ class App extends React.Component {
         })
     }
     render() {
-        Socket(() => this.props.dispatch);
+        Socket(this.props.dispatch);
         if(!this.state.profile_pic) {
             return <div className='loading'>Loading...</div>;
         } else {

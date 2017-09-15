@@ -5,7 +5,7 @@ const RECEIVE_FRIENDS = 'RECEIVE_FRIENDS',
 
 
 export default function(state = {}, action) {
-    console.log('in reducer. this is the aciton:', action);
+    console.log('in reducer. this is the action:', action);
     if (action.type == RECEIVE_FRIENDS) {
 
         state = Object.assign({}, state, {
@@ -36,7 +36,7 @@ export default function(state = {}, action) {
 
 
     if(action.type == GET_ONLINE_USERS) {
-        console.log(action);
+        console.log('REDUCER: action is: ', action);
         state = Object.assign({}, state, {
             users: action.users
         });

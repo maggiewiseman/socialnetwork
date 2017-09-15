@@ -60,10 +60,15 @@ export function findAFriend(name, url) {
 export function getOnlineUsers(id) {
     console.log('ACTIONS: getOnlineUsers');
     return axios.post('/connected/' + id).then((users) => {
-        console.log('ACTIONS: back from getting online users, users:', users);
+        console.log('ACTIONS: back from getting online users, users:', users.data.users);
         return {
             type: GET_ONLINE_USERS,
-            users
+            users: users.data.users
+        };
+    }).catch(e => {
+        console.log(e);
+        return {
+            type: 'ERROR'
         };
     });
 }
