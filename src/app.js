@@ -7,6 +7,7 @@ import axios from './axios';
 import Logout from './logout';
 import {Wrapper, Nav} from './styledComponents/wrapper';
 import SearchNames  from './search';
+import {Socket} from './socket';
 
 
 export default class App extends React.Component {
@@ -27,6 +28,7 @@ export default class App extends React.Component {
     componentDidMount() {
         //runs immediately after the component gets put in the DOM
         //make axios request here.
+        var socket = Socket();
         axios.get('/api/user').then((res)=> {
             console.log('APP after mounting: res is:', res);
             var { id, first_name, last_name, profile_pic, bio} = res.data.userInfo;

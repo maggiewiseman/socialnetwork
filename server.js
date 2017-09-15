@@ -40,6 +40,12 @@ app.use(express.static('./public'));
 
 app.use(require('./routers/routes'));
 
+/************* Socket Logic ***********/
+io.on('connection', (socket) => {
+    console.log(`socket with the id ${socket.id} is now connected`);
+});
+
+
 server.listen(8080, function() {
     console.log("I'm listening.")
 });
