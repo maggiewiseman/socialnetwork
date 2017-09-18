@@ -1,6 +1,6 @@
 const dbQuery = require('./dbQuery');
 const urlPrepend = require('./config.json');
-
+const dateFormat = require('dateformat');
 
 let socketList = []
 function updateList (io, req, res){
@@ -86,6 +86,10 @@ function newChat(io) {
             return a.date - b.date;
         });
 
+        messages.map(msg => {
+            msg.date = dateFormat(msg.date);
+        });
+    
         io.emit('chatMessages', messages);
     });
 }

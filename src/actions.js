@@ -92,11 +92,11 @@ export function addMessage(message) {
 }
 
 export function getMessages(messages) {
-    messages.map((msg) => {
-        var aDate = new Date(msg.date);
-        msg.date = aDate.toString();
-        return msg;
-    });
+    // messages.map((msg) => {
+    //     var aDate = new Date(msg.date);
+    //     msg.date = aDate.toString();
+    //     return msg;
+    // });
 
     return {
         type: CHAT_MESSAGES,
