@@ -2,7 +2,8 @@ const RECEIVE_FRIENDS = 'RECEIVE_FRIENDS',
     UPDATE_FRIENDSHIP = 'UPDATE_FRIENDSHIP',
     FIND_FRIENDS = 'FIND_FRIENDS',
     GET_ONLINE_USERS = 'GET_ONLINE_USERS',
-    UPDATE_ONLINE_USERS = 'UPDATE_ONLINE_USERS';
+    UPDATE_ONLINE_USERS = 'UPDATE_ONLINE_USERS',
+    ADD_MESSAGE = 'ADD_MESSAGE';
 
 
 export default function(state = {}, action) {
@@ -43,6 +44,11 @@ export default function(state = {}, action) {
         });
     }
 
+    if(action.type == ADD_MESSAGE) {
+        state = Object.assign({}, state, {
+            messages: action.messages
+        });
+    }
     console.log('state in reducer', state);
     return state;
 
