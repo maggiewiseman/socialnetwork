@@ -95,9 +95,15 @@ function newMessage(message, socketId, io) {
     var data = [userId, message];
 
     console.log('SOCKET HANDLER: newMessage', data);
-    return dbQuery.addMessage(data).then(() => {
-        console.log('About to emit message');
-        io.emit('incomingMessage', message);
+    return dbQuery.addMessage(data).then((messageId) => {
+        console.log(messageId.rows[0].id);
+        return dbQuery.getMessageById([messageId.rows[0].id]);
+
+    }).then(results => {
+        console.log('About to emit message', results.rows);
+        io.emit('incomingMessage', results.rows);
+    }).catch(e => {
+        console.error(e.stack);
     });
 }
 

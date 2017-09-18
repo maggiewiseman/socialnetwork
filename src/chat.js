@@ -43,7 +43,7 @@ class Chat extends React.Component {
         const messageList = messages.map((dog) => {
             var link = '/profile/' + dog.id;
             return (
-                <ProfileListItem key={dog.user_id.toString()}>
+                <ProfileListItem key={dog.id.toString()}>
                     <SidePic>
                         <ProfilePic nav
                             imgsrc={dog.profile_pic}
