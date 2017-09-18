@@ -209,10 +209,10 @@ End Friendship
 
 ## Online Users:
 
-Here's what is happening. I have set up the client to connect by make a function called Socket in a random file.  The Socket function is in my main app container and is able to pass the dispatch event that the app has (since it is a connected component) On the server I have also set up SocketIO in my server file where I basically get an io object.  Then on my sever I have an on connection event.  and it emits a welcome event. 
+Here's what is happening. I have set up the client to connect by make a function called Socket in a random file.  The Socket function is in my main app container and is able to pass the dispatch event that the app has (since it is a connected component) On the server I have also set up SocketIO in my server file where I basically get an io object.  Then on my sever I have an on connection event.  and it emits a welcome event.
 
 The client connects as soon as the user logs in because it is set to do this in the render function of the main app container. So then when I go to a particular route: onlineUsers
-* The route for this future is going to be similar to friends
+* The route for this feature is going to be similar to friends
 * The component displays the users
 * get online user from the store and displays them
 * socket.io for events of users coming and going and updating state accordingly
@@ -283,7 +283,7 @@ If it is undefined, you can
 2. Let users adde links - get html back from a page and search for og-title and other meta tags.  A lot of sites use this structure. Could also use CheerioJS to help
 
 ## chat
-Once you have socketIo going.  Need another server side event for when a chat message is received couldd name the vent chat. Two client side vents. One you could call chat for when any user sends a chate message. The server will broadcast to everyone a chat message event which triggers the server sending it to everyone.
+Once you have socketIo going.  Need another server side event for when a chat message is received couldd name the vent chat. Two client side vents. One you could call chat for when any user sends a chat message. The server will broadcast to everyone a chat message event which triggers the server sending it to everyone.
 On the client you will also need a chatmessages event. This is an event to send the list of the more recent 10 messages for people that connect to the chat.
 To do the storing of the ten messages ont he server. The easiest is to keep 10 messages in memory in an array.
 Could store in the database. Would need sender id, chat_id if you are going to to do private messages, date, message.

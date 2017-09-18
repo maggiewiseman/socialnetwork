@@ -4,7 +4,8 @@ const RECEIVE_FRIENDS = 'RECEIVE_FRIENDS',
     UPDATE_FRIENDSHIP = 'UPDATE_FRIENDSHIP',
     FIND_FRIENDS = 'FIND_FRIENDS',
     GET_ONLINE_USERS = 'GET_ONLINE_USERS',
-    UPDATE_ONLINE_USERS = 'UPDATE_ONLINE_USERS';
+    UPDATE_ONLINE_USERS = 'UPDATE_ONLINE_USERS',
+    ADD_MESSAGE = 'ADD_MESSAGE';
 
 export function receiveFriends() {
     console.log('ACTION: about to send to axios');
@@ -80,4 +81,14 @@ export function updateOnlineUsers(users) {
         users
     };
 
+}
+
+export function addMessage(message) {
+    return axios.post('/api/message', {message}).then((messages) => {
+        console.log('ACTIONS: back from adding message');
+        return {
+            type: ADD_MESSAGE,
+            messages: messages.data.messages
+        };
+    });
 }

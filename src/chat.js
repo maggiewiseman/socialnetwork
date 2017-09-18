@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { UnderNav } from './styledComponents/wrapper';
 import { SectionHeader } from './styledComponents/headers';
 import { SidebarMenu } from './styledComponents/menus';
+import { addMessage } from './actions';
 
 const ENTER = 13;
 
@@ -17,19 +18,17 @@ class Chat extends React.Component {
     handleInput(e) {
         if(e.keyCode == ENTER) {
             console.log('enter! ');
-            //here's where I call this.props.dispatch(addMessage(id???))
+            //here's where I call
+            this.props.dispatch(addMessage(e.target.value));
         }
-        console.log(e)
-        this.setState({
-            message: e.target.value
-        });
+        console.log(e);
     }
     render() {
         return (
             <UnderNav>
                 <SidebarMenu>
                     <SectionHeader>
-                        Online Users:
+                        Online Chat:
                     </SectionHeader>
                     <textarea cols='60' rows='4' onKeyDown={this.handleInput} >
                     </textarea>
