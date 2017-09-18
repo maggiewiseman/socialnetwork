@@ -77,14 +77,24 @@ function makeUserList() {
 This function is going to take in a message, the req, and the io.
 It is going to add the message to the database and then it is going to emit and event that says there's a new message.
 On the client side my socket will be listening for new message and will update accordingly. */
-function addMessage(req, io) {
+function newMessage(message, socketId, io) {
+    var userId = getUserIdFromSocket(socketId);
+
+    var data = [userId, message];
+
+    console.log('SOCKET HANDLER: newMessage', data);
+    
     return dbQuery.addMessage(data).then(() => {
-        return dbQuery.getMessages();
-    }).then((messages) => {
-        io.emit('newMessage', messages.rows);
-    })
+        console.log('About to emit message');
+        io.emit('incomingMessage', message);
+    });
 }
 
-module.exports.addMessage = addMessage;
+function getUserIdFromSocket(socketId) {
+    var index = socketList.findIndex(item => item.socketId == socketId);
+    return socketList[index].userId;
+}
+
+module.exports.newMessage = newMessage;
 module.exports.disconnectUser = disconnectUser;
 module.exports.updateList = updateList;

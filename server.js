@@ -70,10 +70,10 @@ io.on('connection', (socket) => {
         console.log('socket', socket);
         console.log(`socket with the id ${socket.id} is now disconnected`);
         socketHandler.disconnectUser(socket.id, io);
-        //io.emit('disconnectedUser', [{obj:1}, {obj:2}]);
     });
 
     socket.on('newMessage', (message) => {
-        io.emit('incomingMessage', message);
+        socketHandler.newMessage(message, socket.id, io);
+        //io.emit('incomingMessage', message);
     });
 });
