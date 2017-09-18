@@ -80,11 +80,12 @@ function newChat(io) {
     console.log('SOCKET HANDLER: newChat');
     return dbQuery.getMessages().then(results => {
 
-        console.log('SOCKET HANDLER: back from getting messages',results.rows);
+        console.log('SOCKET HANDLER: back from getting messages');
         var messages = prependUrl(results.rows);
         messages.sort(( a,b )=> {
             return a.date - b.date;
         });
+
         io.emit('chatMessages', messages);
     });
 }
