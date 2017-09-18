@@ -6,6 +6,8 @@ let socketList = []
 function updateList (io, req, res){
     console.log(req.params.socketId);
     var socketExists = socketList.find(socketListItem => socketListItem.id == req.params.socketId);
+
+    //if socket does not yet exist and is a valid one, add to socket list.
     if(!socketExists && io.sockets.sockets[req.params.socketId]) {
         socketList.push({
             socketId: req.params.socketId,
@@ -22,6 +24,7 @@ function updateList (io, req, res){
             user.profile_pic = urlPrepend.s3Url + user.profile_pic;
             return user;
         });
+        io.emit('userConnected', s3mappedUsers);
         res.json({
             success: 200,
             users: s3mappedUsers
@@ -69,7 +72,6 @@ function makeUserList() {
 
     return dbQuery.getUsersByIds(userList);
 }
-
 
 module.exports.disconnectUser = disconnectUser;
 module.exports.updateList = updateList;

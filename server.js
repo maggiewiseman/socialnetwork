@@ -59,6 +59,7 @@ server.listen(8080, function() {
 io.on('connection', (socket) => {
     console.log(`socket with the id ${socket.id} is now connected`);
     //check to see if that socket exists in list
+    socketHandler.newConnection(socket.id, io);
 
     io.emit('welcome', 'hello from server');
 

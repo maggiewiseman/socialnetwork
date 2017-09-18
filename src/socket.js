@@ -18,11 +18,15 @@ export function Socket( dispatch ) {
 
             socket.on('welcome', function(data) {
                 console.log(data);
+            });
 
+            socket.on('userConnected', function(data) {
+                console.log('user connected event');
+                dispatch(updateOnlineUsers(data));
             });
 
             socket.on('disconnectedUser', function(data) {
-                dispatch(updateOnlineUsers(data))
+                dispatch(updateOnlineUsers(data));
             });
         });
     }
