@@ -18,6 +18,11 @@ export function Socket( dispatch ) {
 
             socket.on('welcome', function(data) {
                 console.log(data);
+
+            });
+
+            socket.on('disconnectedUser', function(data) {
+                console.log(data);
             });
         });
     }

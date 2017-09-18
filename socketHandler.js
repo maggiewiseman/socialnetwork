@@ -16,24 +16,7 @@ function updateList (io, req, res){
     console.log(socketList);
 
     //get User list
-    sendUserList(res);
-
-}
-
-
-/* this function is going to take the socket.id and go through my lists object to get userId of disconnected Users.  And it is going to remove that particular item from the list.  And then it is going to see if user is in there more than one time.  If user is in there more than one time, it will do nothing else.  If the user is not in the list then it will update the users list and emit and userDisconnected event with a new usersList.
-
-*/
-function disconnectUser(socketId) {
-    console.log('SOCKET HANDLER: disconnect socketId:', socketId);
-    //socketList
-}
-
-function sendUserList(res) {
-    var userList = socketList.map(socketListItem => socketListItem.userId);
-    console.log('SocketHandler: userList: ', userList);
-
-    dbQuery.getUsersByIds(userList).then((results) => {
+    makeUserList().then((results) => {
         console.log('SOCKET HANDLER:', results.rows);
         var s3mappedUsers = results.rows.map(user => {
             user.profile_pic = urlPrepend.s3Url + user.profile_pic;
@@ -47,6 +30,46 @@ function sendUserList(res) {
         console.log(e.stack);
         res.json({error: e});
     });
+
 }
+
+
+/* this function is going to take the socket.id and go through my lists object to get userId of disconnected Users.  And it is going to remove that particular item from the list.  And then it is going to see if user is in there more than one time.  If user is in there more than one time, it will do nothing else.  If the user is not in the list then it will update the users list and emit an userDisconnected event with a new usersList.
+
+*/
+function disconnectUser(socket, io) {
+    console.log('SOCKET HANDLER: disconnect socketId:', socketId);
+
+    var index = socketList.findIndex(item => item.socketId == socketId);
+    var userId = socketList[index].userId;
+
+    socketList.splice(index, 1);
+    console.log('Spliced Socket List: ', socketList);
+
+    var userStillInList = socketList.findIndex(item => item.userId == userId);
+
+    if(userStillInList < 0) {
+        makeUserList().then(() => {
+            //emit an event
+            console.log('SOCKET HANDLER: disconnect user', results.rows);
+            var s3mappedUsers = results.rows.map(user => {
+                user.profile_pic = urlPrepend.s3Url + user.profile_pic;
+                return user;
+            });
+
+
+        });
+    }
+
+}
+
+function makeUserList() {
+    var userList = socketList.map(socketListItem => socketListItem.userId);
+    console.log('SocketHandler: userList: ', userList);
+
+    return dbQuery.getUsersByIds(userList);
+}
+
+
 module.exports.disconnectUser = disconnectUser;
 module.exports.updateList = updateList;

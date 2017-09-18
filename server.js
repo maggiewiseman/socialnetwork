@@ -65,6 +65,7 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('socket', socket);
         console.log(`socket with the id ${socket.id} is now disconnected`);
-        socketHandler.disconnectUser(socket.id);
+        //socketHandler.disconnectUser(socket.id, io);
+        io.emit('disconnectedUser', [{obj:1}, {obj:2}]);
     });
 });
