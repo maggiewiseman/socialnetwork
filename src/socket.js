@@ -21,7 +21,7 @@ export function Socket( dispatch ) {
 
             });
 
-            socket.on('disconnectedUser', function(data) {
+            socket.on('userDisconnected', function(data) {
                 console.log(data);
             });
         });
