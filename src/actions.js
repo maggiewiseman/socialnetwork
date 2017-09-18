@@ -84,12 +84,8 @@ export function updateOnlineUsers(users) {
 }
 
 export function addMessage(message) {
-    console.log('ACTION in add message');
-    return axios.post('/message', {message}).then((messages) => {
-        console.log('ACTIONS: back from adding message');
-        return {
-            type: ADD_MESSAGE,
-            messages: messages.data.messages
-        };
-    });
+    return {
+        type: ADD_MESSAGE,
+        message
+    };
 }

@@ -45,9 +45,13 @@ export default function(state = {}, action) {
     }
 
     if(action.type == ADD_MESSAGE) {
+        var messages = state.messages || [];
+        messages.push(action.message);
+
         state = Object.assign({}, state, {
-            messages: action.messages
+            messages
         });
+
     }
     console.log('state in reducer', state);
     return state;
