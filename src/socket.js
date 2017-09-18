@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as io from 'socket.io-client';
-import { getOnlineUsers, updateOnlineUsers, addMessage } from './actions';
+import { getOnlineUsers, updateOnlineUsers, addMessage, getMessages } from './actions';
 
 
 let socket;
@@ -32,6 +32,11 @@ export function Socket( dispatch ) {
             socket.on('incomingMessage', function(data) {
                 console.log(data);
                 dispatch(addMessage(data));
+            });
+
+            socket.on('chatMessages', function(data) {
+                console.log('SOCKET', data);
+                dispatch(getMessages(data));
             });
         });
     }

@@ -5,7 +5,8 @@ const RECEIVE_FRIENDS = 'RECEIVE_FRIENDS',
     FIND_FRIENDS = 'FIND_FRIENDS',
     GET_ONLINE_USERS = 'GET_ONLINE_USERS',
     UPDATE_ONLINE_USERS = 'UPDATE_ONLINE_USERS',
-    ADD_MESSAGE = 'ADD_MESSAGE';
+    ADD_MESSAGE = 'ADD_MESSAGE',
+    CHAT_MESSAGES = 'CHAT_MESSAGES';
 
 export function receiveFriends() {
     console.log('ACTION: about to send to axios');
@@ -87,5 +88,12 @@ export function addMessage(message) {
     return {
         type: ADD_MESSAGE,
         message
+    };
+}
+
+export function getMessages(messages) {
+    return {
+        type: CHAT_MESSAGES,
+        messages
     };
 }

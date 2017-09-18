@@ -20,10 +20,11 @@ function updateList (io, req, res){
     //get User list
     makeUserList().then((results) => {
         console.log('SOCKET HANDLER:', results.rows);
-        var s3mappedUsers = results.rows.map(user => {
-            user.profile_pic = urlPrepend.s3Url + user.profile_pic;
-            return user;
-        });
+        var s3mappedUsers = prependUrl(results.rows);
+        // var s3mappedUsers = results.rows.map(user => {
+        //     user.profile_pic = urlPrepend.s3Url + user.profile_pic;
+        //     return user;
+        // });
         io.emit('userConnected', s3mappedUsers);
         res.json({
             success: 200,
@@ -55,10 +56,11 @@ function disconnectUser(socketId, io) {
         makeUserList().then((results) => {
             //emit an event
             console.log('SOCKET HANDLER: disconnect user', results.rows);
-            var users = results.rows.map(user => {
-                user.profile_pic = urlPrepend.s3Url + user.profile_pic;
-                return user;
-            });
+            var users = prependUrl(results.rows);
+            // var users = results.rows.map(user => {
+            //     user.profile_pic = urlPrepend.s3Url + user.profile_pic;
+            //     return user;
+            // });
             io.emit('disconnectedUser', users);
 
         });
@@ -73,6 +75,16 @@ function makeUserList() {
     return dbQuery.getUsersByIds(userList);
 }
 
+/* This function is called when a new chat event is received. It gets the latest 10 messages from the db and sends them back to the user */
+function newChat(io) {
+    console.log('SOCKET HANDLER: newChat');
+    return dbQuery.getMessages().then(results => {
+
+        console.log('SOCKET HANDLER: back from getting messages',results.rows);
+        var messages = prependUrl(results.rows);
+        io.emit('chatMessages', messages);
+    });
+}
 /*
 This function is going to take in a message, the req, and the io.
 It is going to add the message to the database and then it is going to emit and event that says there's a new message.
@@ -83,7 +95,6 @@ function newMessage(message, socketId, io) {
     var data = [userId, message];
 
     console.log('SOCKET HANDLER: newMessage', data);
-    
     return dbQuery.addMessage(data).then(() => {
         console.log('About to emit message');
         io.emit('incomingMessage', message);
@@ -95,6 +106,15 @@ function getUserIdFromSocket(socketId) {
     return socketList[index].userId;
 }
 
+function prependUrl(list) {
+    var newList = list.map(user => {
+        user.profile_pic = urlPrepend.s3Url + user.profile_pic;
+        return user;
+    });
+    return newList;
+}
+
+module.exports.newChat = newChat;
 module.exports.newMessage = newMessage;
 module.exports.disconnectUser = disconnectUser;
 module.exports.updateList = updateList;

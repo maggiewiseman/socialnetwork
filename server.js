@@ -72,6 +72,11 @@ io.on('connection', (socket) => {
         socketHandler.disconnectUser(socket.id, io);
     });
 
+    socket.on('newChat', () => {
+        console.log('new chat');
+        socketHandler.newChat(io);
+    });
+
     socket.on('newMessage', (message) => {
         socketHandler.newMessage(message, socket.id, io);
         //io.emit('incomingMessage', message);

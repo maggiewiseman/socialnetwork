@@ -8,6 +8,12 @@ import { SectionHeader } from './styledComponents/headers';
 import { SidebarMenu } from './styledComponents/menus';
 import { addMessage } from './actions';
 import { Socket } from './socket';
+import makeFriendList from './makeFriendList';
+import { ProfilePic } from './profile-pic';
+import { ProfileListItem } from './styledComponents/menus';
+import { Link } from 'react-router';
+
+
 
 const ENTER = 13;
 
@@ -15,25 +21,50 @@ class Chat extends React.Component {
     constructor(props) {
         super(props);
         this.handleInput = this.handleInput.bind(this);
+        this.socket = Socket(this.props.dispatch);
+    }
+    componentDidMount() {
+        console.log('mounting chat');
+        this.socket.emit('newChat');
     }
     handleInput(e) {
         if(e.keyCode == ENTER) {
             console.log('enter! ');
-            //here's where I call
-            var socket = Socket(this.props.dispatch);
-            socket.emit('newMessage', e.target.value);
-            //this.props.dispatch(addMessage(e.target.value));
+            this.socket.emit('newMessage', e.target.value);
         }
         console.log(e);
     }
     render() {
+        const { messages } = this.props;
+        if(!messages) {
+            return null;
+        }
+
+        const messageList = messages.map((dog) => {
+            var link = '/profile/' + dog.id;
+            return (
+                <ProfileListItem key={dog.user_id.toString()}>
+                    <SidePic>
+                        <ProfilePic nav
+                            imgsrc={dog.profile_pic}
+                            first_name={dog.first_name}
+                            last_name={dog.last_name}/>
+                    </SidePic>
+                    <DogInfo><Link to={link}>{dog.first_name + ' ' + dog.last_name}</Link></DogInfo>
+                    <p>{dog.message}</p>
+                </ProfileListItem>
+            );
+        });
+
         return (
             <UnderNav>
                 <SidebarMenu>
                     <SectionHeader>
                         Online Chat:
                     </SectionHeader>
-                    {this.props.messages}
+                    <ul>
+                        {messageList}
+                    </ul>
                     <textarea cols='60' rows='4' onKeyDown={this.handleInput} >
                     </textarea>
                 </SidebarMenu>
@@ -51,3 +82,22 @@ const mapStateToProps = function(state) {
 };
 
 export default connect(mapStateToProps)(Chat);
+
+{/******** STYLED COMPONENTS ***********/}
+
+const SidePic = styled.div`
+    width: 30%;
+    text-align: center;
+    display: inline-block;
+    margin: 0;
+    padding: 6px 0;
+`;
+
+const DogInfo = styled.div`
+    width: 60%;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0;
+    padding: 10px 0;
+
+`;
