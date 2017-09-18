@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { UnderNav } from './styledComponents/wrapper';
+import { Sidebar, MainSection, UnderNav } from './styledComponents/wrapper';
 import { SectionHeader } from './styledComponents/headers';
 import { SidebarMenu } from './styledComponents/menus';
 import { addMessage } from './actions';
@@ -26,6 +26,14 @@ class Chat extends React.Component {
     componentDidMount() {
         this.socket.emit('newChat');
     }
+    componentDidUpdate() {
+        console.log(this.msgList);
+        console.log('scrollTop', this.msgList.scrollTop);
+        console.log('height', this.msgList.scrollHeight);
+        console.log('client', this.msgList.offSet);
+
+        this.msgList.scrollTop = this.msgList.scrollHeight;
+    }
     handleInput(e) {
         if(e.keyCode == ENTER) {
             e.preventDefault();
@@ -41,8 +49,8 @@ class Chat extends React.Component {
         }
 
         const messageList = messages.map((msg) => {
-            const { id, profile_pic, first_name, last_name, date, message } = msg;
-            var link = '/profile/' + id;
+            const { id, profile_pic, first_name, last_name, date, message, user_id } = msg;
+            var link = '/profile/' + user_id;
             return (
                 <ProfileListItem key={id.toString()}>
                     <SidePic>
@@ -61,18 +69,33 @@ class Chat extends React.Component {
             );
         });
 
+        var divStyle = {
+            overflow: 'scroll',
+            height: '300px'
+        };
+
         return (
             <UnderNav>
-                <ChatBox>
+                <Sidebar>
+                </Sidebar>
+                <MainSection>
+
                     <SectionHeader>
                         Online Chat:
                     </SectionHeader>
-                    <ul>
-                        {messageList}
-                    </ul>
-                    <textarea cols='90' rows='4' onKeyDown={this.handleInput} ref={el => this.inputField = el} >
-                    </textarea>
-                </ChatBox>
+                    <ChatBox>
+                        <div style={divStyle} ref={el => this.msgList = el}>
+                            <ul>
+                                {messageList}
+                            </ul>
+                        </div>
+
+                        Type a message:
+
+                        <textarea cols='90' rows='4' onKeyDown={this.handleInput} ref={el => this.inputField = el} >
+                        </textarea>
+                    </ChatBox>
+                </MainSection>
             </UnderNav>
         );
     }
@@ -93,14 +116,16 @@ const Date = styled.p`
     color: gray;
     font-size: 12px;
     font-style: italic;
+    display: inline-block;
+    padding-left: 20%;
 
 `;
 const SidePic = styled.div`
-    width: 30%;
+    width: 15%;
     text-align: center;
     display: inline-block;
     margin: 0;
-    padding: 2px 0;
+    padding: 6px 0;
 `;
 
 const DogInfo = styled.div`
@@ -113,14 +138,13 @@ const DogInfo = styled.div`
 `;
 
 const ChatBox = styled.div`
-width: 90%;
-height: 500px;
-overflow: scroll;
+width: 100%;
+
+
 background: hsla(27, 66%, 97%, 1);
-border: 1px solid hsla(27, 15%, 36%, 1);
 margin: 0 auto;
 
-> ul {
+> div > ul {
     list-style: none;
     margin: 0;
     padding: 0;
