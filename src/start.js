@@ -13,6 +13,7 @@ import reducer from './reducers';
 import reduxPromise from 'redux-promise';
 import SearchResults from './searchResults';
 import OnlineUsers from './onlineUsers';
+import Chat from './chat';
 
 const authRouter = (
     <Router history={hashHistory}>
@@ -33,6 +34,8 @@ const appRouter = (
                 <Route path="profile/:id" component={OtherProfile} />
                 <Route path="searchResults" component={SearchResults} />
                 <Route path="onlineUsers" component={OnlineUsers} />
+                <Route path="chat" component={Chat} />
+
             </Route>
         </Router>
     </Provider>

@@ -45,6 +45,7 @@ export default class Profile extends React.Component {
                             <SidebarMenuItem><Link to='/friends'>See Friends</Link></SidebarMenuItem>
                             <SidebarMenuItem>Edit Profile</SidebarMenuItem>
                             <SidebarMenuItem><Link to='/onlineUsers'>Who is Online</Link></SidebarMenuItem>
+                            <SidebarMenuItem><Link to='/chat'>Chat</Link></SidebarMenuItem>
                         </ul>
                     </SidebarMenu>
                 </Sidebar>
