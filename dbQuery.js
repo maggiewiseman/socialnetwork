@@ -109,7 +109,22 @@ function getUsersByIds(ids) {
     return db.query(queryStr, [ids]);
 }
 
+function getMessages() {
+    console.log('DBQUERY: in Messages ');
+    let queryStr = 'SELECT chats.message, chats.user_id, users.first_name, users.last_name, users.profile_pic FROM chats JOIN users ON chats.user_id = users.id ORDER BY created_at DESC LIMIT 10';
+    return db.query(queryStr);
+}
+
+function addMessage(data) {
+    console.log('DBQUERY: in add Message.');
+    let queryStr = 'INSERT INTO chats user_id, message VALUES ($1, $2)';
+    return db.query(queryStr, data);
+}
+
+
 module.exports.addUser = addUser;
+module.exports.addMessage = addMessage;
+module.exports.getMessages = getMessages;
 module.exports.getUserInfo = getUserInfo;
 module.exports.updateProfilePic = updateProfilePic;
 module.exports.addFriendship = addFriendship;

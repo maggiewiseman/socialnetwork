@@ -73,5 +73,17 @@ function makeUserList() {
     return dbQuery.getUsersByIds(userList);
 }
 
+/*
+This function is going to take in a message, the req, and the io.
+It is going to add the message to the database and then it is going to emit and event that says there's a new message.
+On the client side my socket will be listening for new message and will update accordingly. */
+function addMessage(req, io) {
+    return dbQuery.addMessage(data).then(() => {
+        return dbQuery.getMessages();
+    }).then((messages) => {
+        io.emit('newMessage', messages.rows);
+    })
+}
+
 module.exports.disconnectUser = disconnectUser;
 module.exports.updateList = updateList;
