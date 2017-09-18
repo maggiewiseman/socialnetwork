@@ -117,7 +117,7 @@ function getMessages() {
 
 function addMessage(data) {
     console.log('DBQUERY: in add Message.');
-    let queryStr = 'INSERT INTO chats user_id, message VALUES ($1, $2)';
+    let queryStr = 'INSERT INTO chats (user_id, message) VALUES ($1, $2)';
     return db.query(queryStr, data);
 }
 
@@ -137,6 +137,7 @@ module.exports.getOtherUserByName = getOtherUserByName;
 module.exports.getUsersByIds = getUsersByIds;
 
 /* Tests */
+addMessage([2, 'another message' ]).then(()=> console.log('it works')).catch(e => console.error(e));
 // getUsersByIds([6,6,3]).then((results) => {
 //     console.log(results.rows);
 // });
