@@ -100,8 +100,8 @@ function newMessage(message, socketId, io) {
         return dbQuery.getMessageById([messageId.rows[0].id]);
 
     }).then(results => {
-        console.log('About to emit message', results.rows);
-        io.emit('incomingMessage', results.rows);
+        console.log('About to emit message', results.rows[0]);
+        io.emit('incomingMessage', results.rows[0]);
     }).catch(e => {
         console.error(e.stack);
     });
