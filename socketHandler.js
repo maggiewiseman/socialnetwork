@@ -85,5 +85,6 @@ function addMessage(req, io) {
     })
 }
 
+module.exports.addMessage = addMessage;
 module.exports.disconnectUser = disconnectUser;
 module.exports.updateList = updateList;

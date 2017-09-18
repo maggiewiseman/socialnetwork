@@ -28,6 +28,10 @@ export function Socket( dispatch ) {
             socket.on('disconnectedUser', function(data) {
                 dispatch(updateOnlineUsers(data));
             });
+
+            socket.on('incomingMessage', function(data) {
+                console.log(data);
+            });
         });
     }
 

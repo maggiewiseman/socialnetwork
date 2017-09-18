@@ -21,7 +21,7 @@ class Chat extends React.Component {
             console.log('enter! ');
             //here's where I call
             var socket = Socket(this.props.dispatch);
-            socket.emit('newMessage', e.target.value + 'maggie');
+            socket.emit('newMessage', e.target.value);
             //this.props.dispatch(addMessage(e.target.value));
         }
         console.log(e);
