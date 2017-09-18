@@ -7,7 +7,23 @@ import { UnderNav } from './styledComponents/wrapper';
 import { SectionHeader } from './styledComponents/headers';
 import { SidebarMenu } from './styledComponents/menus';
 
+const ENTER = 13;
+
 class Chat extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleInput = this.handleInput.bind(this);
+    }
+    handleInput(e) {
+        if(e.keyCode == ENTER) {
+            console.log('enter! ');
+            //here's where I call this.props.dispatch(addMessage(id???))
+        }
+        console.log(e)
+        this.setState({
+            message: e.target.value
+        });
+    }
     render() {
         return (
             <UnderNav>
@@ -15,7 +31,7 @@ class Chat extends React.Component {
                     <SectionHeader>
                         Online Users:
                     </SectionHeader>
-                    <textarea cols='60' rows='4' >
+                    <textarea cols='60' rows='4' onKeyDown={this.handleInput} >
                     </textarea>
                 </SidebarMenu>
             </UnderNav>

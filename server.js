@@ -61,6 +61,7 @@ io.on('connection', (socket) => {
     //check to see if that socket exists in list
     socketHandler.newConnection(socket.id, io);
 
+    //could be the same io.sockets.emit
     io.emit('welcome', 'hello from server');
 
     socket.on('disconnect', () => {
