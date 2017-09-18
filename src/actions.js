@@ -3,7 +3,8 @@ import axios from './axios';
 const RECEIVE_FRIENDS = 'RECEIVE_FRIENDS',
     UPDATE_FRIENDSHIP = 'UPDATE_FRIENDSHIP',
     FIND_FRIENDS = 'FIND_FRIENDS',
-    GET_ONLINE_USERS = 'GET_ONLINE_USERS';
+    GET_ONLINE_USERS = 'GET_ONLINE_USERS',
+    UPDATE_ONLINE_USERS = 'UPDATE_ONLINE_USERS';
 
 export function receiveFriends() {
     console.log('ACTION: about to send to axios');
@@ -71,4 +72,12 @@ export function getOnlineUsers(id) {
             type: 'ERROR'
         };
     });
+}
+
+export function updateOnlineUsers(users) {
+    return {
+        type: UPDATE_ONLINE_USERS,
+        users
+    };
+
 }

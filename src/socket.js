@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as io from 'socket.io-client';
-import { getOnlineUsers } from './actions';
+import { getOnlineUsers, updateOnlineUsers } from './actions';
 
 
 let socket;
@@ -22,7 +22,7 @@ export function Socket( dispatch ) {
             });
 
             socket.on('disconnectedUser', function(data) {
-                console.log(data);
+                dispatch(updateOnlineUsers(data))
             });
         });
     }
