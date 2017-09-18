@@ -62,7 +62,8 @@ io.on('connection', (socket) => {
 
     io.emit('welcome', 'hello from server');
 
-    socket.on('disconnect', (socket) => {
-        console.log(`socket with the id ${socket.id} is now connected`);
+    socket.on('disconnect', () => {
+        console.log('socket', socket);
+        console.log(`socket with the id ${socket.id} is now disconnected`);
     });
 });

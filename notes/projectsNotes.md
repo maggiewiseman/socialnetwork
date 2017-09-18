@@ -208,6 +208,10 @@ End Friendship
 
 
 ## Online Users:
+
+Here's what is happening. I have set up the client to connect by make a function called Socket in a random file.  The Socket function is in my main app container and is able to pass the dispatch event that the app has (since it is a connected component) On the server I have also set up SocketIO in my server file where I basically get an io object.  Then on my sever I have an on connection event.  and it emits a welcome event. 
+
+The client connects as soon as the user logs in because it is set to do this in the render function of the main app container. So then when I go to a particular route: onlineUsers
 * The route for this future is going to be similar to friends
 * The component displays the users
 * get online user from the store and displays them
@@ -229,6 +233,8 @@ End Friendship
     * could be more than one connection for a given user
     * if users not already there then io.sockets.emit('userJoined')
 
+## Day 2 of socket io stuff:
+What I need to do today is 1) make it so that when a new user connects I emit an event userJoined.  But I only emit this event if the user id is not already in the list.  So on connection
 
 * don't worry about client running out of memory, more concerned about memory running out on the server
 * potential that someone could open millions of tabs, but they would have to have logins...
