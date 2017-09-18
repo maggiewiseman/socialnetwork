@@ -47,6 +47,10 @@ app.post('/connected/:socketId', mw.loggedInCheck, (req,res) => {
     socketHandler.updateList(io, req, res);
 });
 
+app.post('/message', mw.loggedInCheck, (req,res) => {
+    console.log(req.body.message);
+});
+
 app.use(require('./routers/routes'));
 
 
@@ -58,8 +62,6 @@ server.listen(8080, function() {
 /************* Socket Logic ***********/
 io.on('connection', (socket) => {
     console.log(`socket with the id ${socket.id} is now connected`);
-    //check to see if that socket exists in list
-    socketHandler.newConnection(socket.id, io);
 
     //could be the same io.sockets.emit
     io.emit('welcome', 'hello from server');

@@ -30,6 +30,7 @@ class Chat extends React.Component {
                     <SectionHeader>
                         Online Chat:
                     </SectionHeader>
+                    {this.props.messages}
                     <textarea cols='60' rows='4' onKeyDown={this.handleInput} >
                     </textarea>
                 </SidebarMenu>
