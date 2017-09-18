@@ -82,6 +82,9 @@ function newChat(io) {
 
         console.log('SOCKET HANDLER: back from getting messages',results.rows);
         var messages = prependUrl(results.rows);
+        messages.sort(( a,b )=> {
+            return a.date - b.date;
+        });
         io.emit('chatMessages', messages);
     });
 }

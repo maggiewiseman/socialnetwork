@@ -40,20 +40,21 @@ class Chat extends React.Component {
             return null;
         }
 
-        const messageList = messages.map((dog) => {
-            var link = '/profile/' + dog.id;
+        const messageList = messages.map((msg) => {
+            const { id, profile_pic, first_name, last_name, date, message } = msg;
+            var link = '/profile/' + id;
             return (
-                <ProfileListItem key={dog.id.toString()}>
+                <ProfileListItem key={id.toString()}>
                     <SidePic>
                         <ProfilePic nav
-                            imgsrc={dog.profile_pic}
-                            first_name={dog.first_name}
-                            last_name={dog.last_name}/>
+                            imgsrc={profile_pic}
+                            first_name={first_name}
+                            last_name={last_name}/>
                     </SidePic>
                     <DogInfo>
-                        <Link to={link}>{dog.first_name + ' ' + dog.last_name}</Link>
-
-                        <p>{dog.message}</p>
+                        <Link to={link}>{first_name + ' ' + last_name}</Link>
+                        <Date>{date}</Date>
+                        <p>{message}</p>
                     </DogInfo>
 
                 </ProfileListItem>
@@ -88,7 +89,12 @@ const mapStateToProps = function(state) {
 export default connect(mapStateToProps)(Chat);
 
 {/******** STYLED COMPONENTS ***********/}
+const Date = styled.p`
+    color: gray;
+    font-size: 12px;
+    font-style: italic;
 
+`;
 const SidePic = styled.div`
     width: 30%;
     text-align: center;
