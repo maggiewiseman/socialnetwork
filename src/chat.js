@@ -7,6 +7,7 @@ import { UnderNav } from './styledComponents/wrapper';
 import { SectionHeader } from './styledComponents/headers';
 import { SidebarMenu } from './styledComponents/menus';
 import { addMessage } from './actions';
+import { Socket } from './socket';
 
 const ENTER = 13;
 
@@ -19,7 +20,9 @@ class Chat extends React.Component {
         if(e.keyCode == ENTER) {
             console.log('enter! ');
             //here's where I call
-            this.props.dispatch(addMessage(e.target.value));
+            var socket = Socket(this.props.dispatch);
+            socket.emit('newMessage', e.target.value + 'maggie');
+            //this.props.dispatch(addMessage(e.target.value));
         }
         console.log(e);
     }

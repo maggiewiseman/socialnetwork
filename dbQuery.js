@@ -137,7 +137,7 @@ module.exports.getOtherUserByName = getOtherUserByName;
 module.exports.getUsersByIds = getUsersByIds;
 
 /* Tests */
-getMessages().then((results)=> console.log(results.rows)).catch(e => console.error(e));
+//getMessages().then((results)=> console.log(results.rows)).catch(e => console.error(e));
 // getUsersByIds([6,6,3]).then((results) => {
 //     console.log(results.rows);
 // });

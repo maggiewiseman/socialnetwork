@@ -72,4 +72,8 @@ io.on('connection', (socket) => {
         socketHandler.disconnectUser(socket.id, io);
         //io.emit('disconnectedUser', [{obj:1}, {obj:2}]);
     });
+
+    socket.on('newMessage', (message) => {
+        console.log(message);
+    });
 });
