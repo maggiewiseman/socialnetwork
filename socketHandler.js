@@ -101,7 +101,8 @@ function newMessage(message, socketId, io) {
 
     }).then(results => {
         console.log('About to emit message', results.rows[0]);
-        io.emit('incomingMessage', results.rows[0]);
+        var message = prependUrl(results.rows);
+        io.emit('incomingMessage', message[0]);
     }).catch(e => {
         console.error(e.stack);
     });

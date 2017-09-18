@@ -24,13 +24,13 @@ class Chat extends React.Component {
         this.socket = Socket(this.props.dispatch);
     }
     componentDidMount() {
-        console.log('mounting chat');
         this.socket.emit('newChat');
     }
     handleInput(e) {
         if(e.keyCode == ENTER) {
-            console.log('enter! ');
+            e.preventDefault();
             this.socket.emit('newMessage', e.target.value);
+            this.inputField.value = '';
         }
         console.log(e);
     }
@@ -50,8 +50,12 @@ class Chat extends React.Component {
                             first_name={dog.first_name}
                             last_name={dog.last_name}/>
                     </SidePic>
-                    <DogInfo><Link to={link}>{dog.first_name + ' ' + dog.last_name}</Link></DogInfo>
-                    <p>{dog.message}</p>
+                    <DogInfo>
+                        <Link to={link}>{dog.first_name + ' ' + dog.last_name}</Link>
+
+                        <p>{dog.message}</p>
+                    </DogInfo>
+
                 </ProfileListItem>
             );
         });
@@ -65,7 +69,7 @@ class Chat extends React.Component {
                     <ul>
                         {messageList}
                     </ul>
-                    <textarea cols='60' rows='4' onKeyDown={this.handleInput} >
+                    <textarea cols='90' rows='4' onKeyDown={this.handleInput} ref={el => this.inputField = el} >
                     </textarea>
                 </SidebarMenu>
             </UnderNav>
@@ -90,7 +94,7 @@ const SidePic = styled.div`
     text-align: center;
     display: inline-block;
     margin: 0;
-    padding: 6px 0;
+    padding: 2px 0;
 `;
 
 const DogInfo = styled.div`

@@ -111,7 +111,7 @@ function getUsersByIds(ids) {
 
 function getMessages() {
     console.log('DBQUERY: in getMessages ');
-    let queryStr = 'SELECT chats.message, chats.user_id, chats.id, chats.created_at AS date, users.first_name, users.last_name, users.profile_pic FROM chats JOIN users ON chats.user_id = users.id ORDER BY chats.created_at DESC LIMIT 10';
+    let queryStr = 'SELECT chats.message, chats.user_id, chats.id, chats.created_at AS date, users.first_name, users.last_name, users.profile_pic FROM chats JOIN users ON chats.user_id = users.id ORDER BY chats.created_at ASC LIMIT 10';
     return db.query(queryStr);
 }
 
