@@ -111,7 +111,7 @@ function getUsersByIds(ids) {
 
 function getMessages() {
     console.log('DBQUERY: in Messages ');
-    let queryStr = 'SELECT chats.message, chats.user_id, users.first_name, users.last_name, users.profile_pic FROM chats JOIN users ON chats.user_id = users.id ORDER BY created_at DESC LIMIT 10';
+    let queryStr = 'SELECT chats.message, chats.user_id, users.first_name, users.last_name, users.profile_pic FROM chats JOIN users ON chats.user_id = users.id ORDER BY chats.created_at DESC LIMIT 10';
     return db.query(queryStr);
 }
 
@@ -137,7 +137,7 @@ module.exports.getOtherUserByName = getOtherUserByName;
 module.exports.getUsersByIds = getUsersByIds;
 
 /* Tests */
-addMessage([2, 'another message' ]).then(()=> console.log('it works')).catch(e => console.error(e));
+getMessages().then((results)=> console.log(results.rows)).catch(e => console.error(e));
 // getUsersByIds([6,6,3]).then((results) => {
 //     console.log(results.rows);
 // });
