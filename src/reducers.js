@@ -45,11 +45,12 @@ export default function(state = {}, action) {
     }
 
     if(action.type == ADD_MESSAGE) {
-        var messages = state.messages || [];
-        messages.push(action.message);
+        // var messages = state.messages || [];
+        // messages.push(action.message);
+
 
         state = Object.assign({}, state, {
-            messages
+            messages: state.messages ? [ ...state.messages, action.message] : [action.message]
         });
 
     }
