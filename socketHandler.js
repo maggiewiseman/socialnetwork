@@ -16,6 +16,20 @@ function updateList (io, req, res){
     console.log(socketList);
 
     //get User list
+    sendUserList(res);
+
+}
+
+
+/* this function is going to take the socket.id and go through my lists object to get userId of disconnected Users.  And it is going to remove that particular item from the list.  And then it is going to see if user is in there more than one time.  If user is in there more than one time, it will do nothing else.  If the user is not in the list then it will update the users list and emit and userDisconnected event with a new usersList.
+
+*/
+function disconnectUser(socketId) {
+    console.log('SOCKET HANDLER: disconnect socketId:', socketId);
+    //socketList
+}
+
+function sendUserList(res) {
     var userList = socketList.map(socketListItem => socketListItem.userId);
     console.log('SocketHandler: userList: ', userList);
 
@@ -33,9 +47,6 @@ function updateList (io, req, res){
         console.log(e.stack);
         res.json({error: e});
     });
-
 }
-
-
-
+module.exports.disconnectUser = disconnectUser;
 module.exports.updateList = updateList;

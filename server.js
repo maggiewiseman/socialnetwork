@@ -65,5 +65,6 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('socket', socket);
         console.log(`socket with the id ${socket.id} is now disconnected`);
+        socketHandler.disconnectUser(socket.id);
     });
 });
