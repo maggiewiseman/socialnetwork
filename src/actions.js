@@ -6,7 +6,8 @@ const RECEIVE_FRIENDS = 'RECEIVE_FRIENDS',
     GET_ONLINE_USERS = 'GET_ONLINE_USERS',
     UPDATE_ONLINE_USERS = 'UPDATE_ONLINE_USERS',
     ADD_MESSAGE = 'ADD_MESSAGE',
-    CHAT_MESSAGES = 'CHAT_MESSAGES';
+    CHAT_MESSAGES = 'CHAT_MESSAGES',
+    SAVE_CURR_USER = 'SAVE_CURR_USER';
 
 export function receiveFriends() {
     console.log('ACTION: about to send to axios');
@@ -92,14 +93,16 @@ export function addMessage(message) {
 }
 
 export function getMessages(messages) {
-    // messages.map((msg) => {
-    //     var aDate = new Date(msg.date);
-    //     msg.date = aDate.toString();
-    //     return msg;
-    // });
 
     return {
         type: CHAT_MESSAGES,
         messages
+    };
+}
+
+export function saveCurrUser(currUser) {
+    return {
+        type: SAVE_CURR_USER,
+        currUser
     };
 }

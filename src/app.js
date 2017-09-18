@@ -9,6 +9,7 @@ import {Wrapper, Nav} from './styledComponents/wrapper';
 import SearchNames  from './search';
 import {Socket} from './socket';
 import { connect } from 'react-redux';
+import { saveCurrUser } from './actions';
 
 
 class App extends React.Component {
@@ -37,7 +38,7 @@ class App extends React.Component {
             this.setState({ id, first_name, last_name, profile_pic, bio}, () => {
                 console.log('did mount state: ', this.state);
             });
-
+            this.props.dispatch(saveCurrUser(res.data.userInfo));
 
         }).catch((e) =>{
             this.setState({

@@ -9,6 +9,7 @@ import { SidebarMenu, SidebarMenuItem } from './styledComponents/menus';
 import styled from 'styled-components';
 import { Button } from './styledComponents/buttons';
 import { HintText } from './styledComponents/text';
+import { SidebarComp } from './sidebarComp';
 
 export default class Profile extends React.Component {
     constructor(props) {
@@ -30,25 +31,10 @@ export default class Profile extends React.Component {
         var divStyle = {
             marginTop: 10
         };
+
         return (
             <UnderNav>
-                <Sidebar>
-                    <ProfilePic imgsrc={profile_pic}
-                        first_name={first_name}
-                        last_name={last_name}/>
-                    <SidebarMenu>
-                        <SectionHeader>
-                            Menu
-                        </SectionHeader>
-                        <ul>
-                            <SidebarMenuItem><Link to='/'>Home</Link></SidebarMenuItem>
-                            <SidebarMenuItem><Link to='/friends'>See Friends</Link></SidebarMenuItem>
-                            <SidebarMenuItem>Edit Profile</SidebarMenuItem>
-                            <SidebarMenuItem><Link to='/onlineUsers'>Who is Online</Link></SidebarMenuItem>
-                            <SidebarMenuItem><Link to='/chat'>Chat</Link></SidebarMenuItem>
-                        </ul>
-                    </SidebarMenu>
-                </Sidebar>
+                <SidebarComp first_name={first_name} last_name={last_name} profile_pic={profile_pic}/>
                 <MainSection>
                     <SectionHeader>
                         Edit Profile

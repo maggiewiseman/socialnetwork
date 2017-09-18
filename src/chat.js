@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { SidebarComp } from './sidebarComp';
 
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -43,7 +43,7 @@ class Chat extends React.Component {
         console.log(e);
     }
     render() {
-        const { messages } = this.props;
+        const { messages, currUser } = this.props;
         if(!messages) {
             return null;
         }
@@ -71,13 +71,12 @@ class Chat extends React.Component {
 
         var divStyle = {
             overflow: 'scroll',
-            height: '300px'
+            height: '450px'
         };
 
         return (
             <UnderNav>
-                <Sidebar>
-                </Sidebar>
+                <SidebarComp first_name={currUser.first_name} last_name={currUser.last_name} profile_pic={currUser.profile_pic}/>
                 <MainSection>
 
                     <SectionHeader>
@@ -105,6 +104,7 @@ class Chat extends React.Component {
 const mapStateToProps = function(state) {
     console.log('mapping state to props in chat');
     return {
+        currUser: state.currUser,
         messages: state.messages
     };
 };

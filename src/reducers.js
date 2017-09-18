@@ -4,7 +4,8 @@ const RECEIVE_FRIENDS = 'RECEIVE_FRIENDS',
     GET_ONLINE_USERS = 'GET_ONLINE_USERS',
     UPDATE_ONLINE_USERS = 'UPDATE_ONLINE_USERS',
     ADD_MESSAGE = 'ADD_MESSAGE',
-    CHAT_MESSAGES = 'CHAT_MESSAGES';
+    CHAT_MESSAGES = 'CHAT_MESSAGES',
+    SAVE_CURR_USER = 'SAVE_CURR_USER';
 
 
 export default function(state = {}, action) {
@@ -55,6 +56,12 @@ export default function(state = {}, action) {
     if(action.type == CHAT_MESSAGES) {
         state = Object.assign({}, state, {
             messages: action.messages
+        });
+    }
+
+    if(action.type == SAVE_CURR_USER) {
+        state = Object.assign({}, state, {
+            currUser: action.currUser
         });
     }
     console.log('state in reducer', state);
