@@ -56,7 +56,7 @@ function disconnectUser(socketId, io) {
                 user.profile_pic = urlPrepend.s3Url + user.profile_pic;
                 return user;
             });
-            io.emit('userDisconnected', users);
+            io.emit('disconnectedUser', users);
 
         });
     }
