@@ -63,7 +63,7 @@ class Chat extends React.Component {
 
         return (
             <UnderNav>
-                <SidebarMenu>
+                <ChatBox>
                     <SectionHeader>
                         Online Chat:
                     </SectionHeader>
@@ -72,7 +72,7 @@ class Chat extends React.Component {
                     </ul>
                     <textarea cols='90' rows='4' onKeyDown={this.handleInput} ref={el => this.inputField = el} >
                     </textarea>
-                </SidebarMenu>
+                </ChatBox>
             </UnderNav>
         );
     }
@@ -110,4 +110,19 @@ const DogInfo = styled.div`
     margin: 0;
     padding: 10px 0;
 
+`;
+
+const ChatBox = styled.div`
+width: 90%;
+height: 500px;
+overflow: scroll;
+background: hsla(27, 66%, 97%, 1);
+border: 1px solid hsla(27, 15%, 36%, 1);
+margin: 0 auto;
+
+> ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
 `;
