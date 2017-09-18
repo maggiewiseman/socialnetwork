@@ -110,14 +110,19 @@ function getUsersByIds(ids) {
 }
 
 function getMessages() {
-    console.log('DBQUERY: in Messages ');
-    let queryStr = 'SELECT chats.message, chats.user_id, users.first_name, users.last_name, users.profile_pic FROM chats JOIN users ON chats.user_id = users.id ORDER BY chats.created_at DESC LIMIT 10';
+    console.log('DBQUERY: in getMessages ');
+    let queryStr = 'SELECT chats.message, chats.user_id AS id, chats.created_at AS date, users.first_name, users.last_name, users.profile_pic FROM chats JOIN users ON chats.user_id = users.id ORDER BY chats.created_at DESC LIMIT 10';
     return db.query(queryStr);
 }
 
+function getMessageById(chatId) {
+    console.log('DBQUERY in getMessage by Id');
+    let queryStr = 'SELECT chats.message, chats.user_id AS id, chats.created_at AS date, users.first_name, users.last_name, users.profile_pic FROM chats JOIN users ON (chats.user_id = users.id AND chats.id = $1)';
+    return db.query(queryStr, chatId);
+}
 function addMessage(data) {
     console.log('DBQUERY: in add Message.');
-    let queryStr = 'INSERT INTO chats (user_id, message) VALUES ($1, $2)';
+    let queryStr = 'INSERT INTO chats (user_id, message) VALUES ($1, $2) RETURNING id';
     return db.query(queryStr, data);
 }
 
@@ -125,6 +130,7 @@ function addMessage(data) {
 module.exports.addUser = addUser;
 module.exports.addMessage = addMessage;
 module.exports.getMessages = getMessages;
+module.exports.getMessageById = getMessageById;
 module.exports.getUserInfo = getUserInfo;
 module.exports.updateProfilePic = updateProfilePic;
 module.exports.addFriendship = addFriendship;
