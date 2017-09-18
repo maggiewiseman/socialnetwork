@@ -270,4 +270,34 @@ the socket needs to be available to another element or at least the emit event n
 
 Create a socket component
 Declare a variable socket.
-If it is undefined, you can 
+If it is undefined, you can
+
+## Deficiencies in our social media
+1. need additional benefit to being a friend
+2. Let users adde links - get html back from a page and search for og-title and other meta tags.  A lot of sites use this structure. Could also use CheerioJS to help
+
+## chat
+Once you have socketIo going.  Need another server side event for when a chat message is received couldd name the vent chat. Two client side vents. One you could call chat for when any user sends a chate message. The server will broadcast to everyone a chat message event which triggers the server sending it to everyone.
+On the client you will also need a chatmessages event. This is an event to send the list of the more recent 10 messages for people that connect to the chat.
+To do the storing of the ten messages ont he server. The easiest is to keep 10 messages in memory in an array.
+Could store in the database. Would need sender id, chat_id if you are going to to do private messages, date, message.
+When a user sends a chat message you should not update the display right away. The client should already be listening...
+When you receive a chat message from the user on the server. You will have a socket id.  You can use the socket id to find the user id from the list on the server and then do a dbquery to get the user info that you will use to display the message.
+One detail... this is a situation where we want to actually interact with a DOM element. React does not make it easy to do this. IN react you don't manipulate DOM elements. You describe what you want with JSX and then it makes it.  Which is why we don't use jQuery... but there's sometimes when you need to.  And this chat business is where it happens. Everytime we show a new message we want to do some scrolling.
+we have to use javascript to set the scroll position.  So we are going to need to interact with the dom element that holds the chat to manually set the scroll position each time a new message is
+
+Put in an thml element a ref and the value is a function
+Set a property on the component that keeps an updated reference to the dom
+(
+<div id="chat-messages" ref={(elem) => this.message = elem}
+
+because it has the ref property, React calls it every time it updates that element and it passes the function the element.
+
+componentDidUpdate runs after render function
+and you will be able to manipulate the element using this.message (in this case) because you set it equal to the elem.
+
+Do javascript to interact with the dom element
+scrollheight - clientHeight
+
+make sure the the new component has the socket or at least the emit function
+add a key down, if the key is enter, emit the content

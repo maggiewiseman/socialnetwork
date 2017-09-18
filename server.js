@@ -61,4 +61,8 @@ io.on('connection', (socket) => {
     //check to see if that socket exists in list
 
     io.emit('welcome', 'hello from server');
+
+    socket.on('disconnect', (socket) => {
+        console.log(`socket with the id ${socket.id} is now connected`);
+    });
 });
