@@ -6,18 +6,31 @@ import wrapSearchForm from './searchWrapper';
 import { connect } from 'react-redux';
 import { SectionHeader } from './styledComponents/headers';
 
-function SearchName({ handleInput, submit }) {
+function SearchName({ handleInput, submit, results }) {
+    if(results) {
+        var resultsList = results.map((msg) => {
+            const { id, first_name, last_name } = msg;
+            var link = '/profile/' + id;
+            return (
+                <li key={id.toString()}><Link to={link}>{first_name + ' ' + last_name}</Link></li>
+            );
+        });
+    }
+
+
     return (
 
         <SearchDiv>
             <label forHTML="searchBox">Search</label>
             <input name="searchBox" type="text" placeholder="Search" onChange={handleInput} placeholder="Name"/>
             <Button search onClick={submit}>Find By Name</Button>
+            {results &&
             <Results>
                 <SectionHeader>
                     Results
                 </SectionHeader>
-            </Results>
+                {resultsList}
+            </Results>}
         </SearchDiv>
     );
 }

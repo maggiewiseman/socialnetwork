@@ -15,10 +15,14 @@ export default function(Component, url) {
 
         }
         handleInput(e) {
-            console.log('setting state');
+            console.log('sending get request');
             //console.log(e.target.name);
-            this.setState({
-                searchString : e.target.value
+            /*Do ajax request here and then store in state */
+            axios.get('/api/searchname/' + e.target.value).then((results) => {
+                console.log(results.data.results);
+                this.setState({
+                    srchResults: results.data.results
+                });
             });
         }
         submit(e) {
@@ -28,27 +32,26 @@ export default function(Component, url) {
             browserHistory.push('/searchResults');
         }
         render() {
-            //when making a component to be rendered you say:
-            //<componentName propertyThatWillBeKeyinPropsObject = valueofProperty anotherPropertyThatWillBeKeyinPropsObject = theOtherValue
             return <Component
                         error={this.state.error}
                         handleInput={this.handleInput}
                         submit={this.submit}
+                        results={this.state.srchResults}
                     />;
         }
     };
 }
 
 
-function SearchBio({ handleInput, submit }) {
-    return (
-        <SearchDiv>
-            <label forHTML="searchBox">Search</label>
-            <input name="searchBox" type="text" placeholder="Search" onChange={handleInput} placeholder="Name"/>
-            <Button search onClick={submit}>Find By Topic</Button>
-        </SearchDiv>
-    );
-}
+// function SearchBio({ handleInput, submit }) {
+//     return (
+//         <SearchDiv>
+//             <label forHTML="searchBox">Search</label>
+//             <input name="searchBox" type="text" placeholder="Search" onChange={handleInput} placeholder="Name"/>
+//             <Button search onClick={submit}>Find By Topic</Button>
+//         </SearchDiv>
+//     );
+// }
 
 
 // const SearchNames = wrapSearchForm(SearchName, '/api/findAFriend');

@@ -63,6 +63,10 @@ router.route('/update/profile')
         handler('updateProfile', req, res);
     });
 
+router.get('/api/searchname/:string', mw.loggedInCheck, (req,res) => {
+    handler('searchName', req, res);
+});
+
 //returns another user's profile
 router.route('/api/user/:id')
     .get((req,res) => {

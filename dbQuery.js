@@ -126,8 +126,14 @@ function addMessage(data) {
     return db.query(queryStr, data);
 }
 
+function getMatches(data) {
+    console.log('DBQUERY: in getMatches');
+    let queryStr = 'SELECT id, first_name, last_name FROM users WHERE (email LIKE $1) OR (first_name LIKE $1) OR (last_name LIKE $1)';
+    return db.query(queryStr, data);
+}
 
 module.exports.addUser = addUser;
+module.exports.getMatches = getMatches;
 module.exports.addMessage = addMessage;
 module.exports.getMessages = getMessages;
 module.exports.getMessageById = getMessageById;

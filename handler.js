@@ -5,6 +5,20 @@ const urlPrepend = require('./config.json');
 const PENDING = 1, ACCEPTED = 2, REJECTED = 3, CANCELLED = 4, TERMINATED = 5;
 
 function handle(query, req, res) {
+    if(query == 'searchName') {
+        console.log(`HANDLER: ${query}` );
+        //should return user_id, first_name and last_name for matches
+        return dbQuery.getNameMatches([req.params.string + '%']).then(results => {
+            res.json({
+                results: results.rows
+            });
+        }).catch(e => {
+            console.log(e.stack);
+            res.json({
+                error: e
+            });
+        });
+    }
     if(query == 'findAFriend') {
         //need to loop through name array here...
         console.log('HANDLER: req.body', req.body);
