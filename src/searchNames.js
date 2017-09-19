@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { SectionHeader } from './styledComponents/headers';
 import { Link } from 'react-router';
 
-function SearchName({ handleInput, submit, results, handleChoice }) {
+function SearchName({ handleInput, submit, results, handleChoice, inputVal }) {
     const liStyle = {
         cursor: 'pointer',
         color: 'brown',
@@ -34,7 +34,7 @@ function SearchName({ handleInput, submit, results, handleChoice }) {
 
         <SearchDiv>
             <label forHTML="searchBox">Search</label>
-            <input name="searchBox" type="text" placeholder="Search" onChange={handleInput} placeholder="Name"/>
+            <input name="searchBox" type="text" placeholder="Search" onKeyUp={handleInput} placeholder="Name" value={inputVal}/>
             <Button search onClick={submit}>Find By Name</Button>
             {results &&
             <Results>

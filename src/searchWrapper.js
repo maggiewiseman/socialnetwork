@@ -16,7 +16,14 @@ export default function(Component, url) {
 
         }
         handleInput(e) {
-            console.log('sending get request');
+            console.log('sending get request', e);
+            if(e.keyCode == 8) {
+                console.log('backspace');
+                this.setState({
+                    searchString: null,
+                    searchResults: null
+                });
+            }
             //console.log(e.target.name);
             /*Do ajax request here and then store in state */
             axios.get('/api/searchname/' + e.target.value).then((results) => {
@@ -40,6 +47,9 @@ export default function(Component, url) {
             console.log(this);
             this.props.dispatch(findAFriend(this.state.searchString, this.state.url));
             browserHistory.push('/searchResults');
+            this.setState({
+                searchString: null
+            });
         }
         render() {
             return <Component
@@ -47,7 +57,8 @@ export default function(Component, url) {
                 handleInput={this.handleInput}
                 submit={this.submit}
                 results={this.state.searchResults}
-                handleChoice={this.state.handleChoice}
+                handleChoice={this.handleChoice}
+                inputVal={this.state.searchString}
             />;
         }
     };
