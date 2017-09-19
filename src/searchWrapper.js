@@ -52,6 +52,7 @@ export default function(Component, url) {
             });
         }
         render() {
+        
             return <Component
                 error={this.state.error}
                 handleInput={this.handleInput}

@@ -35,10 +35,8 @@ class App extends React.Component {
 
 
         axios.get('/api/user').then((res)=> {
-            console.log('APP after mounting: res is:', res);
             var { id, first_name, last_name, profile_pic, bio} = res.data.userInfo;
             this.setState({ id, first_name, last_name, profile_pic, bio}, () => {
-                console.log('did mount state: ', this.state);
             });
             this.props.dispatch(saveCurrUser(res.data.userInfo));
 
@@ -50,7 +48,6 @@ class App extends React.Component {
         });
     }
     showUpLoader(e) {
-        console.log('show uploader called');
         this.setState({
             showUploadToggle : true
         });
@@ -61,17 +58,13 @@ class App extends React.Component {
         });
     }
     setImage(e) {
-        console.log('APP setImage', e.target);
         var formData = new FormData;
         formData.append('file', this.state.profilePicToUpload);
 
         axios.post('/profilepic', formData ).then(res => {
             if(res.data.success) {
-                console.log('Save Profile Pic Successful', res.data);
                 this.setState({
                     profile_pic: res.data.profile_pic
-                }, () => {
-                    console.log('JUST SET STATE FOR PROFILE PIC: ', this.state);
                 });
                 this.hideUploader();
             } else {
@@ -89,7 +82,6 @@ class App extends React.Component {
         });
     }
     updateProfile(e) {
-        console.log('Profile component: Save Button clicked');
         const { first_name, last_name, bio } = this.state;
         axios.post('/update/profile', { first_name, last_name, bio }).then(res => {
             if(res.data.success) {
@@ -102,25 +94,18 @@ class App extends React.Component {
                 });
             }
         }).catch(e => {
-            // this.setState({
-            //     error: e
-            // });
             console.error(e);
         });
     }
     handleInput(e) {
-        // let obj = this.state;
-        // obj.userInfo.bio = e.target.value;
-        // console.log('state', this.state..bio);
         this.setState({
             bio: e.target.value
         });
     }
     getFile(e) {
-        console.log('APP: get file', e.target.files[0]);
         this.setState({
             profilePicToUpload : e.target.files[0]
-        })
+        });
     }
     render() {
         Socket(this.props.dispatch);

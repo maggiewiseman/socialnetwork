@@ -9,14 +9,15 @@ import { Link } from 'react-router';
 
 function SearchName({ handleInput, submit, results, handleChoice, inputVal }) {
     const liStyle = {
-        cursor: 'pointer',
-        color: 'brown',
         margin: '6px 4px'
+    };
+
+    const aStyle = {
+        color: 'brown',
     };
 
     const ulStyle = {
         listStyle: 'none'
-
     };
 
     if(results) {
@@ -24,7 +25,7 @@ function SearchName({ handleInput, submit, results, handleChoice, inputVal }) {
             const { id, first_name, last_name } = msg;
             var link = '/profile/' + id;
             return (
-                <li style={liStyle} key={id.toString()} onClick={handleChoice}>{first_name + ' ' + last_name}</li>
+                <li id={id}  style={liStyle} key={id.toString()}><Link to={link} style={aStyle} >{first_name + ' ' + last_name}</Link></li>
             );
         });
     }
@@ -62,4 +63,5 @@ const Results = styled.div`
     height: 300px;
     width: 228px;
     border: 1px solid hsla(27, 66%, 5%, 1);
+
 `;

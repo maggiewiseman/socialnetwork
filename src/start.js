@@ -14,6 +14,8 @@ import reduxPromise from 'redux-promise';
 import SearchResults from './searchResults';
 import OnlineUsers from './onlineUsers';
 import Chat from './chat';
+import { composeWithDevTools } from 'redux-devtools-extension';
+
 
 const authRouter = (
     <Router history={hashHistory}>
@@ -24,7 +26,7 @@ const authRouter = (
     </Router>
 );
 
-const store = createStore(reducer, applyMiddleware(reduxPromise));
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(reduxPromise)));
 const appRouter = (
     <Provider store={store}>
         <Router history={browserHistory}>

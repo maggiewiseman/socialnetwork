@@ -27,11 +27,6 @@ class Chat extends React.Component {
         this.socket.emit('newChat');
     }
     componentDidUpdate() {
-        console.log(this.msgList);
-        console.log('scrollTop', this.msgList.scrollTop);
-        console.log('height', this.msgList.scrollHeight);
-        console.log('client', this.msgList.offSet);
-
         this.msgList.scrollTop = this.msgList.scrollHeight;
     }
     handleInput(e) {
@@ -102,7 +97,6 @@ class Chat extends React.Component {
 
 
 const mapStateToProps = function(state) {
-    console.log('mapping state to props in chat');
     return {
         currUser: state.currUser,
         messages: state.messages

@@ -22,8 +22,6 @@ export default class Profile extends React.Component {
     toggleEditBio() {
         this.setState({
             editBioToggle: !this.state.editBioToggle
-        }, () => {
-            console.log('JUST Clicked editButton:', this.state.editBioToggle);
         });
     }
     render() {
