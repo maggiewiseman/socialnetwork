@@ -5,6 +5,7 @@ import { SearchDiv } from './styledComponents/inputs';
 import wrapSearchForm from './searchWrapper';
 import { connect } from 'react-redux';
 import { SectionHeader } from './styledComponents/headers';
+import { Link } from 'react-router';
 
 function SearchName({ handleInput, submit, results }) {
     if(results) {

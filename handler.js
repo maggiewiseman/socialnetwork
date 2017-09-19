@@ -8,7 +8,7 @@ function handle(query, req, res) {
     if(query == 'searchName') {
         console.log(`HANDLER: ${query}` );
         //should return user_id, first_name and last_name for matches
-        return dbQuery.getNameMatches([req.params.string + '%']).then(results => {
+        return dbQuery.getMatches([req.params.string + '%']).then(results => {
             res.json({
                 results: results.rows
             });

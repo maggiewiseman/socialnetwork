@@ -23,6 +23,8 @@ export default function(Component, url) {
                 this.setState({
                     srchResults: results.data.results
                 });
+            }).catch(e => {
+                console.log(e);
             });
         }
         submit(e) {
@@ -33,11 +35,11 @@ export default function(Component, url) {
         }
         render() {
             return <Component
-                        error={this.state.error}
-                        handleInput={this.handleInput}
-                        submit={this.submit}
-                        results={this.state.srchResults}
-                    />;
+                error={this.state.error}
+                handleInput={this.handleInput}
+                submit={this.submit}
+                results={this.state.srchResults}
+            />;
         }
     };
 }
