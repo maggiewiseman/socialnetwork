@@ -6,10 +6,8 @@ import {Link} from 'react-router';
 import axios from './axios';
 import Logout from './logout';
 import {Wrapper, Nav} from './styledComponents/wrapper';
-import SearchNames  from './searchNames';
-import SearchBios  from './searchBios';
+import Search  from './search';
 import { saveSearchResults } from './actions';
-
 import {Socket} from './socket';
 import { connect } from 'react-redux';
 import { saveCurrUser } from './actions';
@@ -34,7 +32,7 @@ class App extends React.Component {
         console.log('app will receive props');
         if(this.props.children) {
             console.log('setting state to remove serach results');
-            this.props.dispatch(saveSearchResults(null, ''));
+            this.props.dispatch(saveSearchResults('', ''));
         }
     }
     componentDidMount() {
@@ -137,7 +135,7 @@ class App extends React.Component {
                                 <li><Link to="/">Home</Link></li>
                                 <li><Logout /></li>
                             </ul>
-                            <SearchNames />
+                            <Search />
                         </div>
                         <ProfilePic nav={true} showUpLoader={this.showUpLoader}
                                     imgsrc={this.state.profile_pic}
