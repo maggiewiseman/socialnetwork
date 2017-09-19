@@ -7,13 +7,24 @@ import { connect } from 'react-redux';
 import { SectionHeader } from './styledComponents/headers';
 import { Link } from 'react-router';
 
-function SearchName({ handleInput, submit, results }) {
+function SearchName({ handleInput, submit, results, handleChoice }) {
+    const liStyle = {
+        cursor: 'pointer',
+        color: 'brown',
+        margin: '6px 4px'
+    };
+
+    const ulStyle = {
+        listStyle: 'none'
+
+    };
+
     if(results) {
         var resultsList = results.map((msg) => {
             const { id, first_name, last_name } = msg;
             var link = '/profile/' + id;
             return (
-                <li key={id.toString()}><Link to={link}>{first_name + ' ' + last_name}</Link></li>
+                <li style={liStyle} key={id.toString()} onClick={handleChoice}>{first_name + ' ' + last_name}</li>
             );
         });
     }
@@ -30,7 +41,9 @@ function SearchName({ handleInput, submit, results }) {
                 <SectionHeader>
                     Results
                 </SectionHeader>
-                {resultsList}
+                <ul style={ulStyle}>
+                    {resultsList}
+                </ul>
             </Results>}
         </SearchDiv>
     );

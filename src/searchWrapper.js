@@ -12,6 +12,7 @@ export default function(Component, url) {
             this.state = {url};
             this.handleInput = this.handleInput.bind(this);
             this.submit = this.submit.bind(this);
+            this.handleChoice = this.handleChoice.bind(this);
 
         }
         handleInput(e) {
@@ -21,10 +22,17 @@ export default function(Component, url) {
             axios.get('/api/searchname/' + e.target.value).then((results) => {
                 console.log(results.data.results);
                 this.setState({
-                    srchResults: results.data.results
+                    searchResults: results.data.results
                 });
             }).catch(e => {
                 console.log(e);
+            });
+        }
+        handleChoice(e) {
+            console.log('handle choice', e.target);
+            this.setState({
+                searchString: e.target.innerHTML,
+                searchResults: null
             });
         }
         submit(e) {
@@ -38,7 +46,8 @@ export default function(Component, url) {
                 error={this.state.error}
                 handleInput={this.handleInput}
                 submit={this.submit}
-                results={this.state.srchResults}
+                results={this.state.searchResults}
+                handleChoice={this.state.handleChoice}
             />;
         }
     };
