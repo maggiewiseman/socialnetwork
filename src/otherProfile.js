@@ -14,15 +14,22 @@ export default class OtherProfile extends React.Component {
         super(props);
         this.state = {};
     }
-    componentWillReceiveProps() {
-        console.log('will receive props', this.props);
-        this.componentWillMount();
+    componentWillReceiveProps(nextProps) {
+        console.log('will receive props', nextProps);
+        this.componentWillMount(nextProps.params.id);
     }
-    componentWillMount() {
-        //check props.state for id, otherwise do the following:
-        console.log('in OtherProfile Comoneent');
-        let id = this.props.params.id;
+    componentWillMount(newId) {
+        var id;
+        if(newId) {
+            console.log('OTHER PROFILE: there was a new id');
+            id=newId;
+        }else {
+            //check props.state for id, otherwise do the following:
+            console.log('in OtherProfile Component');
+            id = this.props.params.id;
+        }
         var url = '/api/user/' + id;
+
         axios.get(url).then((res)=> {
             console.log('OtherProfile after mounting: res is:', res);
             if(res.data.success == '200') {
