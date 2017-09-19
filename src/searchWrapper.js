@@ -1,13 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import axios from './axios';
 import styled from 'styled-components';
 import { Button } from './styledComponents/buttons';
 import { findAFriend } from './actions';
-import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 
-function wrapSearchForm(Component, url) {
+export default function(Component, url) {
     return class extends React.Component {
         constructor(props) {
             super(props);
@@ -41,23 +39,20 @@ function wrapSearchForm(Component, url) {
     };
 }
 
-function SearchForm({ handleInput, submit }) {
-    return (
 
+
+function SearchBio({ handleInput, submit }) {
+    return (
         <SearchDiv>
             <label forHTML="searchBox">Search</label>
-            <input name="searchBox" type="text" placeholder="Search" onChange={handleInput}/>
-            <Button search onClick={submit}>Search</Button>
+            <input name="searchBox" type="text" placeholder="Search" onChange={handleInput} placeholder="Name"/>
+            <Button search onClick={submit}>Find By Topic</Button>
         </SearchDiv>
     );
 }
-const SearchDiv = styled.div`
-    background: hsla(27, 66%, 97%, 1);
-    border: 1px solid hsla(27, 15%, 36%, 1);
 
-`;
 
-export const SearchNames = wrapSearchForm(SearchForm, '/api/findAFriend');
-
-console.log(connect()(SearchNames));
-export default connect()(SearchNames);
+// const SearchNames = wrapSearchForm(SearchName, '/api/findAFriend');
+// const SearchBios = wrapSearchForm(SearchBio, '/api/searchBio');
+//
+// export default connect()(SearchNames);
