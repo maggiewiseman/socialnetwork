@@ -40,7 +40,6 @@ export default function(Component, url) {
 }
 
 
-
 function SearchBio({ handleInput, submit }) {
     return (
         <SearchDiv>

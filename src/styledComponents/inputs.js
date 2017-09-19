@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const SearchDiv = styled.div`
-
+    position: relative;
     margin-right: 20px;
     display: inline-block;
     > input {

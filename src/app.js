@@ -7,6 +7,8 @@ import axios from './axios';
 import Logout from './logout';
 import {Wrapper, Nav} from './styledComponents/wrapper';
 import SearchNames  from './searchNames';
+import SearchBios  from './searchBios';
+
 import {Socket} from './socket';
 import { connect } from 'react-redux';
 import { saveCurrUser } from './actions';
@@ -143,6 +145,7 @@ class App extends React.Component {
                                 <li><Logout /></li>
                             </ul>
                             <SearchNames />
+                            <SearchBios />
                         </div>
                         <ProfilePic nav={true} showUpLoader={this.showUpLoader}
                                     imgsrc={this.state.profile_pic}
