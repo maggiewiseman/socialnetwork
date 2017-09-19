@@ -138,7 +138,6 @@ class App extends React.Component {
                                 <li><Logout /></li>
                             </ul>
                             <SearchNames />
-                            <SearchBios />
                         </div>
                         <ProfilePic nav={true} showUpLoader={this.showUpLoader}
                                     imgsrc={this.state.profile_pic}
