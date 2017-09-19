@@ -27,6 +27,7 @@ class Search extends React.Component {
     }
     handleChoice(e) {
         console.log('handle choice', e.target);
+        this.searchInput.value = '';
     }
     render() {
         console.log('wrapper: ', this.props);
