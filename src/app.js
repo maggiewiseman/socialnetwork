@@ -8,6 +8,7 @@ import Logout from './logout';
 import {Wrapper, Nav} from './styledComponents/wrapper';
 import SearchNames  from './searchNames';
 import SearchBios  from './searchBios';
+import { saveSearchResults } from './actions';
 
 import {Socket} from './socket';
 import { connect } from 'react-redux';
@@ -28,6 +29,13 @@ class App extends React.Component {
         this.updateProfile = this.updateProfile.bind(this);
         this.handleInput = this.handleInput.bind(this);
 
+    }
+    componentWillReceiveProps() {
+        console.log('app will receive props');
+        if(this.props.children) {
+            console.log('setting state to remove serach results');
+            this.props.dispatch(saveSearchResults(null, ''));
+        }
     }
     componentDidMount() {
         //runs immediately after the component gets put in the DOM

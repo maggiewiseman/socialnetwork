@@ -2,8 +2,9 @@ import React from 'react';
 import axios from './axios';
 import styled from 'styled-components';
 import { Button } from './styledComponents/buttons';
-import { findAFriend } from './actions';
+import { findAFriend, saveSearchResults  } from './actions';
 import { browserHistory } from 'react-router';
+
 
 export default function(Component, url) {
     return class extends React.Component {
@@ -16,31 +17,17 @@ export default function(Component, url) {
 
         }
         handleInput(e) {
-            console.log('sending get request', e);
-            if(e.keyCode == 8) {
-                console.log('backspace');
-                this.setState({
-                    searchString: null,
-                    searchResults: null
-                });
-            }
-            //console.log(e.target.name);
-            /*Do ajax request here and then store in state */
             axios.get('/api/searchname/' + e.target.value).then((results) => {
                 console.log(results.data.results);
-                this.setState({
-                    searchResults: results.data.results
-                });
+                this.props.dispatch(saveSearchResults(results.data.results));
+
             }).catch(e => {
                 console.log(e);
             });
         }
         handleChoice(e) {
             console.log('handle choice', e.target);
-            this.setState({
-                searchString: e.target.innerHTML,
-                searchResults: null
-            });
+            this.props.dispatch({type: 'SET_SEARCH_PARAMS', searchString: e.target.innerHTML, searchResults: null});
         }
         submit(e) {
             console.log(this.state.searchString);
@@ -52,14 +39,14 @@ export default function(Component, url) {
             });
         }
         render() {
-        
+            console.log('wrapper: ', this.props);
             return <Component
                 error={this.state.error}
                 handleInput={this.handleInput}
                 submit={this.submit}
-                results={this.state.searchResults}
-                handleChoice={this.handleChoice}
+                results={this.props.searchResults}
                 inputVal={this.state.searchString}
+
             />;
         }
     };

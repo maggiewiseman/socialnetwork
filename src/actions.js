@@ -7,7 +7,16 @@ const RECEIVE_FRIENDS = 'RECEIVE_FRIENDS',
     UPDATE_ONLINE_USERS = 'UPDATE_ONLINE_USERS',
     ADD_MESSAGE = 'ADD_MESSAGE',
     CHAT_MESSAGES = 'CHAT_MESSAGES',
-    SAVE_CURR_USER = 'SAVE_CURR_USER';
+    SAVE_CURR_USER = 'SAVE_CURR_USER',
+    SAVE_SEARCH_RESULTS = 'SAVE_SEARCH_RESULTS';
+
+export function saveSearchResults(results, srchStrng) {
+    return {
+        type: SAVE_SEARCH_RESULTS,
+        searchResults: results,
+        sesarchString: srchStrng
+    };
+}
 
 export function receiveFriends() {
     console.log('ACTION: about to send to axios');

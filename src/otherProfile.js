@@ -14,6 +14,10 @@ export default class OtherProfile extends React.Component {
         super(props);
         this.state = {};
     }
+    componentWillReceiveProps() {
+        console.log('will receive props', this.props);
+        this.componentWillMount();
+    }
     componentWillMount() {
         //check props.state for id, otherwise do the following:
         console.log('in OtherProfile Comoneent');

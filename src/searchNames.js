@@ -8,6 +8,7 @@ import { SectionHeader } from './styledComponents/headers';
 import { Link } from 'react-router';
 
 function SearchName({ handleInput, submit, results, handleChoice, inputVal }) {
+
     const liStyle = {
         margin: '6px 4px'
     };
@@ -21,8 +22,9 @@ function SearchName({ handleInput, submit, results, handleChoice, inputVal }) {
     };
 
     if(results) {
-        var resultsList = results.map((msg) => {
-            const { id, first_name, last_name } = msg;
+        console.log('results', results);
+        var resultsList = results.map((result) => {
+            const { id, first_name, last_name } = result;
             var link = '/profile/' + id;
             return (
                 <li id={id}  style={liStyle} key={id.toString()}><Link to={link} style={aStyle} >{first_name + ' ' + last_name}</Link></li>
@@ -36,14 +38,13 @@ function SearchName({ handleInput, submit, results, handleChoice, inputVal }) {
         <SearchDiv>
             <label forHTML="searchBox">Search</label>
             <input name="searchBox" type="text" placeholder="Search" onKeyUp={handleInput} placeholder="Name" value={inputVal}/>
-            <Button search onClick={submit}>Find By Name</Button>
             {results &&
             <Results>
                 <SectionHeader>
                     Results
                 </SectionHeader>
                 <ul style={ulStyle}>
-                    {resultsList}
+                    {results && resultsList}
                 </ul>
             </Results>}
         </SearchDiv>
@@ -53,7 +54,13 @@ function SearchName({ handleInput, submit, results, handleChoice, inputVal }) {
 
 const SearchNames = wrapSearchForm(SearchName, '/api/findAFriend');
 
-export default connect()(SearchNames);
+const mapStateToProps = function(state) {
+    return {
+        searchString: state.searchString,
+        searchResults: state.searchResults
+    };
+};
+export default connect(mapStateToProps)(SearchNames);
 
 const Results = styled.div`
     position: absolute;
