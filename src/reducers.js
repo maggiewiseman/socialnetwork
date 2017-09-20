@@ -6,7 +6,8 @@ const RECEIVE_FRIENDS = 'RECEIVE_FRIENDS',
     ADD_MESSAGE = 'ADD_MESSAGE',
     CHAT_MESSAGES = 'CHAT_MESSAGES',
     SAVE_CURR_USER = 'SAVE_CURR_USER',
-    SAVE_SEARCH_RESULTS = 'SAVE_SEARCH_RESULTS';
+    SAVE_SEARCH_RESULTS = 'SAVE_SEARCH_RESULTS',
+    DELETE_SEARCH_RESULTS = 'DELETE_SEARCH_RESULTS';
 
 export default function(state = {}, action) {
     if (action.type == RECEIVE_FRIENDS) {
@@ -68,6 +69,14 @@ export default function(state = {}, action) {
             searchString: action.searchString
         });
     }
+
+    if (action.type == DELETE_SEARCH_RESULTS) {
+        state = Object.assign({}, state, {
+            searchResults: action.searchResults,
+            searchString: ''
+        });
+    }
+
     console.log('state in reducer', state);
     return state;
 

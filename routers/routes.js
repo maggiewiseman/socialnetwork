@@ -63,7 +63,7 @@ router.route('/update/profile')
         handler('updateProfile', req, res);
     });
 
-router.get('/api/searchname/:string', mw.loggedInCheck, (req,res) => {
+router.post('/api/search', mw.loggedInCheck, (req,res) => {
     handler('searchName', req, res);
 });
 

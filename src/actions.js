@@ -8,13 +8,21 @@ const RECEIVE_FRIENDS = 'RECEIVE_FRIENDS',
     ADD_MESSAGE = 'ADD_MESSAGE',
     CHAT_MESSAGES = 'CHAT_MESSAGES',
     SAVE_CURR_USER = 'SAVE_CURR_USER',
-    SAVE_SEARCH_RESULTS = 'SAVE_SEARCH_RESULTS';
+    SAVE_SEARCH_RESULTS = 'SAVE_SEARCH_RESULTS',
+    DELETE_SEARCH_RESULTS = 'DELETE_SEARCH_RESULTS';
 
 export function saveSearchResults(results, srchStrng) {
     return {
         type: SAVE_SEARCH_RESULTS,
         searchResults: results,
         sesarchString: srchStrng
+    };
+}
+
+export function deleteSearchResults() {
+    return {
+        type: DELETE_SEARCH_RESULTS,
+        searchResults: null
     };
 }
 

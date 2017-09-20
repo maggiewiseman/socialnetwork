@@ -2,12 +2,13 @@ import React from 'react';
 import axios from './axios';
 import styled from 'styled-components';
 import { Button } from './styledComponents/buttons';
-import { findAFriend, saveSearchResults  } from './actions';
+import { findAFriend, saveSearchResults, deleteSearchResults  } from './actions';
 import { browserHistory } from 'react-router';
 import { SearchDiv } from './styledComponents/inputs';
 import { connect } from 'react-redux';
 import { SectionHeader } from './styledComponents/headers';
 import { Link } from 'react-router';
+
 
 class Search extends React.Component {
     constructor(props) {
@@ -17,16 +18,21 @@ class Search extends React.Component {
 
     }
     handleInput(e) {
-        axios.get('/api/searchname/' + e.target.value).then((results) => {
-            console.log(results.data.results);
-            this.props.dispatch(saveSearchResults(results.data.results));
+        if(!e.target.value) {
+            console.log('target value is blank');
+            this.props.dispatch(deleteSearchResults());
+        } else {
+            axios.post('/api/search', {string: e.target.value}).then((results) => {
+                console.log(results.data.results);
+                this.props.dispatch(saveSearchResults(results.data.results));
 
-        }).catch(e => {
-            console.log(e);
-        });
+            }).catch(e => {
+                console.log(e);
+            });
+        }
     }
     handleChoice(e) {
-        console.log('handle choice', e.target);
+
         this.searchInput.value = '';
     }
     render() {
@@ -42,6 +48,12 @@ class Search extends React.Component {
 
         const ulStyle = {
             listStyle: 'none'
+        };
+
+        const xStyle = {
+            display: 'inline-block',
+            cursor: 'pointer',
+            paddingLeft: '140px'
         };
 
         if(this.props.searchResults) {
@@ -62,7 +74,10 @@ class Search extends React.Component {
                 {this.props.searchResults &&
                 <Results>
                     <SectionHeader>
+
                         Results
+                        <div style={xStyle} onClick={() => { this.handleChoice();
+                            this.props.dispatch(deleteSearchResults());}}>X</div>
                     </SectionHeader>
                     <ul style={ulStyle}>
                         {this.props.searchResults && resultsList}
