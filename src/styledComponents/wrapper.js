@@ -65,7 +65,7 @@ export const MainSection = styled.section`
     width: 73%;
     border: 1px solid hsla(27, 15%, 36%, 1);
     background: hsla(27, 66%, 97%, 1);
-    margin-right: 20px;
+    margin-right: 1%;
 
     > * {
         padding: 0.25em;
