@@ -69,6 +69,10 @@ class Chat extends React.Component {
             height: '450px'
         };
 
+        var taStyle = {
+            width: '100%'
+        }
+
         return (
             <UnderNav>
                 <SidebarComp first_name={currUser.first_name} last_name={currUser.last_name} profile_pic={currUser.profile_pic}/>
@@ -83,10 +87,10 @@ class Chat extends React.Component {
                                 {messageList}
                             </ul>
                         </div>
-
-                        Type a message:
-
-                        <textarea cols='90' rows='4' onKeyDown={this.handleInput} ref={el => this.inputField = el} >
+                        <SectionHeader>
+                            Type a message:
+                        </SectionHeader>
+                        <textarea style={taStyle} rows='4' onKeyDown={this.handleInput} ref={el => this.inputField = el} >
                         </textarea>
                     </ChatBox>
                 </MainSection>
