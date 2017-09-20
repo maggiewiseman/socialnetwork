@@ -8,6 +8,7 @@ import { SidebarMenu, SidebarMenuItem } from './styledComponents/menus';
 import styled from 'styled-components';
 import FriendButton from './friendButton';
 import { HintText } from './styledComponents/text';
+import { browserHistory } from 'react-router';
 
 export default class OtherProfile extends React.Component {
     constructor(props) {
@@ -39,7 +40,7 @@ export default class OtherProfile extends React.Component {
                 });
             } else if (res.data.success == 204) {
                 //redirect to home page this is the same user
-                location.replace('/');
+                browserHistory.push('/');
             }
 
         }).catch((e) =>{
