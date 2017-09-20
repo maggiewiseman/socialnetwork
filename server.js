@@ -82,3 +82,5 @@ io.on('connection', (socket) => {
         //io.emit('incomingMessage', message);
     });
 });
+
+module.exports.app = app;

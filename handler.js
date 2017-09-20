@@ -1,4 +1,4 @@
-const dbQuery = require('./dbQuery');
+var dbQuery = require('./dbQuery');
 const help = require('./helpers');
 const urlPrepend = require('./config.json');
 
