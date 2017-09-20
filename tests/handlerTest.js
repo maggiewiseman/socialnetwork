@@ -6,8 +6,6 @@ var rewire = require('rewire');
 var handler = rewire('../handler');
 
 handler.__set__('dbQuery', require('./mocks/mockDbQuery'));
-console.log(handler.__get__('dbQuery'));
-
 
 describe('handle searchName', function() {
     it('should return user_id, first_name and last_name for a string that matches the first_name or user_name in the database', function(done) {
@@ -18,6 +16,7 @@ describe('handle searchName', function() {
             body: { string: 'm'}
         };
         var res = {
+            dbResults: '',
             json : function(obj) {
                 //I want it to take the parameter and add it to the res object.
                 res.dbResults = obj;
@@ -26,7 +25,7 @@ describe('handle searchName', function() {
         var query = 'searchName';
         handler.handle(query, req, res).then((result) => {
             console.log(result);
-            assert.equal(result.dbResults.length == 2, '2 rows were not returned');
+            assert.equal(result.dbResults.length == 3, '3 rows were not returned');
         }).then(done, done);
 
 
