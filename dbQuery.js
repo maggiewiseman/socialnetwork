@@ -127,10 +127,14 @@ function addMessage(data) {
 }
 
 function getMatches(data) {
-    console.log('DBQUERY: in getMatches');
-    let queryStr = 'SELECT id, first_name, last_name FROM users WHERE (email LIKE $1) OR (first_name LIKE $1) OR (last_name LIKE $1)';
+    console.log('DBQUERY: in getMatches', data);
+    let queryStr = 'SELECT id, first_name, last_name FROM users WHERE (email LIKE LOWER($1)) OR (first_name LIKE LOWER($1)) OR (LOWER(last_name) LIKE LOWER($1))';
     return db.query(queryStr, data);
 }
+
+// SELECT id, first_name, last_name FROM users WHERE (email LIKE $1) OR (first_name LIKE $1) OR (last_name LIKE $1) OR (LOWER(email) LIKE $1 ) OR (LOWER(first_name) LIKE $1) OR (LOWER(last_name) = $1);
+//
+// SELECT id, first_name, last_name FROM users WHERE (email LIKE LOWER('m%')) OR (first_name LIKE LOWER('m%')) OR (LOWER(last_name) LIKE LOWER('m%'));
 
 module.exports.addUser = addUser;
 module.exports.getMatches = getMatches;
