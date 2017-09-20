@@ -5,7 +5,12 @@ const PENDING = 1, ACCEPTED = 2, REJECTED = 3, CANCELLED = 4, TERMINATED = 5;
 
 if(!process.env.DATABASE_URL) {
     const secrets = require('./secrets.json');
-    localUrl = `postgres:${secrets.dbUser}:${secrets.pass}@localhost:5432/social`;
+    console.log('Process var', process.env.NODE_ENV);
+    if(process.env.NODE_ENV == 'test') {
+        localUrl = `postgres:${secrets.dbUser}:${secrets.pass}@localhost:5432/social-test`;
+    } else {
+        localUrl = `postgres:${secrets.dbUser}:${secrets.pass}@localhost:5432/social`;
+    }
 }
 var dbUrl = process.env.DATABASE_URL || localUrl;
 
