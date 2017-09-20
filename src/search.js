@@ -15,7 +15,6 @@ class Search extends React.Component {
         super(props);
         this.handleInput = this.handleInput.bind(this);
         this.handleChoice = this.handleChoice.bind(this);
-
     }
     handleInput(e) {
         if(!e.target.value) {
@@ -56,6 +55,11 @@ class Search extends React.Component {
             paddingLeft: '140px'
         };
 
+        const inputStyle = {
+            marginBottom: '4px',
+            padding: '2px'
+        }
+
         if(this.props.searchResults) {
             console.log('results', this.props.searchResults);
             var resultsList = this.props.searchResults.map((result) => {
@@ -70,7 +74,7 @@ class Search extends React.Component {
 
             <SearchDiv>
                 <label forHTML="searchBox">Search</label>
-                <input name="searchBox" type="text" placeholder="Search" onKeyUp={this.handleInput} placeholder="Name" ref={el => this.searchInput = el}/>
+                <input name="searchBox" type="text" placeholder="Search" onKeyUp={this.handleInput} placeholder="Name" ref={el => this.searchInput = el} style={inputStyle}/>
                 {this.props.searchResults &&
                 <Results>
                     <SectionHeader>
@@ -98,7 +102,7 @@ export default connect(mapStateToProps)(Search);
 
 const Results = styled.div`
     position: absolute;
-    top: 50px;
+    top: 40px;
     left: -1px;
     background: white;
     height: 300px;
