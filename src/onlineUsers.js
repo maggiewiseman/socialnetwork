@@ -7,13 +7,14 @@ import { SidebarMenu, ProfileListItem } from './styledComponents/menus';
 import styled from 'styled-components';
 import { Button } from './styledComponents/buttons';
 import { HintText } from './styledComponents/text';
-import { receiveFriends } from './actions';
+import { updateFriendship } from './actions';
 import { connect } from 'react-redux';
 import makeFriendList from './makeFriendList';
 import { SidebarComp } from './sidebarComp';
 
 class OnlineUsers extends React.Component {
     render() {
+        console.log('this.props', this.props);
         const { users } = this.props;
         if(!users) {
             console.log('no onlineUsers');

@@ -29,7 +29,9 @@ export default function(newFriends, btnEventHandler) {
                         first_name={dog.first_name}
                         last_name={dog.last_name}/>
                 </SidePic>
-                <DogInfo><Link to={link}>{dog.first_name + ' ' + dog.last_name}</Link><Button onClick={() => btnEventHandler(dog.id)}>{btnWord} Friendship</Button></DogInfo>
+                <DogInfo><Link to={link}>{dog.first_name + ' ' + dog.last_name}</Link>
+                    {btnEventHandler && <Button onClick={() => btnEventHandler(dog.id)}>{btnWord} Friendship</Button>}
+                </DogInfo>
             </ProfileListItem>
         );
     });
