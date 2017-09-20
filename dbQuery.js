@@ -1,4 +1,4 @@
-const spicedPg = require('spiced-pg');
+var spicedPg = require('spiced-pg');
 var localUrl = '';
 
 const PENDING = 1, ACCEPTED = 2, REJECTED = 3, CANCELLED = 4, TERMINATED = 5;
@@ -10,7 +10,7 @@ if(!process.env.DATABASE_URL) {
 var dbUrl = process.env.DATABASE_URL || localUrl;
 
 //db returns a promise and you will get back a result
-const db = spicedPg(dbUrl);
+var db = spicedPg(dbUrl);
 
 function addUser(userInfo) {
     console.log('DBQUERY: in add user.');

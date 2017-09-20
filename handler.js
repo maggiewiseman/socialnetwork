@@ -8,13 +8,14 @@ function handle(query, req, res) {
     if(query == 'searchName') {
         console.log(`HANDLER: ${query}` );
         //should return user_id, first_name and last_name for matches
-        return dbQuery.getMatches([req.params.string + '%']).then(results => {
-            res.json({
+        return dbQuery.getMatches([req.body.string + '%']).then(results => {
+            console.log('results', results.rows);
+            return res.json({
                 results: results.rows
             });
         }).catch(e => {
             console.log(e.stack);
-            res.json({
+            return res.json({
                 error: e
             });
         });
