@@ -10,26 +10,25 @@ import { HintText } from './styledComponents/text';
 import { receiveFriends } from './actions';
 import { connect } from 'react-redux';
 import makeFriendList from './makeFriendList';
+import { SidebarComp } from './sidebarComp';
 
 class OnlineUsers extends React.Component {
     render() {
         const { users } = this.props;
-        console.log('this.props', this.props);
         if(!users) {
             console.log('no onlineUsers');
             return null;
-        } else {
-            console.log('RENDER function of friends. here is list of friends:', users);
         }
         var list = makeFriendList(users);
         return (
             <UnderNav>
-                <SidebarMenu>
+                <SidebarComp first_name={this.props.currUser.first_name} last_name={this.props.currUser.last_name} profile_pic={this.props.currUser.profile_pic}/>
+                <MainSection>
                     <SectionHeader>
                         Online Users:
                     </SectionHeader>
                     {list}
-                </SidebarMenu>
+                </MainSection>
             </UnderNav>
         );
     }
@@ -40,7 +39,9 @@ class OnlineUsers extends React.Component {
 {/*the connect function we use below (and that was imported) will pass state to the mapStateToProps function. */}
 const mapStateToProps = function(state) {
     return {
-        users: state.users
+        users: state.users,
+        currUser: state.currUser
+
     };
 };
 

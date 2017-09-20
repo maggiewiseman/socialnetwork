@@ -70,6 +70,10 @@ export const MainSection = styled.section`
     > * {
         padding: 0.25em;
     }
+
+    > ul {
+        list-style: none;
+    }
 `;
 
 export const FullPageModal = styled.div`
