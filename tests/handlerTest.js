@@ -16,16 +16,15 @@ describe('handle searchName', function() {
             body: { string: 'm'}
         };
         var res = {
-            dbResults: '',
             json : function(obj) {
                 //I want it to take the parameter and add it to the res object.
-                res.dbResults = obj;
+                return obj;
             }
         };
         var query = 'searchName';
         handler.handle(query, req, res).then((result) => {
-            console.log(result);
-            assert.equal(result.dbResults.length == 3, '3 rows were not returned');
+            console.log('in then', result);
+            assert.equal(result.results.length, 3, '3 rows returned');
         }).then(done, done);
 
 
