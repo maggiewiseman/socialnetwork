@@ -27,9 +27,6 @@ export default class Profile extends React.Component {
     }
     render() {
         var { first_name, last_name, profile_pic, bio} = this.props.info;
-        var divStyle = {
-            marginTop: 10
-        };
 
         return (
             <UnderNav>
@@ -41,7 +38,7 @@ export default class Profile extends React.Component {
                     <h2>{first_name} {last_name}</h2>
                     <h3>Bio</h3>
                     <HintText>Limit 300 characters</HintText>
-                    <EditBio>
+                    <EditField>
                         {this.state.editBioToggle ?
                             (
                                 <div>
@@ -57,7 +54,7 @@ export default class Profile extends React.Component {
                                     <Button onClick={this.toggleEditBio}>Edit</Button>
                                 </div>
                             )}
-                    </EditBio>
+                    </EditField>
                     <WallPosts posts={this.props.wallPosts}/>
                 </MainSection>
             </UnderNav>
@@ -65,7 +62,7 @@ export default class Profile extends React.Component {
     }
 }
 
-const EditBio = styled.div`
+export const EditField = styled.div`
     margin-left: 20px;
 
     > div {
