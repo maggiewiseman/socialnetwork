@@ -49,7 +49,7 @@ describe('handle searchName', function() {
 
 });
 
-describe('handle get friendships test', function() {
+describe('handle getfriendships test', function() {
     it('should provide an array that lists id, first_name, last_name, profile_pic, and bio', function(done) {
         let req = {
             session: {
@@ -89,5 +89,33 @@ describe('handle updateFriendship', function() {
         }).then(done, done);
     });
 
-    it('should change friendship status to cancelled if req.session.user.id is equal to the sender_id and if status was pending (1)')
+    it('should change friendship status to cancelled and return "Make" if req.session.user.id is equal to the sender_id and if status was pending (1)', function(done) {
+        let req = {
+            session: {
+                user: { id: 1}
+            },
+            params: { id: 4},
+            body: {}
+        };
+        let query='updateFriendship';
+        handler.handle(query, req, res).then((result) => {
+            console.log('updateFriendship2ndTest:', result);
+            expect(result.friendshipStatus).to.equal('Make');
+        }).then(done, done);
+    });
+
+    it('should change friendshipStatus to accepted and return "End" if req.session.user.id is eqal to the receiver_id if if status was pending(1)', function(done) {
+        let req = {
+            session: {
+                user: { id: 1}
+            },
+            params: { id: 3},
+            body: {}
+        };
+        let query='updateFriendship';
+        handler.handle(query, req, res).then((result) => {
+            console.log('updateFriendship2ndTest:', result);
+            expect(result.friendshipStatus).to.equal('End');
+        }).then(done, done);
+    })
 });
