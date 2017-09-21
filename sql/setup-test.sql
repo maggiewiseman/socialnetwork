@@ -32,6 +32,7 @@ CREATE TABLE chats (
 CREATE TABLE posts (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(id),
+    creator_id INTEGER REFERENCES users(id),
     user_text TEXT NOT NULL,
     image VARCHAR(255),
     link VARCHAR(255),

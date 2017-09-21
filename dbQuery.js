@@ -5,12 +5,7 @@ const PENDING = 1, ACCEPTED = 2, REJECTED = 3, CANCELLED = 4, TERMINATED = 5;
 
 if(!process.env.DATABASE_URL) {
     const secrets = require('./secrets.json');
-    console.log('Process var', process.env.NODE_ENV);
-    if(process.env.NODE_ENV == 'test') {
-        localUrl = `postgres:${secrets.dbUser}:${secrets.pass}@localhost:5432/social-test`;
-    } else {
-        localUrl = `postgres:${secrets.dbUser}:${secrets.pass}@localhost:5432/social`;
-    }
+    localUrl = `postgres:${secrets.dbUser}:${secrets.pass}@localhost:5432/social`;
 }
 var dbUrl = process.env.DATABASE_URL || localUrl;
 
@@ -135,9 +130,11 @@ function getMatches(data) {
     return db.query(queryStr, data);
 }
 
-// SELECT id, first_name, last_name FROM users WHERE (email LIKE $1) OR (first_name LIKE $1) OR (last_name LIKE $1) OR (LOWER(email) LIKE $1 ) OR (LOWER(first_name) LIKE $1) OR (LOWER(last_name) = $1);
-//
-// SELECT id, first_name, last_name FROM users WHERE (email LIKE LOWER('m%')) OR (first_name LIKE LOWER('m%')) OR (LOWER(last_name) LIKE LOWER('m%'));
+function addPost(data) {
+    console.log('DBQUERY: in getMatches', data);
+    let queryStr = 'INSERT INTO posts (user_id, creator_id, user_text, image, link, link_text) VALUES ($1, $2, $3, $4, $5, $6)';
+    return db.query(queryStr, data);
+}
 
 module.exports.addUser = addUser;
 module.exports.getMatches = getMatches;

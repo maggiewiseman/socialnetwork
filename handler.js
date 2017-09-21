@@ -66,7 +66,7 @@ function handle(query, req, res) {
         return dbQuery.getFriendStatus([req.session.user.id, req.params.id]).then((results)=>{
             if(results[0]) {
                 //relationship exists so update relationship
-                updateFriendship(req, res, results[0]);
+                return updateFriendship(req, res, results[0]);
             } else {
                 //relationship does not exist add a new one.
                 let data = [req.session.user.id, req.params.id, PENDING];

@@ -5,6 +5,7 @@ const cookieSession = require('cookie-session');
 const csurf = require('csurf');
 const mw = require('./routers/middleware');
 const socketHandler = require('./socketHandler');
+const wallPostRoutes = require('./routers/wallPostRoutes');
 
 const app = express();
 const server = require('http').Server(app);
@@ -40,7 +41,7 @@ app.use(function(req, res, next) {
 
 app.use(express.static('./public'));
 
-
+//socket routes
 app.post('/connected/:socketId', mw.loggedInCheck, (req,res) => {
     socketHandler.updateList(io, req, res);
 });
@@ -49,6 +50,9 @@ app.post('/message', mw.loggedInCheck, (req,res) => {
     console.log(req.body.message);
 });
 
+wallPostRoutes(app);
+
+//all other routes
 app.use(require('./routers/routes'));
 
 
