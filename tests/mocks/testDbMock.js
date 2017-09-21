@@ -2,12 +2,28 @@ const mockDb = require('./mockDbQuery');
 var expect = require('chai').expect;
 
 describe('test getMatches is connecting to fake database', function(done) {
-    it('should return 3 rows when I search for the string m', function(done) {
+    it('should return 2 rows when I search for the string m', function(done) {
 
         mockDb.getMatches(['m%']).then((result) => {
             console.log(result.rows.length);
-            expect(result.rows.length).to.equal(3);
+            expect(result.rows.length).to.equal(2);
         }).then(done, done);
     });
 
+});
+
+describe('getFriends test', function() {
+    it('should return 2 rows when the user id is 1 and  should return a list of friends for a given user whether that user is the sender or the receiver ', function(done) {
+        mockDb.getFriends([1]).then(result => {
+            expect(result).to.be.an('array').that.has.length(2);
+            expect(result[1]).to.deep.equal({
+    first_name: 'Charley',
+    last_name: 'Wiseman',
+    id: 3,
+    profile_pic: 'my dad',
+    bio: 'insurance investigator with the action packed expense account',
+    status: 1 });
+
+        }).then(done, done);
+    });
 });
