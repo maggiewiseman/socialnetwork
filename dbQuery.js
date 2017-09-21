@@ -136,6 +136,11 @@ function addPost(data) {
     return db.query(queryStr, data);
 }
 
+function getPosts(data) {
+    console.log('DBQuery: in getPosts', data);
+    
+}
+
 module.exports.addUser = addUser;
 module.exports.getMatches = getMatches;
 module.exports.addMessage = addMessage;
