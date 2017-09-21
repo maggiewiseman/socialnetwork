@@ -1,6 +1,6 @@
 const express = require('express');
 const mw = require('./middleware');
-const handler = require('../handler').handle;
+var handler = require('../handler').handle;
 const csrf = require('csurf');
 const path = require( 'path' );
 const uploader = require('../fileUploadHandler').uploader;
@@ -20,7 +20,7 @@ router.route('/')
         }
         //they are not loggin in, send to login page
         console.log('ROUTER /: redirecting to welcome');
-        return res.redirect('/welcome/');
+        return res.redirect(301, '/welcome/');
     });
 
 router.route('/welcome')
