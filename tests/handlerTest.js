@@ -16,16 +16,28 @@ const PENDING = 1, ACCEPTED = 2, REJECTED = 3, CANCELLED = 4, TERMINATED = 5;
 
 describe('handle searchName', function() {
     it('ASSERT: should return user_id, first_name and last_name for a string that matches the first_name or user_name in the database', function(done) {
+
         let req = {
             session: {
                 user: { id: 1}
             },
             body: { string: 'm'}
         };
+
+        var res = {
+            json : function(obj) {
+                return obj;
+            }
+        };
+
         let query = 'searchName';
+
         handler.handle(query, req, res).then((result) => {
+
             assert.equal(result.results.length, 2, '2 rows returned');
+
         }).then(done, done);
+
     });
 
     it('EXPECT: should return id, first_name and last_name for a string that matches the first_name or user_name in the database', function(done) {
