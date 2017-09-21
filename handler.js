@@ -21,7 +21,7 @@ function handle(query, req, res) {
     }
     if(query == 'findAFriend') {
         //need to loop through name array here...
-        console.log('HANDLER: req.body', req.body);
+        //console.log('HANDLER: req.body', req.body);
         return dbQuery.getOtherUserByName([req.body.name]).then(friends => {
             if(friends.rowCount == 0) {
                 console.error('User does not exist');
@@ -34,7 +34,7 @@ function handle(query, req, res) {
                 friend.profile_pic = urlPrepend.s3Url + friend.profile_pic;
                 return friend;
             });
-            console.log('s3mapped friends:', s3mappedFriends);
+            //console.log('s3mapped friends:', s3mappedFriends);
             return res.json({friends: s3mappedFriends});
         }).catch(error => {
             console.error(error);
@@ -45,13 +45,13 @@ function handle(query, req, res) {
     if (query == 'getFriendships') {
         console.log('HANDLER: getFriendships');
         return dbQuery.getFriends([req.session.user.id]).then(friends => {
-            console.log('HANDLER: getFriendships: friends: ', friends);
+            //console.log('HANDLER: getFriendships: friends: ', friends);
 
             var s3mappedFriends = friends.map(friend => {
                 friend.profile_pic = urlPrepend.s3Url + friend.profile_pic;
                 return friend;
             });
-            console.log('s3mapped friends:', s3mappedFriends);
+            //console.log('s3mapped friends:', s3mappedFriends);
             return res.json({friends: s3mappedFriends});
         }).catch(error => {
             console.error(error);
@@ -60,7 +60,7 @@ function handle(query, req, res) {
     }
     if (query == 'updateFriendship') {
         console.log(`HANDLE ${query}`);
-        console.log(`HANDLE: getFriendStatus user: ${req.session.user.id} and otherDog: ${req.params.id}`);
+        //console.log(`HANDLE: getFriendStatus user: ${req.session.user.id} and otherDog: ${req.params.id}`);
 
         //find out if relationship already exists
         return dbQuery.getFriendStatus([req.session.user.id, req.params.id]).then((results)=>{
@@ -92,14 +92,14 @@ function handle(query, req, res) {
             let friendshipStatus = 'Make';
 
             if(results[0]){
-                console.log('there is a relationship', results[0]);
+                //console.log('there is a relationship', results[0]);
                 //there is a friendship
                 //do the logic to determine what status should be sent to the button
                 friendshipStatus = determineReturnStatus(req.session.user.id, results[0]);
             } else {
                 console.log('there is no relationship');
             }
-            console.log('GetFriend Status:', friendshipStatus);
+            //console.log('GetFriend Status:', friendshipStatus);
             return res.json({friendshipStatus});
 
         }).catch(e => {
@@ -111,10 +111,10 @@ function handle(query, req, res) {
     }
 
     if( query == 'getOtherUserById') {
-        console.log(`HANDLE ${query}`, req.body);
+        //console.log(`HANDLE ${query}`, req.body);
         let data = [req.params.id];
         dbQuery.getUserById(data).then((results) => {
-            console.log('results:', results.rows);
+            //console.log('results:', results.rows);
             results.rows[0].profile_pic = urlPrepend.s3Url + results.rows[0].profile_pic;
             return res.json({
                 success: 200,
@@ -124,7 +124,7 @@ function handle(query, req, res) {
     }
 
     if( query == 'getUserById') {
-        console.log(`HANDLE ${query}`, req.body);
+        //console.log(`HANDLE ${query}`, req.body);
         let data = [req.session.user.id];
 
         return dbQuery.getUserById(data).then((results) => {
@@ -133,7 +133,7 @@ function handle(query, req, res) {
                 res.json({success: 204, message: 'User with that e-mail does not exist.'});
             }
 
-            console.log('results:', results.rows);
+            //console.log('results:', results.rows);
             results.rows[0].profile_pic = urlPrepend.s3Url + results.rows[0].profile_pic;
             return res.json({
                 userInfo: results.rows[0]
@@ -164,7 +164,7 @@ function handle(query, req, res) {
     }
     if( query == 'uploadProfilePic') {
         let data = [req.session.user.id, req.file.filename];
-        console.log(`HANDLE: ${query} data:`, data);
+        //console.log(`HANDLE: ${query} data:`, data);
         return dbQuery.updateProfilePic(data).then((results) => {
             console.log(`HANDLE: ${query} update successful sending response`);
             req.session.user.profile_pic = urlPrepend.s3Url + req.file.filename
@@ -196,14 +196,14 @@ function handle(query, req, res) {
             });
         }).then((id) =>{
             //when that comes back successfully with an id, we need to set session.user with first name, last name and user_id
-            console.log('HANDLER: add user id', id);
+            //console.log('HANDLER: add user id', id);
             req.session.user = {
                 id: id[0].id,
                 first_name: req.body.first_name,
                 last_name: req.body.last_name
             };
 
-            console.log('HANDLER: registerUser session info', req.session.user);
+            //console.log('HANDLER: registerUser session info', req.session.user);
             //then route to main page
             return res.json({
                 success: true
@@ -282,7 +282,7 @@ module.exports.handle = handle;
 - returns the status that should be displayed by the button
 */
 function determineReturnStatus(user_id, dbResults) {
-    console.log('DetermineReturnStatus:', dbResults);
+    //console.log('DetermineReturnStatus:', dbResults);
     var { status, sender_id } = dbResults;
 
     if(status == ACCEPTED) {
@@ -310,7 +310,7 @@ function determineReturnStatus(user_id, dbResults) {
 */
 function updateFriendship(req, res, dbResults) {
     let status = dbResults.status;
-    console.log('status is: ', status);
+    //console.log('status is: ', status);
 
     //set sender and receiver to keep these the same in database
     let sender = dbResults.sender_id;
@@ -318,10 +318,10 @@ function updateFriendship(req, res, dbResults) {
     let receiver = sender == req.session.user.id ? req.params.id : req.session.user.id;
 
     let data = [sender, receiver];
-    console.log('sender - receiver', data);
+    //console.log('sender - receiver', data);
     //if it says accepted than it is being changed to terminated
     if(status == ACCEPTED) {
-        console.log('Accepted to terminated');
+        //console.log('Accepted to terminated');
         data.push(TERMINATED);
     } else if (status == PENDING) {
 
@@ -330,20 +330,20 @@ function updateFriendship(req, res, dbResults) {
         //2) if the current user is sender it is to cancel request
         //3) If the current user is the receiver it is to accept request
         if(req.body.reject) {
-            console.log('Pending to reject');
+        //    console.log('Pending to reject');
             data.push(REJECTED);
         } else {
             if(req.session.user.id == dbResults.sender_id){
-                console.log('Pending to cancelled');
+            //    console.log('Pending to cancelled');
                 data.push(CANCELLED);
             } else {
-                console.log('Pending to accept');
+            //    console.log('Pending to accept');
                 data.push(ACCEPTED);
             }
         }
     } else {
         //if it says terminated, cancelled, or rejected we are changing it to pending and updating the user ids
-        console.log('terminated, cancelled or rejected to Pending');
+        //console.log('terminated, cancelled or rejected to Pending');
 
         //reset sender and receiver just in case the sender in the previous situation is now the receiver.
         sender = req.session.user.id;
@@ -352,12 +352,12 @@ function updateFriendship(req, res, dbResults) {
     }
 
     return dbQuery.updateFriendship(data).then((results) => {
-        console.log('HANDLER updateFriendship results: ', results[0].status);
+        //console.log('HANDLER updateFriendship results: ', results[0].status);
 
         //Turn the status back into a word that React can use to render the correct button
         let friendshipStatus = determineReturnStatus(req.session.user.id, {sender_id: sender, status: results[0].status });
 
-        console.log(friendshipStatus);
+        //console.log(friendshipStatus);
         return res.json({
             status: results[0].status,
             friendshipStatus: friendshipStatus
