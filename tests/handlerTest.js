@@ -66,7 +66,10 @@ describe('handle get friendships test', function() {
         let query = 'getFriendships';
         handler.handle(query, req, res).then((result) => {
             console.log(result);
-            expect(result.friends).to.be.an('array');
+            expect(result.friends).to.be.an('array').that.has.length(2);
+            expect(result.friends[0]).to.have.property('first_name');
+            expect(result.friends[0]).to.have.property('last_name');
+            expect(result.friends[0]).to.have.property('id');
         }).then(done, done);
     });
 });

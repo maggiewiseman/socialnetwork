@@ -12,18 +12,27 @@ describe('test getMatches is connecting to fake database', function(done) {
 
 });
 
-describe('getFriends test', function() {
-    it('should return 2 rows when the user id is 1 and  should return a list of friends for a given user whether that user is the sender or the receiver ', function(done) {
+describe('getFriends test and  should return a list of friends (status pending or accepted) for a given user whether that user is the sender or the receiver', function() {
+    it('should return 2 rows when the user id is 1  ', function(done) {
         mockDb.getFriends([1]).then(result => {
             expect(result).to.be.an('array').that.has.length(2);
             expect(result[1]).to.deep.equal({
-    first_name: 'Charley',
-    last_name: 'Wiseman',
-    id: 3,
-    profile_pic: 'my dad',
-    bio: 'insurance investigator with the action packed expense account',
-    status: 1 });
+                first_name: 'Charley',
+                last_name: 'Wiseman',
+                id: 3,
+                profile_pic: 'my dad',
+                bio: 'insurance investigator with the action packed expense account',
+                status: 1
+            });
 
+        }).then(done, done);
+
+
+    });
+
+    it('should return 0 rows when the user id is 3 b/c the person with id 3 has 1 pending friendship for which he is the sender, one terminated friendship, and one cancelled friendship.', function(done) {
+        mockDb.getFriends([3]).then(result => {
+            expect(result.length).to.equal(0);
         }).then(done, done);
     });
 });
