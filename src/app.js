@@ -7,10 +7,9 @@ import axios from './axios';
 import Logout from './logout';
 import {Wrapper, Nav} from './styledComponents/wrapper';
 import Search  from './search';
-import { saveSearchResults } from './actions';
+import { saveSearchResults, getOnlineUsers, saveCurrUser } from './actions';
 import {Socket} from './socket';
 import { connect } from 'react-redux';
-import { saveCurrUser } from './actions';
 
 
 class App extends React.Component {
@@ -74,6 +73,7 @@ class App extends React.Component {
                     profile_pic: res.data.profile_pic
                 }, () => {
                     this.props.dispatch(saveCurrUser({ id: this.state.id, first_name: this.state.first_name, last_name: this.state.last_name, profile_pic: this.state.profile_pic, bio: this.state.bio}));
+                    this.props.dispatch(getOnlineUsers());
                 });
 
                 this.hideUploader();
