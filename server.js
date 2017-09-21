@@ -6,8 +6,6 @@ const csurf = require('csurf');
 const mw = require('./routers/middleware');
 const socketHandler = require('./socketHandler');
 
-
-
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
@@ -83,4 +81,4 @@ io.on('connection', (socket) => {
     });
 });
 
-module.exports.app = app;
+module.exports = app;
