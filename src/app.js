@@ -42,7 +42,7 @@ class App extends React.Component {
 
         axios.get('/api/user').then((res)=> {
             var { id, first_name, last_name, profile_pic, bio} = res.data.userInfo;
-            this.setState({ id, first_name, last_name, profile_pic, bio}, () => {
+            this.setState({ id, first_name, last_name, profile_pic, bio }, () => {
             });
             this.props.dispatch(saveCurrUser(res.data.userInfo));
 

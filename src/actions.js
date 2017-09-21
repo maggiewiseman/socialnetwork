@@ -9,8 +9,24 @@ const RECEIVE_FRIENDS = 'RECEIVE_FRIENDS',
     CHAT_MESSAGES = 'CHAT_MESSAGES',
     SAVE_CURR_USER = 'SAVE_CURR_USER',
     SAVE_SEARCH_RESULTS = 'SAVE_SEARCH_RESULTS',
-    DELETE_SEARCH_RESULTS = 'DELETE_SEARCH_RESULTS';
+    DELETE_SEARCH_RESULTS = 'DELETE_SEARCH_RESULTS',
+    SAVE_WALL_POSTS = 'SAVE_WALL_POSTS',
+    GET_WALL_POSTS = 'GET_WALL_POSTS';
 
+export function saveWallPosts(posts) {
+    return {
+        type: SAVE_WALL_POSTS,
+        posts
+    };
+}
+
+export function getWallPosts(posts) {
+    return axios.get('/api/wallposts/:id')
+    return {
+        type: GET_WALL_POSTS,
+        posts
+    };
+}
 export function saveSearchResults(results, srchStrng) {
     return {
         type: SAVE_SEARCH_RESULTS,

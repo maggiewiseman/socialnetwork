@@ -7,9 +7,18 @@ const RECEIVE_FRIENDS = 'RECEIVE_FRIENDS',
     CHAT_MESSAGES = 'CHAT_MESSAGES',
     SAVE_CURR_USER = 'SAVE_CURR_USER',
     SAVE_SEARCH_RESULTS = 'SAVE_SEARCH_RESULTS',
-    DELETE_SEARCH_RESULTS = 'DELETE_SEARCH_RESULTS';
+    DELETE_SEARCH_RESULTS = 'DELETE_SEARCH_RESULTS',
+    SAVE_WALL_POSTS = 'SAVE_WALL_POSTS',
+    GET_WALL_POSTS = 'GET_WALL_POSTS';
 
 export default function(state = {}, action) {
+
+    if (action.type == SAVE_WALL_POSTS || action.type == GET_WALL_POSTS) {
+        state = Object.assign({}, state, {
+            posts: action.posts
+        });
+    }
+
     if (action.type == RECEIVE_FRIENDS) {
 
         state = Object.assign({}, state, {

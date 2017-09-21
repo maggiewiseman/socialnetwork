@@ -10,6 +10,7 @@ import styled from 'styled-components';
 import { Button } from './styledComponents/buttons';
 import { HintText } from './styledComponents/text';
 import { SidebarComp } from './sidebarComp';
+import WallPosts from './wallposts';
 
 export default class Profile extends React.Component {
     constructor(props) {
@@ -57,6 +58,7 @@ export default class Profile extends React.Component {
                                 </div>
                             )}
                     </EditBio>
+                    <WallPosts posts={this.props.wallPosts}/>
                 </MainSection>
             </UnderNav>
         );
