@@ -9,7 +9,6 @@ function handle(query, req, res) {
         console.log(`HANDLER: ${query}` );
         //should return user_id, first_name and last_name for matches
         return dbQuery.getMatches([req.body.string + '%']).then(results => {
-            console.log('results', results.rows);
             return res.json({
                 results: results.rows
             });
@@ -36,16 +35,16 @@ function handle(query, req, res) {
                 return friend;
             });
             console.log('s3mapped friends:', s3mappedFriends);
-            res.json({friends: s3mappedFriends});
+            return res.json({friends: s3mappedFriends});
         }).catch(error => {
             console.error(error);
-            res.json({error});
+            return res.json({error});
         });
     }
 
     if (query == 'getFriendships') {
         console.log('HANDLER: getFriendships');
-        dbQuery.getFriends([req.session.user.id]).then(friends => {
+        return dbQuery.getFriends([req.session.user.id]).then(friends => {
             console.log('HANDLER: getFriendships: friends: ', friends);
 
             var s3mappedFriends = friends.map(friend => {
@@ -53,10 +52,10 @@ function handle(query, req, res) {
                 return friend;
             });
             console.log('s3mapped friends:', s3mappedFriends);
-            res.json({friends: s3mappedFriends});
+            return res.json({friends: s3mappedFriends});
         }).catch(error => {
             console.error(error);
-            res.json({error});
+            return res.json({error});
         });
     }
     if (query == 'updateFriendship') {
@@ -71,13 +70,13 @@ function handle(query, req, res) {
             } else {
                 //relationship does not exist add a new one.
                 let data = [req.session.user.id, req.params.id, PENDING];
-                dbQuery.addFriendship(data).then(()=> {
-                    res.json({
+                return dbQuery.addFriendship(data).then(()=> {
+                    return res.json({
                         friendshipStatus: 'Pending'
                     });
                 }).catch((e) => {
                     console.error(e.stack);
-                    res.json({
+                    return res.json({
                         error: e
                     });
                 });
@@ -101,11 +100,11 @@ function handle(query, req, res) {
                 console.log('there is no relationship');
             }
             console.log('GetFriend Status:', friendshipStatus);
-            res.json({friendshipStatus});
+            return res.json({friendshipStatus});
 
         }).catch(e => {
             console.error(e.stack);
-            res.json({
+            return res.json({
                 error: e
             });
         });
@@ -117,7 +116,7 @@ function handle(query, req, res) {
         dbQuery.getUserById(data).then((results) => {
             console.log('results:', results.rows);
             results.rows[0].profile_pic = urlPrepend.s3Url + results.rows[0].profile_pic;
-            res.json({
+            return res.json({
                 success: 200,
                 userInfo: results.rows[0]
             });
@@ -128,7 +127,7 @@ function handle(query, req, res) {
         console.log(`HANDLE ${query}`, req.body);
         let data = [req.session.user.id];
 
-        dbQuery.getUserById(data).then((results) => {
+        return dbQuery.getUserById(data).then((results) => {
             if(results.rowCount == 0) {
                 console.error('User does not exist');
                 res.json({success: 204, message: 'User with that e-mail does not exist.'});
@@ -136,7 +135,7 @@ function handle(query, req, res) {
 
             console.log('results:', results.rows);
             results.rows[0].profile_pic = urlPrepend.s3Url + results.rows[0].profile_pic;
-            res.json({
+            return res.json({
                 userInfo: results.rows[0]
             });
         });
@@ -151,13 +150,13 @@ function handle(query, req, res) {
         req.session.user.last_name = req.body.last_name;
         req.session.user.bio = req.body.bio;
 
-        dbQuery.updateProfile(data).then(()=> {
-            res.json({
+        return dbQuery.updateProfile(data).then(()=> {
+            return res.json({
                 success: true
             });
         }).catch((e) => {
             console.error(e.stack);
-            res.json({
+            return res.json({
                 error:e
             });
         })
@@ -169,12 +168,12 @@ function handle(query, req, res) {
         return dbQuery.updateProfilePic(data).then((results) => {
             console.log(`HANDLE: ${query} update successful sending response`);
             req.session.user.profile_pic = urlPrepend.s3Url + req.file.filename
-            res.json({
+            return res.json({
                 success: true,
                 profile_pic: urlPrepend.s3Url + req.file.filename
             });
         }).catch((e) => {
-            res.json({
+            return res.json({
                 error: e
             });
         });
@@ -206,13 +205,13 @@ function handle(query, req, res) {
 
             console.log('HANDLER: registerUser session info', req.session.user);
             //then route to main page
-            res.json({
+            return res.json({
                 success: true
             });
         }).catch(e => {
             console.log('caught an error');
             console.error(e);
-            res.json({
+            return res.json({
                 error: e
             });
         });
@@ -248,12 +247,12 @@ function handle(query, req, res) {
                     last_name: userInfo.last_name
                 };
                 console.log('HANDLER: set req.session.user info');
-                res.json({
+                return res.json({
                     success: true
                 });
             }
         }).catch((e) => {
-            res.json({
+            return res.json({
                 error: 'Something went wrong. Please try again.'
             });
             console.error(e.stack);
@@ -352,20 +351,20 @@ function updateFriendship(req, res, dbResults) {
         data = [sender, receiver, PENDING];
     }
 
-    dbQuery.updateFriendship(data).then((results) => {
+    return dbQuery.updateFriendship(data).then((results) => {
         console.log('HANDLER updateFriendship results: ', results[0].status);
 
         //Turn the status back into a word that React can use to render the correct button
         let friendshipStatus = determineReturnStatus(req.session.user.id, {sender_id: sender, status: results[0].status });
 
         console.log(friendshipStatus);
-        res.json({
+        return res.json({
             status: results[0].status,
             friendshipStatus: friendshipStatus
         });
     }).catch(e => {
         console.error(e.stack);
-        res.json({
+        return res.json({
             error: e
         });
     });
