@@ -13,19 +13,22 @@ const RECEIVE_FRIENDS = 'RECEIVE_FRIENDS',
     SAVE_WALL_POSTS = 'SAVE_WALL_POSTS',
     GET_WALL_POSTS = 'GET_WALL_POSTS';
 
-export function saveWallPosts(posts) {
+export function saveWallPost(post) {
+
     return {
         type: SAVE_WALL_POSTS,
         posts
     };
 }
 
-export function getWallPosts(posts) {
-    return axios.get('/api/wallposts/:id')
-    return {
-        type: GET_WALL_POSTS,
-        posts
-    };
+export function getWallPosts(id) {
+    return axios.get('/api/wallposts/:id').then((results) => {
+        return {
+            type: GET_WALL_POSTS,
+            posts: results
+        };
+    });
+
 }
 export function saveSearchResults(results, srchStrng) {
     return {
