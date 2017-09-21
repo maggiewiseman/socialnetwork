@@ -57,3 +57,7 @@ INSERT INTO friendships (sender_id, receiver_id, status) VALUES (2, 3, 3);
 INSERT INTO friendships (sender_id, receiver_id, status) VALUES (3, 4, 5);
 
 INSERT INTO chats (user_id, message) VALUES (1, 'I heart pandas!') RETURNING id;
+
+INSERT INTO posts (user_id, user_text, creator_id) VALUES (1, 'I love pandas!', 1);
+
+INSERT INTO posts (user_id, user_text, creator_id) VALUES (1, 'You are invited to my birthday party!', 2);
