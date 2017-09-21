@@ -26,6 +26,7 @@ class App extends React.Component {
         this.getFile = this.getFile.bind(this);
         this.updateProfile = this.updateProfile.bind(this);
         this.handleInput = this.handleInput.bind(this);
+        this.props.dispatch = this.props.dispatch.bind(this);
 
     }
     componentWillReceiveProps() {
@@ -71,7 +72,10 @@ class App extends React.Component {
             if(res.data.success) {
                 this.setState({
                     profile_pic: res.data.profile_pic
+                }, () => {
+                    this.props.dispatch(saveCurrUser({ id: this.state.id, first_name: this.state.first_name, last_name: this.state.last_name, profile_pic: this.state.profile_pic, bio: this.state.bio}));
                 });
+
                 this.hideUploader();
             } else {
                 console.log('Save Profile Pic error', res.data.error);
@@ -123,7 +127,8 @@ class App extends React.Component {
                 events : {
                     updateProfile: this.updateProfile,
                     handleInput: this.handleInput
-                }
+                },
+
             });
 
             return (
