@@ -13,7 +13,7 @@ Mock social network project for dogs. Includes some unit tests written with Moch
 
 ## Styles
 * Custom logo created using Adobe Illustrator
-* styled-components library used for styling
+* styled-components npm package used for styling
 
 ## Features
 * Login and registration. Passwords are hashed using the bcrypt library. Forms include CSRF protection using the csurf npm package.
