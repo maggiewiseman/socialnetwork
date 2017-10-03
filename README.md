@@ -34,6 +34,6 @@ Mock social network project for dogs. Includes some unit tests written with Moch
 <img src="https://raw.githubusercontent.com/maggiewiseman/socialnetwork/master/assets/screenshots/dogBookIncrementalSearch.png" width="400px" alt="Shows profile page with s typed into search box and resulting list of users with s in their name" />
 
 * Users can see a list of friends as well as make, cancel, end, and receive friend requests.  
-<img src="https://raw.githubusercontent.com/maggiewiseman/socialnetwork/master/assets/screenshots/dogBookReg.png" width="400px" alt="Shows list of current friends and those requesting friendship" />
+<img src="https://raw.githubusercontent.com/maggiewiseman/socialnetwork/master/assets/screenshots/dogBookFriendsPage.png" width="400px" alt="Shows list of current friends and those requesting friendship" />
 
 <img src="https://raw.githubusercontent.com/maggiewiseman/socialnetwork/master/assets/screenshots/dogBookOPafterFR.png" width="400px" alt="Shows profile of another user who has a pending friend request" />
