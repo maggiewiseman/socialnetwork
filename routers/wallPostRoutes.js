@@ -1,4 +1,4 @@
-var wallposts = require('../wallPostHandler');
+//var wallposts = require('../wallPostHandler');
 var dbQuery = require('../dbQuery');
 
 const wallPostRoutes = (app) => {
@@ -31,4 +31,4 @@ const wallPostRoutes = (app) => {
     });
 };
 
-module.exports.wallPostRoutes = wallPostRoutes;
+module.exports = wallPostRoutes;
