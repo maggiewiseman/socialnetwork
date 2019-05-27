@@ -45,6 +45,7 @@ Mock social network project for dogs. Includes some unit tests written with Moch
 
 ## Installation
 * fork or clone the repo
+* cd socialnetwork
 * npm install
 
 ### Configure
@@ -53,5 +54,22 @@ Mock social network project for dogs. Includes some unit tests written with Moch
 * configure client object in awsHandler.js with AWS info. 
 
 ### Run
-* npm run server.js
-* In a different terminal: node build-server.js which will serve the build file.  
+* npm run start
+* In a different terminal: node build-server.js which will serve the build file.  This emulates hot-reload.
+
+### Tests
+Tests are written using Mocha, Chai, and Rewire.  These libraries should have installed as dev-dependencies during npm install.
+
+* cd tests
+* configure mock db as described below
+* mocha <test file name>
+  
+#### DB tests
+I created a mock database to test against. Since the dbQuery.js file (which is responsible for all the database queries) points to the development database, I needed to create a mockDbQuery.js file using Rewire.js.  
+
+* create social-test db in Postgres
+* configure mocks/mockDbQuery.js to connect to social-test
+* cd to sql folder
+* psql social-test -f setup-test.sql
+* cd ../tests
+* mocha handlerTest.js
