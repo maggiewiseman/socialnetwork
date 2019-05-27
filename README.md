@@ -6,7 +6,7 @@ Mock social network project for dogs. Includes some unit tests written with Moch
 ## Tech Stack
 * React
 * Redux
-* Express.js on Node.js
+* Express.js with Node.js
 * Socket.io
 * Postgresql
 * AWS S3 to store images
@@ -37,3 +37,21 @@ Mock social network project for dogs. Includes some unit tests written with Moch
 <img src="https://raw.githubusercontent.com/maggiewiseman/socialnetwork/master/assets/screenshots/dogBookFriendsPage.png" width="400px" alt="Shows list of current friends and those requesting friendship" />
 
 <img src="https://raw.githubusercontent.com/maggiewiseman/socialnetwork/master/assets/screenshots/dogBookOPafterFR.png" width="400px" alt="Shows profile of another user who has a pending friend request" />
+
+## Requirements
+* Node.js
+* SQL Database such as PostgreSQL
+* AWS S3 container
+
+## Installation
+* fork or clone the repo
+* npm install
+
+### Configure
+* create database then set up tables using sql/setup.sql
+* configure database connections strings in dbQuery.js
+* configure client object in awsHandler.js with AWS info. 
+
+### Run
+* npm run server.js
+* In a different terminal: node build-server.js which will serve the build file.  
